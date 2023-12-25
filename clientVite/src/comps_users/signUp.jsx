@@ -17,8 +17,6 @@ const SignUp = () => {
     try {
       let resp = await apiRequest(url, "POST", data)
       // localStorage.setItem(TOKEN_NAME, resp.data.token);
-      alert("added!!!")
-
     }
     catch (err) {
       console.log("ERROR ",err);
@@ -151,10 +149,7 @@ const SignUp = () => {
             ))}
           </div>
         </div>
-
-
-
-
+        
         <button type="submit" className="bg-green-500 text-white px-4 py-2 rounded-md mt-4">
           Save
         </button>
