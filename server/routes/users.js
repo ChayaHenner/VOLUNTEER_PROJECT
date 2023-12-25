@@ -3,7 +3,8 @@ const bcrypt = require("bcrypt");
 const {validLogin,validUser}=require("../validation/userValidation")
 const {createToken} = require("../helpers/userHelper");
 const { auth, authAdmin } = require("../middlewares/auth");
-// const { UserModel, validUser, validLogin, createToken } = require("../models/userModel")
+const { UserModel} = require("../models/userModel")
+const { ReportModel} = require("../models/reportModel")
 const router = express.Router();
 
 router.get("/", async (req, res) => {
@@ -20,7 +21,6 @@ router.get("/myInfo",auth, async(req,res) => {
   }  
 })
 
-
 router.get("/usersList", authAdmin, async (req, res) => {
   try {
     let data = await UserModel.find({}, { password: 0 });
@@ -31,8 +31,6 @@ router.get("/usersList", authAdmin, async (req, res) => {
     res.status(500).json({ msg: "err", err })
   }
 })
-
-
 
 router.post("/", async (req, res) => {
   let validBody = validUser(req.body);
@@ -81,6 +79,25 @@ router.post("/login", async (req, res) => {
   }
 })
 
+router.put("/delete/:editId", auth,  async (req, res) => {
+
+  try {
+      let editId = req.params.editId;
+      let data;
+      console.log(req.tokenData.role);
+      if (req.tokenData.role === "admin") {
+
+        data = await UserModel.updateOne({ _id: editId }, { $set: { active:false } });
+      } else {
+        data = await UserModel.updateOne({ _id: editId, user_id: req.tokenData.user_id }, { $set: { active:false} });
+      }
+      res.json(data);
+  }
+  catch (err) {
+      console.log(err);
+      res.status(500).json({ msg: "there error try again later", err })
+  }
+})
 router.put("/:editId", auth,  async (req, res) => {
   let validBody = validUser(req.body);
   if (validBody.error) {
@@ -104,6 +121,26 @@ router.put("/:editId", auth,  async (req, res) => {
       res.status(500).json({ msg: "there error try again later", err })
   }
 })
-
+router.post("/report/:id", async (req, res) => {
+  console.log(req.tokenData);
+  let reportBody={
+    id_reporter: req.tokenData._id,
+    id_reportee:req.params.id,
+    Message:req.body.Message
+  }
+  let validBody = validUser(reportBody);
+  if (validBody.error) {
+    return res.status(400).json(validBody.error.details);
+  }
+  try {
+    let report = new ReportModel(reportBody);
+    await report.save();
+    res.status(201).json(user);
+  }
+  catch (err) {
+    console.log(err);
+    res.status(500).json({ msg: "err", err })
+  }
+})
 
 module.exports = router;
