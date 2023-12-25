@@ -8,6 +8,7 @@ const SignUp = () => {
   const fieldsEnum = ['Children', 'Kitchen', 'Driving', 'Elderly', 'Cleanup', 'Studies', 'Medical', 'Technology'];
 
   const onSubmit = async (data) => {
+    data.img_url=""
     // const imageUrl = await uploadImageToStorage(selectedImage);
     // data.userImage = imageUrl;'
     delete data.confirmPassword
