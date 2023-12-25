@@ -13,7 +13,9 @@ exports.validUser = (_reqBody) => {
         img_url: Joi.string().allow(null, ""),
         rating: Joi.number(),
         gender: Joi.string().valid('male', 'female'),
-        fields: Joi.string().valid('Children', 'kitchen', 'driving', 'elderly', 'cleanup', 'studies', 'medical', 'technology'),
+        fields: Joi.array().items(
+            Joi.string().valid('children', 'kitchen', 'driving', 'elderly', 'cleanup', 'studies', 'medical', 'technology')
+        ),
         posts: Joi.array().items(Joi.string().pattern(/^[0-9a-fA-F]{24}$/)),
         reviews: Joi.array().items(Joi.string().pattern(/^[0-9a-fA-F]{24}$/)),
         missions: Joi.array().items(Joi.string().pattern(/^[0-9a-fA-F]{24}$/)),

@@ -20,7 +20,7 @@ let userSchema = new mongoose.Schema({
   },
   fields: {
     type: String,
-    enum: ['Children', 'kitchen', 'driving', 'elderly', 'cleanup', 'studies', 'medical', 'technology'],
+    enum: ['children', 'kitchen', 'driving', 'elderly', 'cleanup', 'studies', 'medical', 'technology'],
   },
   posts: [{
     type: mongoose.Schema.Types.ObjectId,
