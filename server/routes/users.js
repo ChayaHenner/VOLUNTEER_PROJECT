@@ -1,6 +1,7 @@
 const express = require("express");
 const bcrypt = require("bcrypt");
 const {validLogin,validUser}=require("../validation/userValidation")
+const {validReport}=require("../validation/reportValidation")
 const {createToken} = require("../helpers/userHelper");
 const { auth, authAdmin } = require("../middlewares/auth");
 const { UserModel} = require("../models/userModel")
@@ -121,26 +122,29 @@ router.put("/:editId", auth,  async (req, res) => {
       res.status(500).json({ msg: "there error try again later", err })
   }
 })
-router.post("/report/:id", async (req, res) => {
-  console.log(req.tokenData);
+router.post("/report/:id", auth, async (req, res) => {
+  // console.log(req.tokenData);
+  // console.log(req.tokenData.role);
   let reportBody={
     id_reporter: req.tokenData._id,
     id_reportee:req.params.id,
     Message:req.body.Message
   }
-  let validBody = validUser(reportBody);
+  let validBody = validReport(reportBody);
   if (validBody.error) {
     return res.status(400).json(validBody.error.details);
   }
   try {
     let report = new ReportModel(reportBody);
     await report.save();
-    res.status(201).json(user);
+    res.status(201).json(report);
   }
   catch (err) {
     console.log(err);
     res.status(500).json({ msg: "err", err })
   }
 })
+
+
 
 module.exports = router;

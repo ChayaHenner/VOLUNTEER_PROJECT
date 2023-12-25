@@ -6,5 +6,5 @@ let reportSchema = new mongoose.Schema({
    Message: String
 })
 
-exports.reportModel = mongoose.model("report", reportSchema);
+exports.ReportModel = mongoose.model("report", reportSchema);
 
