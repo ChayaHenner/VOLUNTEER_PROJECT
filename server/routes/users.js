@@ -1,7 +1,9 @@
 const express = require("express");
 const bcrypt = require("bcrypt");
+const {validLogin,validUser}=require("../validation/userValidation")
+const {createToken} = require("../helpers/userHelper");
 const { auth, authAdmin } = require("../middlewares/auth");
-const { UserModel, validUser, validLogin, createToken } = require("../models/userModel")
+// const { UserModel, validUser, validLogin, createToken } = require("../models/userModel")
 const router = express.Router();
 
 router.get("/", async (req, res) => {
@@ -76,6 +78,30 @@ router.post("/login", async (req, res) => {
   catch (err) {
     console.log(err)
     res.status(500).json({ msg: "err", err })
+  }
+})
+
+router.put("/:editId", auth,  async (req, res) => {
+  let validBody = validUser(req.body);
+  if (validBody.error) {
+      return res.status(400).json(validBody.error.details);
+  }
+  try {
+      let editId = req.params.editId;
+      let data;
+      console.log(req.tokenData.role);
+      if (req.tokenData.role == "admin") {
+          data = await UserModel.updateOne({ _id: editId }, req.body)
+      }
+      else {
+          console.log(req.tokenData.user_id);
+          data = await UserModel.updateOne({ _id: editId, user_id: req.tokenData.user_id }, req.body)
+      }
+      res.json(data);
+  }
+  catch (err) {
+      console.log(err);
+      res.status(500).json({ msg: "there error try again later", err })
   }
 })
 
