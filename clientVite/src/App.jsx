@@ -30,6 +30,9 @@ function App() {
         <Route path="/my-missions" element={<MyMissions />} />
         <Route path="/post-mission" element={<PostMission />} />
         {/* {adminRoutes()} */}
+          
+        {/* <Route path="/admin/post-mission" element={<PostMission />} /> */}
+
 
      
       </Routes>

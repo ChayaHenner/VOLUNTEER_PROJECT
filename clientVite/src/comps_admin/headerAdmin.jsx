@@ -1,7 +1,7 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 
 const HeaderAdmin = () => {
-  return (
     return (
         <header className="bg-white shadow-md mb-10">
           <nav className="container mx-auto flex items-center justify-between px-6 py-4">
@@ -53,7 +53,7 @@ const HeaderAdmin = () => {
             </ul>
           </nav>
         </header>
-      );  )
+      );  
 }
 
 export default HeaderAdmin
