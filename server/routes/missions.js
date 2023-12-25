@@ -3,24 +3,36 @@ const { auth } = require("../middlewares/auth");
 const { MissionModel } = require("../models/missionModel")
 const { validMission } = require("../validation/missionValidation")
 const router = express.Router();
-
+//get all
 router.get("/", async (req, res) => {
-    let perPage = req.query.perPage || 5;
+    try {
+        let data = await MissionModel.find({})
+            .sort({ _id: -1 });
+
+        res.json(data);
+    } catch (err) {
+        console.log(err);
+        res.status(500).json({ msg: "there error try again later", err });
+    }
+});
+
+//get top ten
+router.get("/topTen", async (req, res) => {
+    let perPage = req.query.perPage || 10; // Change perPage to 10
     let page = req.query.page || 1;
 
     try {
         let data = await MissionModel.find({})
             .limit(perPage)
             .skip((page - 1) * perPage)
-            // .sort({_id:-1}) like -> order by _id DESC
-            .sort({ _id: -1 })
+            .sort({ _id: -1 });
+
         res.json(data);
-    }
-    catch (err) {
+    } catch (err) {
         console.log(err);
-        res.status(500).json({ msg: "there error try again later", err })
+        res.status(500).json({ msg: "there error try again later", err });
     }
-})
+});
 
 // /missions/search?s=
 router.get("/search", async (req, res) => {
@@ -29,7 +41,7 @@ router.get("/search", async (req, res) => {
         // מביא את החיפוש בתור ביטוי ולא צריך את כל הביטוי עצמו לחיפוש
         // i -> מבטל את כל מה שקשור ל CASE SENSITVE
         let searchReg = new RegExp(queryS, "i")
-        let data = await MissionModel.find({ name: searchReg })
+        let data = await MissionModel.find({ title: searchReg })
             .limit(50)
         res.json(data);
     }
@@ -38,6 +50,19 @@ router.get("/search", async (req, res) => {
         res.status(500).json({ msg: "there error try again later", err })
     }
 })
+
+router.get("/createdByMe", auth, async (req, res) => {
+    try {
+        const userId = req.tokenData._id;
+
+        const missionsCreatedByUser = await MissionModel.find({ user_creator: userId }).sort({ _id: -1 });
+
+        res.json(missionsCreatedByUser);
+    } catch (err) {
+        console.log(err);
+        res.status(500).json({ msg: "there error try again later", err });
+    }
+});
 
 router.post("/", auth, async (req, res) => {
     let validBody = validMission(req.body);
@@ -58,7 +83,7 @@ router.post("/", auth, async (req, res) => {
 })
 
 // האדמין יוכל לערוך את כל הרשומות ויוזרים יוכלו לערוך רק את של עצמם
-router.put("/:editId", auth, async (req, res) => {
+router.put("/:id", auth, async (req, res) => {
     let validBody = validMission(req.body);
     if (validBody.error) {
         return res.status(400).json(validBody.error.details);
