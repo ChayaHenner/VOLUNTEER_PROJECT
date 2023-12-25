@@ -12,7 +12,7 @@ const Login = () => {
       console.log("token");
       let resp = await apiRequest(url, "POST", data)
       console.log("token");
-      console.log(resp);
+      console.log(resp.data.token);
       // localStorage.setItem(TOKEN_NAME, resp.data.token);
     }
     catch (err) {
