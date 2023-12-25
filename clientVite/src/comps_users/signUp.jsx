@@ -13,7 +13,7 @@ const SignUp = () => {
     delete data.confirmPassword
 
     console.log(data);
-    let url = SERVER_URL+"/users"
+    let url = SERVER_URL+"/users/"
     try {
       let resp = await apiRequest(url, "POST", data)
       // localStorage.setItem(TOKEN_NAME, resp.data.token);
