@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { useForm } from 'react-hook-form';
-import { SERVER_URL, apiRequest } from '../serverConnect/api';
+import {TOKEN_NAME , SERVER_URL, apiRequest } from '../serverConnect/api';
 
 const SignUp = () => {
   const { register, handleSubmit, formState: { errors }, getValues } = useForm();
@@ -10,11 +10,13 @@ const SignUp = () => {
   const onSubmit = async (data) => {
     // const imageUrl = await uploadImageToStorage(selectedImage);
     // data.userImage = imageUrl;'
+    delete data.confirmPassword
+
     console.log(data);
-    let url = SERVER_URL
+    let url = SERVER_URL+"/users"
     try {
       let resp = await apiRequest(url, "POST", data)
-      localStorage.setItem(TOKEN_NAME, resp.data.token);
+      // localStorage.setItem(TOKEN_NAME, resp.data.token);
       alert("added!!!")
 
     }

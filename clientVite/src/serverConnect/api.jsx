@@ -1,5 +1,6 @@
 import axios from "axios";
 export const SERVER_URL = "http://localhost:3001" //change to render
+export const TOKEN_NAME = "TOKEN"
 
 export const apiRequest = async (_url, _method, _body = {}) => {
     try {
