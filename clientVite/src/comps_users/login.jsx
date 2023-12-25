@@ -9,7 +9,10 @@ const Login = () => {
     console.log(data);
     let url = SERVER_URL + "/users/login"
     try {
+      console.log("token");
       let resp = await apiRequest(url, "POST", data)
+      console.log("token");
+      console.log(resp);
       // localStorage.setItem(TOKEN_NAME, resp.data.token);
     }
     catch (err) {

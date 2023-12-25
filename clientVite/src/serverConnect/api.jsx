@@ -4,7 +4,7 @@ export const TOKEN_NAME = "TOKEN"
 
 export const apiRequest = async (_url, _method, _body = {}) => {
     try {
-      console.log(_body)
+      console.log("request body :",_body)
       let resp = await axios({
         url: _url,
         method: _method,
