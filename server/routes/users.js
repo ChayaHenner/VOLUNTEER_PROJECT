@@ -34,6 +34,7 @@ router.get("/usersList", authAdmin, async (req, res) => {
 })
 
 router.post("/", async (req, res) => {
+  console.log(req.body);
   let validBody = validUser(req.body);
   if (validBody.error) {
     return res.status(400).json(validBody.error.details);
