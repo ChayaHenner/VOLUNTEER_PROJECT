@@ -1,24 +1,27 @@
 import React from 'react'
 import { useForm } from 'react-hook-form';
 import {TOKEN_NAME , SERVER_URL, apiRequest } from '../serverConnect/api';
+import Cookies from 'js-cookie';
+import { useNavigate } from 'react-router-dom';
+
 
 const Login = () => {
   const { register, handleSubmit, formState: { errors }, getValues } = useForm();
-
+  const nav=useNavigate()
   const onSubmitLogin = async (data) => {
     console.log(data);
     let url = SERVER_URL + "/users/login"
     try {
-      console.log("token");
       let resp = await apiRequest(url, "POST", data)
-      console.log("token");
-      console.log(resp.data.token);
-      // localStorage.setItem(TOKEN_NAME, resp.data.token);
+      console.log("token",resp.data.token);
+      Cookies.set('token', resp.data.token, { expires: 7 }); // expires in 7 days
+      // Cookies.set('token', data.password, { expires: 7 }); // expires in 7 days
+
     }
     catch (err) {
       console.log("ERROR ", err);
     }
-
+nav("/")
   }
 
   return (<div className="">
