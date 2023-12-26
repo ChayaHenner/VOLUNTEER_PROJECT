@@ -1,6 +1,7 @@
 const express = require("express");
 const { auth } = require("../middlewares/auth");
 const { MissionModel } = require("../models/missionModel")
+const { UserModel } = require("../models/userModel")
 const { validMission } = require("../validation/missionValidation")
 const router = express.Router();
 //get all
@@ -170,5 +171,8 @@ router.get('/interested/:missionId', async (req, res) => {
         res.status(500).json({ error: 'Internal Server Error' });
     }
 });
+
+// PUT /mission/taken?idMission=<missionId>&idUser=<userId>
+
 
 module.exports = router;
