@@ -2,10 +2,12 @@ import React, { useState, useEffect ,useContext } from 'react'
 import { SERVER_URL, apiRequest, apiRequestGet } from '../serverConnect/api';
 import Cookies from 'js-cookie';
 import { AppContext } from '../../context/context';
+import { useNavigate } from 'react-router-dom';
 
 const ProfilePage = () => {
     // const [user, setUser] = useState({});
     const { user, setUser } = useContext(AppContext);
+    const nav = useNavigate()
 
     return (
         <div>
@@ -24,7 +26,9 @@ const ProfilePage = () => {
                     <p>Date Created: {user.date_created}</p>
                     <p>Gender: {user.gender}</p>
                     {/* <p>Fields: {user.fields.join(', ')}</p> */}
+                    <button onClick={()=>{nav("/edit-profile")}}>edit</button>
                 </div>
+
             ) : (
                 <p>Loading...</p>
             )}

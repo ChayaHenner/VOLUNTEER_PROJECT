@@ -12,6 +12,7 @@ import PostMission from './comps_users/postMission'
 import Home from './comps_main/home'
 import ProfilePage from './comps_users/profilePage'
 import { AppContext } from '../context/context';
+import EditProfile from './comps_users/editProfile'
 
 function App() {
   const [user, setUser] = useState({ full_name: "chayas" })
@@ -34,6 +35,7 @@ function App() {
           <Route path="/my-missions" element={<MyMissions />} />
           <Route path="/post-mission" element={<PostMission />} />
           <Route path="/my-profile" element={<ProfilePage />} />
+          <Route path="/edit-profile" element={<EditProfile />} />
           {/* {adminRoutes()} */}
 
           {/* <Route path="/admin/post-mission" element={<PostMission />} /> */}
