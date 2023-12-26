@@ -14,8 +14,8 @@ const Login = () => {
     try {
       let resp = await apiRequest(url, "POST", data)
       console.log("token",resp.data.token);
-      Cookies.set('token', resp.data.token, { expires: 7 }); // expires in 7 days
-      // Cookies.set('token', data.password, { expires: 7 }); // expires in 7 days
+      Cookies.set('token', resp.data.token, { expires: 1 }); // expires in 1 day
+      // Cookies.set('token', data.password, { expires: 7 }); 
 
     }
     catch (err) {
