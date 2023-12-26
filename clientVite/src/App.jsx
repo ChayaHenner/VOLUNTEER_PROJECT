@@ -11,37 +11,42 @@ import MyMissions from './comps_users/myMissions'
 import PostMission from './comps_users/postMission'
 import Home from './comps_main/home'
 import ProfilePage from './comps_users/profilePage'
+import { AppContext } from '../context/context';
 
 function App() {
+  const [user, setUser] = useState({ full_name: "chayas" })
 
-  return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/admin/*" element={<HeaderAdmin />} />
-        <Route path="/*" element={<HeaderUser />} />
-      </Routes>
+  return (<>
+    <AppContext.Provider value={({ user, setUser })}>
 
-      <Routes>
-        <Route path="/" element={<Home />}/>
-        <Route path="/*" element={<h2>Page 404</h2>}/>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/admin/*" element={<HeaderAdmin />} />
+          <Route path="/*" element={<HeaderUser />} />
+        </Routes>
 
-        
-        <Route path="/login" element={<Login />} />
-        <Route path="/sign-up" element={<SignUp />} />
-        <Route path="/my-missions" element={<MyMissions />} />
-        <Route path="/post-mission" element={<PostMission />} />
-        <Route path="/my-profile" element={<ProfilePage />} />
-        {/* {adminRoutes()} */}
-          
-        {/* <Route path="/admin/post-mission" element={<PostMission />} /> */}
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/*" element={<h2>Page 404</h2>} />
 
+          <Route path="/login" element={<Login />} />
+          <Route path="/sign-up" element={<SignUp />} />
+          <Route path="/my-missions" element={<MyMissions />} />
+          <Route path="/post-mission" element={<PostMission />} />
+          <Route path="/my-profile" element={<ProfilePage />} />
+          {/* {adminRoutes()} */}
 
-     
-      </Routes>
+          {/* <Route path="/admin/post-mission" element={<PostMission />} /> */}
 
 
 
-    </BrowserRouter>
+        </Routes>
+
+
+
+      </BrowserRouter>
+    </AppContext.Provider>
+  </>
   )
 }
 

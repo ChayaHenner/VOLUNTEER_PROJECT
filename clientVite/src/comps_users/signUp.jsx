@@ -1,15 +1,18 @@
-import React, { useState } from 'react'
+import React, { useState,useContext } from 'react'
 import { useForm } from 'react-hook-form';
 import {fieldsEnum , SERVER_URL, apiRequest } from '../serverConnect/api';
 import Cookies from 'js-cookie';
+import { useNavigate } from 'react-router-dom';
+import { AppContext } from '../../context/context';
 
 const SignUp = () => {
   const { register, handleSubmit, formState: { errors }, getValues } = useForm();
-
-  // const fieldsEnum = ['Children', 'Kitchen', 'Driving', 'Elderly', 'Cleanup', 'Studies', 'Medical', 'Technology'];
+  const nav = useNavigate()
 
   const onSubmit = async (data) => {
     data.img_url=""
+    const { user, setUser } = useContext(AppContext);
+
     // const imageUrl = await uploadImageToStorage(selectedImage);
     // data.userImage = imageUrl;'
     delete data.confirmPassword
@@ -18,8 +21,11 @@ const SignUp = () => {
     let url = SERVER_URL+"/users/"
     try {
       let resp = await apiRequest(url, "POST", data)
-      console.log("token",resp.data.token);
+      console.log("token created",resp.data.token);
       Cookies.set('token', resp.data.token, { expires: 1 }); // expires in 1 day
+      setUser(resp.data.user)  
+      nav("/")
+
     }
     catch (err) {
       console.log("ERROR ",err);
@@ -54,7 +60,7 @@ const SignUp = () => {
               Phone:
             </label>
             <input {...register('phone', { required: true, pattern: /^[0-9]{10}$/ })} type="tel" className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500" />
-            {errors.phone && <div className="text-red-500 text-xs">Phone is required and must be a valid 8-digit number</div>}
+            {errors.phone && <div className="text-red-500 text-xs">Phone is required and must be a valid 10-digit number</div>}
           </div>
 
           <div className="mb-4">
