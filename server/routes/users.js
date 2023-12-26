@@ -45,8 +45,11 @@ router.post("/", async (req, res) => {
     user.password = await bcrypt.hash(user.password, 10);
 
     await user.save();
+    let token = createToken(user._id, user.role);
     user.password = "******";
-    res.status(201).json(user);
+    // user.token = token;
+    console.log(user);
+    res.status(201).json({ user, token });
   }
   catch (err) {
     if (err.code == 11000) {
@@ -81,7 +84,7 @@ router.post("/login", async (req, res) => {
   }
 })
 
-router.put("/:editId", auth, async (req, res) => {
+router.put("/delete/:editId", auth, async (req, res) => {
 
   try {
       let editId = req.params.editId;
@@ -108,13 +111,15 @@ router.put("/:editId", auth,  async (req, res) => {
   try {
     let editId = req.params.editId;
     let data;
+    user=req.body;
+    user.password = await bcrypt.hash(user.password, 10);
     console.log(req.tokenData.role);
     if (req.tokenData.role == "admin") {
-      data = await UserModel.updateOne({ _id: editId }, req.body)
+      data = await UserModel.updateOne({ _id: editId },user)
     }
     else {
       console.log(req.tokenData.user_id);
-      data = await UserModel.updateOne({ _id: editId, user_id: req.tokenData.user_id }, req.body)
+      data = await UserModel.updateOne({ _id: editId, user_id: req.tokenData.user_id },user)
     }
     res.json(data);
   }
