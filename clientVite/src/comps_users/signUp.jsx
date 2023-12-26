@@ -1,11 +1,11 @@
 import React, { useState } from 'react'
 import { useForm } from 'react-hook-form';
-import {TOKEN_NAME , SERVER_URL, apiRequest } from '../serverConnect/api';
+import {fieldsEnum , SERVER_URL, apiRequest } from '../serverConnect/api';
 
 const SignUp = () => {
   const { register, handleSubmit, formState: { errors }, getValues } = useForm();
 
-  const fieldsEnum = ['Children', 'Kitchen', 'Driving', 'Elderly', 'Cleanup', 'Studies', 'Medical', 'Technology'];
+  // const fieldsEnum = ['Children', 'Kitchen', 'Driving', 'Elderly', 'Cleanup', 'Studies', 'Medical', 'Technology'];
 
   const onSubmit = async (data) => {
     data.img_url=""
@@ -17,7 +17,8 @@ const SignUp = () => {
     let url = SERVER_URL+"/users/"
     try {
       let resp = await apiRequest(url, "POST", data)
-      // localStorage.setItem(TOKEN_NAME, resp.data.token);
+      console.log("token",resp.data.token);
+      Cookies.set('token', resp.data.token, { expires: 1 }); // expires in 1 day
     }
     catch (err) {
       console.log("ERROR ",err);
