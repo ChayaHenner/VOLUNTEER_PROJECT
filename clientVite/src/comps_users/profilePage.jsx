@@ -27,7 +27,7 @@ const ProfilePage = () => {
           {user ? (
             <div>
               <p>Full Name: {user.full_name}</p>
-              <p>Email: {user.email}</p>
+              {/* <p>Email: {user.email}</p>
               <p>Timezone: {user.tz}</p>
               <p>Description: {user.description}</p>
               <p>Phone: {user.phone}</p>
@@ -36,8 +36,8 @@ const ProfilePage = () => {
               <p>Image URL: {user.img_url}</p>
               <p>Rating: {user.rating}</p>
               <p>Date Created: {user.date_created}</p>
-              <p>Gender: {user.gender}</p>
-              <p>Fields: {user.fields.join(', ')}</p>
+              <p>Gender: {user.gender}</p> */}
+              {/* <p>Fields: {user.fields.join(', ')}</p> */}
             </div>
           ) : (
             <p>Loading...</p>
