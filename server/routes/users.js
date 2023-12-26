@@ -119,7 +119,7 @@ router.put("/:editId", auth, async (req, res) => {
       data = await UserModel.updateOne({ _id: editId }, user)
     }
     else {
-      console.log(req.tokenData.user_id);
+      console.log(req.tokenData._id);
       data = await UserModel.updateOne({ _id: editId, user_id: req.tokenData._id }, user)
     }
     res.json(data);
@@ -152,6 +152,17 @@ router.post("/report/:id", auth, async (req, res) => {
   }
 })
 
+router.put("/block/:Id", authAdmin, async (req, res) => {
 
+  try {
+    let editId = req.params.editId;
+    let data = await UserModel.updateOne({ _id: editId }, { $set: { block: true } });
+    res.json(data);
+  }
+  catch (err) {
+    console.log(err);
+    res.status(500).json({ msg: "there error try again later", err })
+  }
+})
 
 module.exports = router;
