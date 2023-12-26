@@ -71,11 +71,11 @@ router.post("/", auth, async (req, res) => {
         return res.status(400).json(validBody.error.details);
     }
     try {
-        let toy = new MissionModel(req.body);
-        // add the user_id of the user that add the toy
-        toy.user_id = req.tokenData._id;
-        await toy.save();
-        res.status(201).json(toy);
+        let mission = new MissionModel(req.body);
+        // add the user_id of the user that add the mission
+        mission.user_creator = req.tokenData._id;
+        await mission.save();
+        res.status(201).json(mission);
     }
     catch (err) {
         console.log(err);
@@ -173,6 +173,50 @@ router.get('/interested/:missionId', async (req, res) => {
 });
 
 // PUT /mission/taken?idMission=<missionId>&idUser=<userId>
+router.put('/taken', async (req, res) => {
+    try {
+        console.log("hi");
+        const missionId = req.query.idMission;
+        const userId = req.query.idUser;
+
+        console.log('Received request to mark mission as taken. Mission ID:', missionId, 'User ID:', userId);
+
+        // Find the mission by ID
+        const mission = await MissionModel.findById(missionId).lean();
+
+        if (!mission) {
+            console.log('Mission not found');
+            return res.status(404).json({ error: 'Mission not found' });
+        }
+
+        // Mark the mission as taken
+        mission.taken = true;
+
+        // Update the mission in the database
+        await MissionModel.findByIdAndUpdate(missionId, mission);
+
+        // Find the user by ID
+        const user = await UserModel.findById(userId);
+
+        if (!user) {
+            console.log('User not found');
+            return res.status(404).json({ error: 'User not found' });
+        }
+
+        // Add the mission ID to the user's missions array
+        user.missions.push(missionId);
+
+        // Update the user in the database
+        await UserModel.findByIdAndUpdate(userId, user);
+
+        console.log('Mission marked as taken. User missions updated.');
+
+        res.json({ success: true });
+    } catch (error) {
+        console.error('Error in /mission/taken route:', error);
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
+});
 
 
 module.exports = router;
