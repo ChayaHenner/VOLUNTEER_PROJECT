@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { useForm } from 'react-hook-form';
 import {fieldsEnum , SERVER_URL, apiRequest } from '../serverConnect/api';
+import Cookies from 'js-cookie';
 
 const SignUp = () => {
   const { register, handleSubmit, formState: { errors }, getValues } = useForm();
