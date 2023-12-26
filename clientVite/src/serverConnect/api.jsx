@@ -20,3 +20,18 @@ export const apiRequest = async (_url, _method, _body = {}) => {
       throw err;
     }
   }
+export const apiRequestGet = async (_url) => {
+    try {
+      let resp = await axios({
+        url: _url,
+        method: "GET",
+        headers: {
+          "x-api-key": Cookies.get('token')
+        }
+      })
+      return resp;
+    }
+    catch (err) {
+      throw err;
+    }
+  }
