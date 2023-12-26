@@ -70,11 +70,11 @@ router.post("/login", async (req, res) => {
   try {
     let user = await UserModel.findOne({ email: req.body.email })
     if (!user) {
-      return res.status(401).json({ msg: "Password or email is worng ,code:1" })
+      return res.status(401).json({ msg: "Password or email is worng ",code:1 })
     }
     let authPassword = await bcrypt.compare(req.body.password, user.password);
     if (!authPassword) {
-      return res.status(401).json({ msg: "Password or email is worng ,code:2" });
+      return res.status(401).json({ msg: "Password or email is worng ",code:2 });
     }
     let token = createToken(user._id, user.role);
     res.json({ user, token });
@@ -85,7 +85,7 @@ router.post("/login", async (req, res) => {
   }
 })
 
-router.put("/delete/:editId", auth, async (req, res) => {
+router.put("/delete/:editId", auth, async (req, res) => { 
 
   try {
     let editId = req.params.editId;
@@ -95,7 +95,7 @@ router.put("/delete/:editId", auth, async (req, res) => {
 
         data = await UserModel.updateOne({ _id: editId }, { $set: { active:false } });
       } else {
-        data = await UserModel.updateOne({ _id: editId, user_id: req.tokenData.user_id }, { $set: { active:false} });
+        data = await UserModel.updateOne({ _id: editId, user_id: req.tokenData._id }, { $set: { active:false} });
       }
       res.json(data);
   }

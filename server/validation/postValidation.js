@@ -5,7 +5,8 @@ exports.validPost = (_reqBody) => {
         img_url: Joi.string().min(2).max(99).allow(null, ""),
         title: Joi.string().min(2).max(99).required(),
         description: Joi.string().min(2).max(99).required(),
-        like_nums: Joi.number()
+        like_nums: Joi.number(),
+        user_created: Joi.string().required(),
 
 
     })
