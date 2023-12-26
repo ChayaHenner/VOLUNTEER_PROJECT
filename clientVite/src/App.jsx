@@ -10,6 +10,7 @@ import SignUp from './comps_users/signUp'
 import MyMissions from './comps_users/myMissions'
 import PostMission from './comps_users/postMission'
 import Home from './comps_main/home'
+import ProfilePage from './comps_users/profilePage'
 
 function App() {
 
@@ -29,6 +30,7 @@ function App() {
         <Route path="/sign-up" element={<SignUp />} />
         <Route path="/my-missions" element={<MyMissions />} />
         <Route path="/post-mission" element={<PostMission />} />
+        <Route path="/my-profile" element={<ProfilePage />} />
         {/* {adminRoutes()} */}
           
         {/* <Route path="/admin/post-mission" element={<PostMission />} /> */}

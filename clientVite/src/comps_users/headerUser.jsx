@@ -42,6 +42,14 @@ const HeaderUser = () => {
                   New Mission
                 </Link>
               </li>
+              <li>
+                <Link
+                  to="/my-profile"
+                  className="hover:text-blue-600 transition duration-300"
+                >
+                  My Profile 
+                </Link>
+              </li>
             </ul>
           </nav>
         </header>
