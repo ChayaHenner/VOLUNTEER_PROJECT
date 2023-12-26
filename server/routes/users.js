@@ -5,9 +5,8 @@ const { validLogin, validUser } = require("../validation/userValidation")
 const { validReport } = require("../validation/reportValidation")
 const { createToken } = require("../helpers/userHelper");
 const { auth, authAdmin } = require("../middlewares/auth");
-const { UserModel } = require("../models/userModel")
-const { ReportModel } = require("../models/reportModel")
-
+const { UserModel} = require("../models/userModel")
+const { ReportModel} = require("../models/reportModel")
 const router = express.Router();
 
 router.get("/", async (req, res) => {
@@ -15,7 +14,8 @@ router.get("/", async (req, res) => {
 })
 router.get("/myInfo", auth, async (req, res) => {
   try {
-    let userInfo = await UserModel.findOne({ _id: req.tokenData.user_id }, { password: 0 });
+    console.log(req.tokenData._id);
+    let userInfo = await UserModel.findOne({ _id: req.tokenData._id }, { password: 0 });
     res.json(userInfo);
   }
   catch (err) {
@@ -77,7 +77,7 @@ router.post("/login", async (req, res) => {
       return res.status(401).json({ msg: "Password or email is worng ,code:2" });
     }
     let token = createToken(user._id, user.role);
-    res.json({ token });
+    res.json({ user, token });
   }
   catch (err) {
     console.log(err)
@@ -93,11 +93,11 @@ router.put("/delete/:editId", auth, async (req, res) => {
     console.log(req.tokenData.role);
     if (req.tokenData.role === "admin") {
 
-      data = await UserModel.updateOne({ _id: editId }, { $set: { active: false } });
-    } else {
-      data = await UserModel.updateOne({ _id: editId, user_id: req.tokenData.user_id }, { $set: { active: false } });
-    }
-    res.json(data);
+        data = await UserModel.updateOne({ _id: editId }, { $set: { active:false } });
+      } else {
+        data = await UserModel.updateOne({ _id: editId, user_id: req.tokenData.user_id }, { $set: { active:false} });
+      }
+      res.json(data);
   }
   catch (err) {
     console.log(err);
@@ -112,15 +112,15 @@ router.put("/:editId", auth, async (req, res) => {
   try {
     let editId = req.params.editId;
     let data;
-    user=req.body;
+    user = req.body;
     user.password = await bcrypt.hash(user.password, 10);
     console.log(req.tokenData.role);
     if (req.tokenData.role == "admin") {
-      data = await UserModel.updateOne({ _id: editId },user)
+      data = await UserModel.updateOne({ _id: editId }, user)
     }
     else {
-      console.log(req.tokenData.user_id);
-      data = await UserModel.updateOne({ _id: editId, user_id: req.tokenData.user_id },user)
+      console.log(req.tokenData._id);
+      data = await UserModel.updateOne({ _id: editId, user_id: req.tokenData._id }, user)
     }
     res.json(data);
   }
@@ -152,9 +152,17 @@ router.post("/report/:id", auth, async (req, res) => {
   }
 })
 
+router.put("/block/:Id", authAdmin, async (req, res) => {
 
-// Middleware to check if the date of the mission has not passed
-
-
+  try {
+    let editId = req.params.editId;
+    let data = await UserModel.updateOne({ _id: editId }, { $set: { block: true } });
+    res.json(data);
+  }
+  catch (err) {
+    console.log(err);
+    res.status(500).json({ msg: "there error try again later", err })
+  }
+})
 
 module.exports = router;
