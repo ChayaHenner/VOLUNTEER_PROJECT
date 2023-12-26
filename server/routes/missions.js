@@ -128,4 +128,47 @@ router.delete("/:delId", auth, async (req, res) => {
     }
 })
 
+
+const notPassedDate = (mission) => {
+    const currentDate = new Date();
+    const missionDate = new Date(mission.date);
+    return currentDate < missionDate;
+};
+
+// GET /missions/my
+router.get('/my', async (req, res) => {
+    try {
+        // Fetch missions whose date has not passed
+        const missions = await MissionModel.find({ taken: false }).lean();
+
+        // Filter missions based on the date
+        const filteredMissions = missions.filter(notPassedDate);
+
+        res.json(filteredMissions);
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
+});
+router.get('/interested/:missionId', async (req, res) => {
+    try {
+        const missionId = req.params.missionId;
+
+        // Find the mission by ID
+        const mission = await MissionModel.findById(missionId).lean();
+
+        if (!mission) {
+            return res.status(404).json({ error: 'Mission not found' });
+        }
+
+        // Get the array of interested people
+        const interestedCandidates = mission.interested;
+
+        res.json({ interestedCandidates });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
+});
+
 module.exports = router;

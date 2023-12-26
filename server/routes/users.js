@@ -5,8 +5,8 @@ const { validLogin, validUser } = require("../validation/userValidation")
 const { validReport } = require("../validation/reportValidation")
 const { createToken } = require("../helpers/userHelper");
 const { auth, authAdmin } = require("../middlewares/auth");
-const { UserModel } = require("../models/userModel")
-const { ReportModel } = require("../models/reportModel")
+const { UserModel} = require("../models/userModel")
+const { ReportModel} = require("../models/reportModel")
 const router = express.Router();
 
 router.get("/", async (req, res) => {
@@ -93,11 +93,11 @@ router.put("/delete/:editId", auth, async (req, res) => {
     console.log(req.tokenData.role);
     if (req.tokenData.role === "admin") {
 
-      data = await UserModel.updateOne({ _id: editId }, { $set: { active: false } });
-    } else {
-      data = await UserModel.updateOne({ _id: editId, user_id: req.tokenData._id }, { $set: { active: false } });
-    }
-    res.json(data);
+        data = await UserModel.updateOne({ _id: editId }, { $set: { active:false } });
+      } else {
+        data = await UserModel.updateOne({ _id: editId, user_id: req.tokenData.user_id }, { $set: { active:false} });
+      }
+      res.json(data);
   }
   catch (err) {
     console.log(err);
@@ -149,19 +149,6 @@ router.post("/report/:id", auth, async (req, res) => {
   catch (err) {
     console.log(err);
     res.status(500).json({ msg: "err", err })
-  }
-})
-
-router.put("/block/:Id", authAdmin, async (req, res) => {
-
-  try {
-    let editId = req.params.editId;
-    let data = await UserModel.updateOne({ _id: editId }, { $set: { block: true } });
-    res.json(data);
-  }
-  catch (err) {
-    console.log(err);
-    res.status(500).json({ msg: "there error try again later", err })
   }
 })
 

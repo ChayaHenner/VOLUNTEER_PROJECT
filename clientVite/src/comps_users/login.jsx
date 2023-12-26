@@ -1,6 +1,6 @@
 import React from 'react'
 import { useForm } from 'react-hook-form';
-import {TOKEN_NAME , SERVER_URL, apiRequest } from '../serverConnect/api';
+import { SERVER_URL, apiRequest } from '../serverConnect/api';
 import Cookies from 'js-cookie';
 import { useNavigate } from 'react-router-dom';
 
