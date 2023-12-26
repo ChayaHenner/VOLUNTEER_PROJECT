@@ -1,11 +1,10 @@
 import axios from "axios";
 export const SERVER_URL = "http://localhost:3001" //change to render
 import Cookies from 'js-cookie';
-export const fieldsEnum = ['Children', 'Kitchen', 'Driving', 'Elderly', 'Cleanup', 'Studies', 'Medical', 'Technology'];
+export const fieldsEnum = ['children', 'kitchen', 'driving', 'elderly', 'cleanup', 'studies', 'medical', 'technology'];
 
 export const apiRequest = async (_url, _method, _body = {}) => {
     try {
-      console.log("request body :",_body)
       let resp = await axios({
         url: _url,
         method: _method,

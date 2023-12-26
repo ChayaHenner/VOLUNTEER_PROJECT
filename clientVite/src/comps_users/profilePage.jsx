@@ -4,9 +4,8 @@ import Cookies from 'js-cookie';
 
 const ProfilePage = () => {
     const [user, setUser] = useState(null);
-    //do regular func and call it?
 
-        
+    
         async function fetchUser(){
             Cookies.set('token',"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NThhODhjMTQyZjkwMjA4ODRjMzhiZDAiLCJyb2xlIjoidXNlciIsImlhdCI6MTcwMzU4MzI4OCwiZXhwIjoxNzAzNTg2ODg4fQ.vIAQ63rYus4f-_oJyPOPsMy_axTTnES0x1WSMz3Nw3k", { expires: 1 }); // expires in 1 day
 
