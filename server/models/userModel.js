@@ -25,18 +25,18 @@ let userSchema = new mongoose.Schema({
     type: [String],
     enum: ['children', 'kitchen', 'driving', 'elderly', 'cleanup', 'studies', 'medical', 'technology'],
   },
-  
+
   posts: [{
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'Post',
+    ref: 'post',
   }],
   reviews: [{
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'Reviews',
+    ref: 'reviews',
   }],
   missions: [{
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'Missions',
+    ref: 'missions',
   }],
 
   role: {
