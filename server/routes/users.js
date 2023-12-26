@@ -1,12 +1,12 @@
 const express = require("express");
 const bcrypt = require("bcrypt");
 
-const {validLogin,validUser}=require("../validation/userValidation")
-const {validReport}=require("../validation/reportValidation")
-const {createToken} = require("../helpers/userHelper");
+const { validLogin, validUser } = require("../validation/userValidation")
+const { validReport } = require("../validation/reportValidation")
+const { createToken } = require("../helpers/userHelper");
 const { auth, authAdmin } = require("../middlewares/auth");
-const { UserModel} = require("../models/userModel")
-const { ReportModel} = require("../models/reportModel")
+const { UserModel } = require("../models/userModel")
+const { ReportModel } = require("../models/reportModel")
 const router = express.Router();
 
 router.get("/", async (req, res) => {
@@ -14,7 +14,8 @@ router.get("/", async (req, res) => {
 })
 router.get("/myInfo", auth, async (req, res) => {
   try {
-    let userInfo = await UserModel.findOne({ _id: req.tokenData.user_id }, { password: 0 });
+    console.log(req.tokenData._id);
+    let userInfo = await UserModel.findOne({ _id: req.tokenData._id }, { password: 0 });
     res.json(userInfo);
   }
   catch (err) {
@@ -76,7 +77,7 @@ router.post("/login", async (req, res) => {
       return res.status(401).json({ msg: "Password or email is worng ,code:2" });
     }
     let token = createToken(user._id, user.role);
-    res.json({ token });
+    res.json({ user, token });
   }
   catch (err) {
     console.log(err)
@@ -87,23 +88,23 @@ router.post("/login", async (req, res) => {
 router.put("/delete/:editId", auth, async (req, res) => {
 
   try {
-      let editId = req.params.editId;
-      let data;
-      console.log(req.tokenData.role);
-      if (req.tokenData.role === "admin") {
+    let editId = req.params.editId;
+    let data;
+    console.log(req.tokenData.role);
+    if (req.tokenData.role === "admin") {
 
-        data = await UserModel.updateOne({ _id: editId }, { $set: { active:false } });
-      } else {
-        data = await UserModel.updateOne({ _id: editId, user_id: req.tokenData.user_id }, { $set: { active:false} });
-      }
-      res.json(data);
+      data = await UserModel.updateOne({ _id: editId }, { $set: { active: false } });
+    } else {
+      data = await UserModel.updateOne({ _id: editId, user_id: req.tokenData._id }, { $set: { active: false } });
+    }
+    res.json(data);
   }
   catch (err) {
-      console.log(err);
-      res.status(500).json({ msg: "there error try again later", err })
+    console.log(err);
+    res.status(500).json({ msg: "there error try again later", err })
   }
 })
-router.put("/:editId", auth,  async (req, res) => {
+router.put("/:editId", auth, async (req, res) => {
   let validBody = validUser(req.body);
   if (validBody.error) {
     return res.status(400).json(validBody.error.details);
@@ -111,15 +112,15 @@ router.put("/:editId", auth,  async (req, res) => {
   try {
     let editId = req.params.editId;
     let data;
-    user=req.body;
+    user = req.body;
     user.password = await bcrypt.hash(user.password, 10);
     console.log(req.tokenData.role);
     if (req.tokenData.role == "admin") {
-      data = await UserModel.updateOne({ _id: editId },user)
+      data = await UserModel.updateOne({ _id: editId }, user)
     }
     else {
       console.log(req.tokenData.user_id);
-      data = await UserModel.updateOne({ _id: editId, user_id: req.tokenData.user_id },user)
+      data = await UserModel.updateOne({ _id: editId, user_id: req.tokenData._id }, user)
     }
     res.json(data);
   }
@@ -131,10 +132,10 @@ router.put("/:editId", auth,  async (req, res) => {
 router.post("/report/:id", auth, async (req, res) => {
   // console.log(req.tokenData);
   // console.log(req.tokenData.role);
-  let reportBody={
+  let reportBody = {
     id_reporter: req.tokenData._id,
-    id_reportee:req.params.id,
-    Message:req.body.Message
+    id_reportee: req.params.id,
+    Message: req.body.Message
   }
   let validBody = validReport(reportBody);
   if (validBody.error) {
@@ -148,6 +149,19 @@ router.post("/report/:id", auth, async (req, res) => {
   catch (err) {
     console.log(err);
     res.status(500).json({ msg: "err", err })
+  }
+})
+
+router.put("/block/:Id", authAdmin, async (req, res) => {
+
+  try {
+    let editId = req.params.editId;
+    let data = await UserModel.updateOne({ _id: editId }, { $set: { block: true } });
+    res.json(data);
+  }
+  catch (err) {
+    console.log(err);
+    res.status(500).json({ msg: "there error try again later", err })
   }
 })
 
