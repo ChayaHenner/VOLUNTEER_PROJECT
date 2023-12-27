@@ -8,6 +8,7 @@ import { AppContext } from '../../context/context';
 
 const Login = () => {
   const { register, handleSubmit, formState: { errors }, getValues } = useForm();
+  const { user, setUser } = useContext(AppContext);
 
   const nav = useNavigate()
   const onSubmitLogin = async (data) => {

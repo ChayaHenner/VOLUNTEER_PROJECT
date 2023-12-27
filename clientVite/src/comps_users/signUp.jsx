@@ -10,6 +10,7 @@ const SignUp = () => {
   const { register, handleSubmit, formState: { errors }, getValues } = useForm();
   // const [isInitialLoad, setIsInitialLoad] = useState(true);
   const [selectedImage, setSelectedImage] = useState(null);
+  const { user, setUser } = useContext(AppContext);
 
 
   // const fieldsEnum = ['Children', 'Kitchen', 'Driving', 'Elderly', 'Cleanup', 'Studies', 'Medical', 'Technology'];
@@ -46,6 +47,7 @@ const SignUp = () => {
       let resp = await apiRequest(url, "POST", data)
       console.log("token",resp.data.token);
       Cookies.set('token', resp.data.token, { expires: 1 }); // expires in 1 day
+      setUser(resp.data.user)
     }
     catch (err) {
       console.log("ERROR ",err);
