@@ -3,6 +3,7 @@ import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import { BrowserRouter, Routes, Route } from "react-router-dom"
 import './App.css'
+
 import HeaderAdmin from './comps_admin/headerAdmin'
 import HeaderUser from './comps_users/headerUser'
 import Login from './comps_users/login'
@@ -16,6 +17,7 @@ import EditProfile from './comps_users/editProfile'
 import AddressInput from './comps_users/addressInput'
 
 function App() {
+
   const [user, setUser] = useState({ full_name: "chayas" }) //maybe change
   return (<>
     <AppContext.Provider value={({ user, setUser })}>
@@ -37,7 +39,7 @@ function App() {
           <Route path="/my-profile" element={<ProfilePage />} />
           <Route path="/edit-profile" element={<EditProfile />} />
           <Route path="/view-missions" element={<viewMissions />} />
-          <Route path="/ab" element={<AddressInput/>} />
+          <Route path="/ab" element={<AddressInput />} />
           {/* {adminRoutes()} */}
 
           {/* <Route path="/admin/post-mission" element={<PostMission />} /> */}
