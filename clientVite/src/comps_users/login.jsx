@@ -18,12 +18,9 @@ const Login = () => {
       let resp = await apiRequest(url, "POST", data)
       console.log(resp.data.user)
       setUser(resp.data.user)
-      // console.log(resp.data.msg);
-      // if (resp.status === 401 && resp.data.msg == "Password or email is worng ,code:1")
-      //   alert("password or email wrong")//fix
-      // else {
         console.log("token new", resp.data.token);
         Cookies.set('token', resp.data.token, { expires: 1 }); // expires in 1 day
+        Cookies.set('user', JSON.stringify(resp.data.user), { expires: 1 }); // expires in 1 day
         nav("/")
 
       // }

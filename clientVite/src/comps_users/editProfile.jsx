@@ -7,20 +7,19 @@ import { AppContext } from '../../context/context';
 const EditProfile = () => {
     const { user, setUser } = useContext(AppContext);
 
-    const { register, handleSubmit, formState: { errors }, getValues ,setValue} = useForm();
+    const { register, handleSubmit, formState: { errors }, getValues, setValue } = useForm();
     const nav = useNavigate()
 
     const onSubmit = async (data) => {
         data.img_url = ""
-    
-        // const imageUrl = await uploadImageToStorage(selectedImage);
-        // data.userImage = imageUrl;'
         delete data.confirmPassword
 
         let url = SERVER_URL + `/users/${user._id}`
         try {
             let resp = await apiRequest(url, "PUT", data)
-            //   setUser(resp.data)  
+            console.log(resp.data)
+            setUser(resp.data)
+            Cookies.set('user', JSON.stringify(resp.data), { expires: 1 }); // expires in 1 day
             console.log(resp.data);
             nav("/")
         }
@@ -140,7 +139,7 @@ const EditProfile = () => {
                     <label className="block text-sm font-medium text-gray-700">
                         Interests:
                     </label>
-                    <div  className="mt-1">
+                    <div className="mt-1">
                         {fieldsEnum.map((field) => (
                             <label key={field} className="inline-flex items-center mr-4">
                                 <input
