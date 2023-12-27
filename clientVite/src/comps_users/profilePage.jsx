@@ -29,16 +29,16 @@ const ProfilePage = () => {
                     <p>Rating: {user.rating}</p>
                     <p>Date Created: {user.date_created}</p>
                     <p>Gender: {user.gender}</p>
-                    <p>posts: <div className=''>
+                    <div>posts: <div className=''>
                         {
                             user.posts && user.posts.map((post, index) => (
-                                <div className=" border m-2" key={index}>
+                                <div  key={index}>
                                     <Review post={post} />
                                 </div>
                             ))
                         }
-                    </div></p>
-                    <p>reviews:<div className=''>
+                    </div></div>
+                    <div>reviews:<div className=''>
                         {
                             user.reviews && user.reviews.map((review, index) => (
                                 <div key={index}>
@@ -46,8 +46,8 @@ const ProfilePage = () => {
                                 </div>
                             ))
                         }
-                    </div></p>
-                    <p>missions: <div className=''>
+                    </div></div>
+                    <div>missions: <div className=''>
                         {
                             user.misssions && user.missions.map((mission, index) => (
                                 <div className=" border m-2" key={index}>
@@ -55,7 +55,7 @@ const ProfilePage = () => {
                                 </div>
                             ))
                         }
-                    </div></p>
+                    </div></div>
                     <button className='bg-green-500 text-white px-4 py-2 rounded-md mt-4' onClick={() => { nav("/edit-profile") }}>edit</button>
                     <button
                         className='bg-green-500 text-white px-4 py-2 rounded-md mt-4'
