@@ -11,7 +11,6 @@ exports.routesInit = (app) => {
   app.use("/users",usersR);
   app.use("/missions",missionsR);
   app.use("/posts",postsR);
-  app.use("/missions",missionsR);
-  app.use("/missions",reviewsR);
+  app.use("/reviews",reviewsR);
 
 }
