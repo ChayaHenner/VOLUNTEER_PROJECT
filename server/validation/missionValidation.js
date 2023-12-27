@@ -13,7 +13,7 @@ exports.validMission = (_reqBody) => {
             max_age: Joi.number().required(),
             gender: Joi.string().valid('male', 'female').required(),
         }).required(),
-        fields: Joi.string().valid('Children', 'kitchen', 'driving', 'elderly', 'cleanup', 'studies', 'medical', 'technology'),
+        fields: Joi.array().items(Joi.valid('children', 'kitchen', 'driving', 'elderly', 'cleanup', 'studies', 'medical', 'technology')),
         taken: Joi.boolean().default(false),
     });
 
