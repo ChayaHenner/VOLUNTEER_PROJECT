@@ -48,7 +48,7 @@ const Login = () => {
               Email
             </label>
             <input {...register('email', { required: true, pattern: /^\S+@\S+$/i })} className="invalid:text-pink-600 appearance-none block w-full bg-gray-200 text-gray-700 border border-purple-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" type="text" />
-            {errors.email && <div className="text-red-500 text-xs italic">Email is required and must be a valid email address</div>}
+            {errors.email && <div className="text-red-500 text-xs italic italic">Email is required and must be a valid email address</div>}
           </div>
 
           <div className="w-full md:w-1/2 mb-6">
@@ -56,8 +56,8 @@ const Login = () => {
               Password
             </label>
             <input {...register('password', { required: true, minLength: 6 })} className="invalid:text-purple-600 appearance-none block w-full bg-gray-200 text-gray-700 border border-purple-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" type="password" />
-            {errors.password && errors.password.type === 'required' && <div className="text-red-500 text-xs italic">Password is required</div>}
-            {errors.password && errors.password.type === 'minLength' && <div className="text-red-500 text-xs italic">Password must be at least 6 characters long</div>}
+            {errors.password && errors.password.type === 'required' && <div className="text-red-500 text-xs italic italic">Password is required</div>}
+            {errors.password && errors.password.type === 'minLength' && <div className="text-red-500 text-xs italic italic">Password must be at least 6 characters long</div>}
           </div>
 
           <button type="submit" className="bg-purple-500 text-white px-4 py-2 rounded-md mt-4">

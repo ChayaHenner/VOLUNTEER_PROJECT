@@ -22,59 +22,64 @@ const PostMission = () => {
     <div className="">
       <div>Create Mission</div>
       <form onSubmit={handleSubmit(onSubPost)} className="mt-3">
-        <div className="mb-4">
-          <label className="block text-sm font-medium text-gray-700">Title:</label>
-          <input {...register('title', { required: true })} type="text" className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500" />
-          {errors.title && <div className="text-red-500 text-xs">Title is required</div>}
+        <div className="w-1/3 mb-4 px-3">
+          <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">Title:</label>
+          <input {...register('title', { required: true })} type="text" className="appearance-none block w-full bg-gray-200 text-gray-700 border border-purple-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" />
+          {errors.title && <div className="text-red-500 text-xs italic">Title is required</div>}
         </div>
-        <div className="mb-4">
-          <label className="block text-sm font-medium text-gray-700">Description:</label>
-          <textarea {...register('description', { required: true })} className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500" />
-          {errors.description && <div className="text-red-500 text-xs">Description is required</div>}
+        <div className="mb-4 px-3">
+          <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">Description:</label>
+          <textarea {...register('description', { required: true })} className="appearance-none block w-full bg-gray-200 text-gray-700 border border-purple-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" />
+          {errors.description && <div className="text-red-500 text-xs italic">Description is required</div>}
         </div>
-        <div className="mb-4">
-          <label className="block text-sm font-medium text-gray-700">Address:</label>
-          <input {...register('address')} type="text" className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500" />
-        </div>
-        <div className="mb-4">
-          <label className="block text-sm font-medium text-gray-700">Date:</label>
-          <input {...register('date', { required: true })} type="date" className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500" />
-          {errors.date && <div className="text-red-500 text-xs">Date is required</div>}
-        </div>
-        <div className="mb-4">
-          <label className="block text-sm font-medium text-gray-700">Time:</label>
-          <input {...register('time', { required: true })} type="time" className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500" />
-          {errors.time && <div className="text-red-500 text-xs">Time is required</div>}
-        </div>
-        <div className="mb-4">
-          <label className="block text-sm font-medium text-gray-700">Minimum Age Requirement:</label>
-          <input {...register('requirements.min_age', { required: true })} type="number" className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500" />
-          {errors['requirements.min_age'] && <div className="text-red-500 text-xs">Minimum age requirement is required</div>}
-        </div>
-        <div className="mb-4">
-          <label className="block text-sm font-medium text-gray-700">Maximum Age Requirement:</label>
-          <input {...register('requirements.max_age', { required: true })} type="number" className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500" />
-          {errors['requirements.max_age'] && <div className="text-red-500 text-xs">Maximum age requirement is required</div>}
-        </div>
-        <div className="mb-4">
-          <label className="block text-sm font-medium text-gray-700">
-            Gender:
-          </label>
-          <div className="mt-1">
-            <label className="inline-flex items-center">
-              <input {...register('requirements.gender', { required: true })} type="radio" value="male" className="form-radio h-4 w-4 text-indigo-600" />
-              <span className="ml-2">Male</span>
-            </label>
-            <label className="inline-flex items-center ml-6">
-              <input {...register('requirements.gender', { required: true })} type="radio" value="female" className="form-radio h-4 w-4 text-indigo-600" />
-              <span className="ml-2">Female</span>
-            </label>
-          </div>
-          {errors['requirements.gender'] && <div className="text-red-500 text-xs">Gender is required</div>}
-        </div>
+        <div className='flex'>
 
-        <div className="mb-4">
-          <label className="block text-sm font-medium text-gray-700">
+          <div className="w-1/3 mb-4 px-3">
+            <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">Address:</label>
+            <input {...register('address')} type="text" className="appearance-none block w-full bg-gray-200 text-gray-700 border border-purple-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" />
+          </div>
+          <div className="w-1/3 mb-4 px-3">
+            <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">Date:</label>
+            <input {...register('date', { required: true })} type="date" className="appearance-none block w-full bg-gray-200 text-gray-700 border border-purple-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" />
+            {errors.date && <div className="text-red-500 text-xs italic">Date is required</div>}
+          </div>
+          <div className="w-1/3 mb-4 px-3">
+            <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">Time:</label>
+            <input {...register('time', { required: true })} type="time" className="appearance-none block w-full bg-gray-200 text-gray-700 border border-purple-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" />
+            {errors.time && <div className="text-red-500 text-xs italic">Time is required</div>}
+          </div>
+        </div>
+        <div className='flex'>
+
+          <div className="mb-4 px-3">
+            <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">Minimum Age Requirement:</label>
+            <input {...register('requirements.min_age', { required: true })} type="number" className="appearance-none block w-full bg-gray-200 text-gray-700 border border-purple-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" />
+            {errors['requirements.min_age'] && <div className="text-red-500 text-xs italic">Minimum age requirement is required</div>}
+          </div>
+          <div className="mb-4 px-3">
+            <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">Maximum Age Requirement:</label>
+            <input {...register('requirements.max_age', { required: true })} type="number" className="appearance-none block w-full bg-gray-200 text-gray-700 border border-purple-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" />
+            {errors['requirements.max_age'] && <div className="text-red-500 text-xs italic">Maximum age requirement is required</div>}
+          </div>
+          <div className="mb-4 px-3">
+            <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
+              Gender:
+            </label>
+            <div className="mt-1">
+              <label className="inline-flex items-center">
+                <input {...register('requirements.gender', { required: true })} type="radio" value="male" className="form-radio h-4 w-4 text-indigo-600" />
+                <span className="ml-2">Male</span>
+              </label>
+              <label className="inline-flex items-center ml-6">
+                <input {...register('requirements.gender', { required: true })} type="radio" value="female" className="form-radio h-4 w-4 text-indigo-600" />
+                <span className="ml-2">Female</span>
+              </label>
+            </div>
+            {errors['requirements.gender'] && <div className="text-red-500 text-xs italic">Gender is required</div>}
+          </div>
+        </div>
+        <div className="mb-4 px-3">
+          <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
             Interests:
           </label>
           <div className="mt-1">

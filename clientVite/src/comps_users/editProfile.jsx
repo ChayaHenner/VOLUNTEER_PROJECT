@@ -33,61 +33,61 @@ const EditProfile = () => {
             <form onSubmit={handleSubmit(onSubmit)} className="mt-3">
                 <div className=" gap-4">
                     <h2>Edit your details</h2>
-                    <div className="mb-4">
-                        <label className="block text-sm font-medium text-gray-700">
+                    <div className="mb-4 px-3">
+                        <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
                             Full Name:
                         </label>
-                        <input defaultValue={user.full_name} {...register('full_name', { required: true, minLength: 2 })} type="text" className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500" />
-                        {errors.full_name && <div className="text-red-500 text-xs">name must be at least 2 letters long</div>}
+                        <input defaultValue={user.full_name} {...register('full_name', { required: true, minLength: 2 })} type="text" className="appearance-none block w-full bg-gray-200 text-gray-700 border border-purple-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" />
+                        {errors.full_name && <div className="text-red-500 text-xs italic">name must be at least 2 letters long</div>}
                     </div>
 
-                    <div className="mb-4">
-                        <label className="block text-sm font-medium text-gray-700">
+                    <div className="mb-4 px-3">
+                        <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
                             Teudat Zehut/ID:
                         </label>
-                        <input defaultValue={user.tz} {...register('tz', { required: true, minLength: 2 })} type="text" className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500" />
-                        {errors.tz && <div className="text-red-500 text-xs">name must be a legal tz number</div>}
+                        <input defaultValue={user.tz} {...register('tz', { required: true, minLength: 2 })} type="text" className="appearance-none block w-full bg-gray-200 text-gray-700 border border-purple-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" />
+                        {errors.tz && <div className="text-red-500 text-xs italic">name must be a legal tz number</div>}
                         {/* add check if legal tz */}
                     </div>
 
-                    <div className="mb-4">
-                        <label className="block text-sm font-medium text-gray-700">
+                    <div className="mb-4 px-3">
+                        <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
                             Phone:
                         </label>
-                        <input defaultValue={user.phone}{...register('phone', { required: true, pattern: /^[0-9]{10}$/ })} type="tel" className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500" />
-                        {errors.phone && <div className="text-red-500 text-xs">Phone is required and must be a valid 10-digit number</div>}
+                        <input defaultValue={user.phone}{...register('phone', { required: true, pattern: /^[0-9]{10}$/ })} type="tel" className="appearance-none block w-full bg-gray-200 text-gray-700 border border-purple-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" />
+                        {errors.phone && <div className="text-red-500 text-xs italic">Phone is required and must be a valid 10-digit number</div>}
                     </div>
 
-                    <div className="mb-4">
-                        <label className="block text-sm font-medium text-gray-700">
+                    <div className="mb-4 px-3">
+                        <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
                             Email:
                         </label>
-                        <input defaultValue={user.email} {...register('email', { required: true, pattern: /^\S+@\S+$/i })} type="email" className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500" />
-                        {errors.email && <div className="text-red-500 text-xs">Email is required and must be a valid email address</div>}
+                        <input defaultValue={user.email} {...register('email', { required: true, pattern: /^\S+@\S+$/i })} type="email" className="appearance-none block w-full bg-gray-200 text-gray-700 border border-purple-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" />
+                        {errors.email && <div className="text-red-500 text-xs italic">Email is required and must be a valid email address</div>}
                     </div>
                     {/* add api */}
-                    <div className="mb-4">
-                        <label className="block text-sm font-medium text-gray-700">
+                    <div className="mb-4 px-3">
+                        <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
                             Address:</label>
-                        <input defaultValue={user.address} {...register('address')} type="text" className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500" />
-                        {errors.address && <div className="text-red-500 text-xs">choose valid address</div>}
+                        <input defaultValue={user.address} {...register('address')} type="text" className="appearance-none block w-full bg-gray-200 text-gray-700 border border-purple-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" />
+                        {errors.address && <div className="text-red-500 text-xs italic">choose valid address</div>}
                     </div>
 
-                    <div className="mb-4">
-                        <label className="block text-sm font-medium text-gray-700">
+                    <div className="mb-4 px-3">
+                        <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
                             description:</label>
-                        <input defaultValue={user.description} {...register('description')} type="text" className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500" />
+                        <input defaultValue={user.description} {...register('description')} type="text" className="appearance-none block w-full bg-gray-200 text-gray-700 border border-purple-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" />
                     </div>
 
-                    <div className="mb-4">
-                        <label className="block text-sm font-medium text-gray-700">
+                    <div className="mb-4 px-3">
+                        <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
                             Birth date</label>
-                        <input defaultValue={user.birth_date} {...register('birth_date', { required: true })} type="date" className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500" />
-                        {errors.birth_date && <div className="text-red-500 text-xs">bithdate is required and must be a valid email address</div>}
+                        <input defaultValue={user.birth_date} {...register('birth_date', { required: true })} type="date" className="appearance-none block w-full bg-gray-200 text-gray-700 border border-purple-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" />
+                        {errors.birth_date && <div className="text-red-500 text-xs italic">bithdate is required and must be a valid email address</div>}
                     </div>
 
-                    <div className="mb-4">
-                        <label className="block text-sm font-medium text-gray-700">
+                    <div className="mb-4 px-3">
+                        <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
                             Gender:
                         </label>
                         <div className="mt-1">
@@ -100,28 +100,28 @@ const EditProfile = () => {
                                 <span className="ml-2">Female</span>
                             </label>
                         </div>
-                        {errors.gender && <div className="text-red-500 text-xs">Gender is required</div>}
+                        {errors.gender && <div className="text-red-500 text-xs italic">Gender is required</div>}
                     </div>
 
 
-                    <div className="mb-4">
-                        <label className="block text-sm font-medium text-gray-700">
+                    <div className="mb-4 px-3">
+                        <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
                             Profile Image:
                         </label>
-                        <input  {...register('img_url')} type="file" accept="image/*" className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500" />
+                        <input  {...register('img_url')} type="file" accept="image/*" className="appearance-none block w-full bg-gray-200 text-gray-700 border border-purple-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" />
                     </div>
                 </div>
-                <div className="mb-4">
-                    <label htmlFor="password" className="block text-sm font-medium text-gray-700">
+                <div className="mb-4 px-3">
+                    <label htmlFor="password" className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
                         Password:
                     </label>
-                    <input {...register('password', { required: true, minLength: 6 })} type="password" className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500" />
-                    {errors.password && errors.password.type === 'required' && <div className="text-red-500 text-xs">Password is required</div>}
-                    {errors.password && errors.password.type === 'minLength' && <div className="text-red-500 text-xs">Password must be at least 6 characters long</div>}
+                    <input {...register('password', { required: true, minLength: 6 })} type="password" className="appearance-none block w-full bg-gray-200 text-gray-700 border border-purple-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" />
+                    {errors.password && errors.password.type === 'required' && <div className="text-red-500 text-xs italic">Password is required</div>}
+                    {errors.password && errors.password.type === 'minLength' && <div className="text-red-500 text-xs italic">Password must be at least 6 characters long</div>}
                 </div>
 
-                <div className="mb-4">
-                    <label htmlFor="confirmPassword" className="block text-sm font-medium text-gray-700">
+                <div className="mb-4 px-3">
+                    <label htmlFor="confirmPassword" className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
                         Confirm Password:
                     </label>
                     <input {...register('confirmPassword', {
@@ -131,12 +131,12 @@ const EditProfile = () => {
                                 return password === value || 'passwords dont match';
                             },
                         },
-                    })} type="password" className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500" />
-                    {errors.confirmPassword && <div className="text-red-500 text-xs">{errors.confirmPassword.message}</div>}
+                    })} type="password" className="appearance-none block w-full bg-gray-200 text-gray-700 border border-purple-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" />
+                    {errors.confirmPassword && <div className="text-red-500 text-xs italic">{errors.confirmPassword.message}</div>}
                 </div>
 
-                <div className="mb-4">
-                    <label className="block text-sm font-medium text-gray-700">
+                <div className="mb-4 px-3">
+                    <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
                         Interests:
                     </label>
                     <div className="mt-1">
