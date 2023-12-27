@@ -8,10 +8,10 @@ import { AppContext } from '../../context/context';
 const SignUp = () => {
   const { register, handleSubmit, formState: { errors }, getValues } = useForm();
   const nav = useNavigate()
+  const { user, setUser } = useContext(AppContext);
 
   const onSubmit = async (data) => {
     data.img_url=""
-    const { user, setUser } = useContext(AppContext);
 
     // const imageUrl = await uploadImageToStorage(selectedImage);
     // data.userImage = imageUrl;'
