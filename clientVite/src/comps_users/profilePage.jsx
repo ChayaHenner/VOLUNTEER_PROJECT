@@ -14,6 +14,7 @@ const ProfilePage = () => {
             <h1>Your Profile</h1>
             {user ? (
                 <div>
+                    <img src={user.img_url} alt="" className="" />
                     <p>Full Name: {user.full_name}</p>
                     <p>Email: {user.email}</p>
                     <p>Teudat zehut: {user.tz}</p>

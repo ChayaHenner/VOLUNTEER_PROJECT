@@ -1,12 +1,30 @@
 const { PostModel } = require("../models/postModel")
+const { UserModel } = require("../models/userModel")
 const express = require("express");
 const { validPost } = require("../validation/postValidation")
 const { auth, authAdmin } = require("../middlewares/auth");
 
 const router = express.Router();
 
-router.get("/", async (req, res) => {
-    res.json({ msg: "post work" })
+router.get("/",auth, async (req, res) => {
+let userID=req.tokenData._id
+console.log(userID);
+try {
+    const user = await UserModel.findById(userID)
+    console.log(user);
+    if (user.posts.length > 0) {
+        await user.populate('posts')
+    }
+
+    if (!user) {
+        return res.status(404).json({ error: 'User not found' });
+    }
+
+    res.json({ posts: user.posts });
+} catch (error) {
+    console.error(`Error in /posts/user/${userID} route`, error); // Log the error
+    res.status(500).json({ error: 'Internal Server Error' });
+}
 })
 
 router.post("/",auth, async (req, res) => {

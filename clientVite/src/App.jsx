@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import { BrowserRouter, Routes, Route } from "react-router-dom"
@@ -13,10 +13,10 @@ import Home from './comps_main/home'
 import ProfilePage from './comps_users/profilePage'
 import { AppContext } from '../context/context';
 import EditProfile from './comps_users/editProfile'
+import AddressInput from './comps_users/addressInput'
 
 function App() {
-  const [user, setUser] = useState({ full_name: "chayas" })
-
+  const [user, setUser] = useState({ full_name: "chayas" }) //maybe change
   return (<>
     <AppContext.Provider value={({ user, setUser })}>
 
@@ -36,6 +36,7 @@ function App() {
           <Route path="/post-mission" element={<PostMission />} />
           <Route path="/my-profile" element={<ProfilePage />} />
           <Route path="/edit-profile" element={<EditProfile />} />
+          <Route path="/ab" element={<AddressInput/>} />
           {/* {adminRoutes()} */}
 
           {/* <Route path="/admin/post-mission" element={<PostMission />} /> */}
