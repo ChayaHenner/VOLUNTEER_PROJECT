@@ -11,7 +11,7 @@ exports.validMission = (_reqBody) => {
         requirements: Joi.object({
             min_age: Joi.number().required(),
             max_age: Joi.number().required(),
-            gender: Joi.string().valid('male', 'female').required(),
+            gender: Joi.string().valid('male', 'female')
         }).required(),
         fields: Joi.array().items(Joi.valid('children', 'kitchen', 'driving', 'elderly', 'cleanup', 'studies', 'medical', 'technology')),
         taken: Joi.boolean().default(false),
