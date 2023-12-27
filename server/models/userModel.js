@@ -28,7 +28,7 @@ let userSchema = new mongoose.Schema({
 
   posts: [{
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'post',
+    ref: 'posts',
   }],
   reviews: [{
     type: mongoose.Schema.Types.ObjectId,
