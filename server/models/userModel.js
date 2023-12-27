@@ -13,7 +13,9 @@ let userSchema = new mongoose.Schema({
   address: String,
   birth_date: Date,
   img_url: String,
-  rating: Number,
+  rating: {
+    type: Number, default: 0
+  },
   date_created: {
     type: Date, default: Date.now()
   },
