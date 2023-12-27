@@ -4,6 +4,7 @@ const missionsR = require("./missions")
 const postsR = require("./posts")
 const reviewsR = require("./reviews")
 const forgetPassR = require("./forgotPass")
+const resetPassR = require("./resetPass")
 
 
 
@@ -14,5 +15,6 @@ exports.routesInit = (app) => {
   app.use("/posts",postsR);
   app.use("/reviews",reviewsR);
   app.use("/forgot-password",forgetPassR);
+  app.use("/reset-password",resetPassR);
 
 }

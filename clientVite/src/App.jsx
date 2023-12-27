@@ -14,6 +14,8 @@ import ProfilePage from './comps_users/profilePage'
 import { AppContext } from '../context/context';
 import EditProfile from './comps_users/editProfile'
 import ForgotPassword from './comps_users/forgotPass'
+import ResetPassword from './comps_users/resetPass'
+import ResetPasswordPage from './comps_users/ResetPasswordPage'
 // import AddressInput from './comps_users/addressInput'
 
 function App() {
@@ -38,17 +40,13 @@ function App() {
           <Route path="/my-profile" element={<ProfilePage />} />
           <Route path="/edit-profile" element={<EditProfile />} />
           <Route path="/forgot-password" element={<ForgotPassword />} />
+          <Route path="/reset-password/:token" element={<ResetPassword />} />
+          <Route path="/resetPass/:token" element={<ResetPasswordPage />} />
           {/* <Route path="/ab" element={<AddressInput/>} /> */}
           {/* {adminRoutes()} */}
 
           {/* <Route path="/admin/post-mission" element={<PostMission />} /> */}
-
-
-
         </Routes>
-
-
-
       </BrowserRouter>
     </AppContext.Provider>
   </>

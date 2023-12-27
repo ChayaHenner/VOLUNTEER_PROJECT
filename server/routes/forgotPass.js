@@ -1,26 +1,44 @@
 const express = require('express');
 const router = express.Router();
 const nodemailer = require('nodemailer');
+const { UserModel} = require("../models/userModel")
+const { createToken } = require("../helpers/userHelper");
+
+
+// הוספת הפונקציה של יצירת הטוקן
+// const crypto = require('crypto');
+
+// function generateResetToken(email) {
+//   const token = crypto.randomBytes(32).toString('hex');
+//   // כאן יש אפשרות לשמור את הטוקן יחד עם האימייל במסד נתונים
+//   return token;
+// }
 
 router.post('/', async (req, res) => {
   const userEmail = req.body.email;
   console.log(userEmail);
-  // כאן יש להוסיף לוגיקה ליצירת קישור או טוקן שישלח לאימייל למעבר לדף שחזור הסיסמה
+  let user = await UserModel.findOne({ email: userEmail});
+  console.log(user);
+
+  // יצירת טוקן
+  let resetToken = createToken(user._id, user.role);
+  // const resetToken = generateResetToken(userEmail);
 
   // יצירת נפשק
-  const transporter = nodemailer.createTransport('SMTP',{
+  const transporter = nodemailer.createTransport({
     service: 'gmail',
     auth: {
       user: 'illuminatectb@gmail.com',
-      pass: 'ctb!ctb!'
+      pass: 'whpe aexn cgqp rxpn'
     }
   });
+
   // נתוני הדוא"ל
   const mailOptions = {
     from: 'illuminatectb@gmail.com',
     to: userEmail,
     subject: 'Password Reset',
-    text: 'Click the following link to reset your password: http://yourdomain.com/reset-password/'
+    text: `Click the following link to reset your password: http://http://localhost:3000/reset-password/${resetToken}`
   };
 
   try {
