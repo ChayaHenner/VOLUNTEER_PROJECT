@@ -6,16 +6,15 @@ import { storage, db } from '../firebase/config';
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 import { AppContext } from '../../context/context';
 import { uploadImageToStorage } from '../helper/helper';
+import { useNavigate } from 'react-router-dom';
 
 const SignUp = () => {
+  const nav = useNavigate()
+
   const { register, handleSubmit, formState: { errors }, getValues } = useForm();
   // const [isInitialLoad, setIsInitialLoad] = useState(true);
   const [selectedImage, setSelectedImage] = useState(null);
   const { user, setUser } = useContext(AppContext);
-
-
-  // const fieldsEnum = ['Children', 'Kitchen', 'Driving', 'Elderly', 'Cleanup', 'Studies', 'Medical', 'Technology'];
-
 
   const onSubmit = async (data) => {
     const imageUrl = await uploadImageToStorage(selectedImage);

@@ -15,6 +15,7 @@ import ProfilePage from './comps_users/profilePage'
 import { AppContext } from '../context/context';
 import EditProfile from './comps_users/editProfile'
 import AddressInput from './comps_users/addressInput'
+import ViewMissions from './comps_users/viewMissions'
 
 function App() {
 
@@ -40,6 +41,8 @@ function App() {
           <Route path="/edit-profile" element={<EditProfile />} />
           <Route path="/view-missions" element={<viewMissions />} />
           <Route path="/ab" element={<AddressInput />} />
+          <Route path="/view-missions" element={<ViewMissions />} />
+          <Route path="/ab" element={<AddressInput/>} />
           {/* {adminRoutes()} */}
 
           {/* <Route path="/admin/post-mission" element={<PostMission />} /> */}
