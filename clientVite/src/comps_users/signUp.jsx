@@ -1,9 +1,10 @@
-import React, { useState } from 'react'
+import React, { useState ,useContext } from 'react'
 import { useForm } from 'react-hook-form';
 import {fieldsEnum , SERVER_URL, apiRequest } from '../serverConnect/api';
 import Cookies from 'js-cookie';
 import { storage, db } from '../firebase/config';
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
+import { AppContext } from '../../context/context';
 
 
 const SignUp = () => {
@@ -36,9 +37,6 @@ const SignUp = () => {
   const onSubmit = async (data) => {
     const imageUrl = await uploadImageToStorage(selectedImage);
     data.img_url = imageUrl;
-    // data.img_url=""
-    // const imageUrl = await uploadImageToStorage(selectedImage);
-    // data.userImage = imageUrl;'
     delete data.confirmPassword
 
     console.log(data);
