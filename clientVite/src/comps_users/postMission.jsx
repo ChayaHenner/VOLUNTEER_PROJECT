@@ -5,19 +5,19 @@ import Cookies from 'js-cookie';
 
 const PostMission = () => {
   const { register, handleSubmit, formState: { errors }, getValues } = useForm();
-  
-  const onSubPost = async(data) => {
+
+  const onSubPost = async (data) => {
     console.log(data)
-    let url = SERVER_URL+"/missions/"
+    let url = SERVER_URL + "/missions/"
     try {
       let resp = await apiRequest(url, "POST", data)
       console.log("mission added")
     }
     catch (err) {
-      console.log("ERROR ",err);
+      console.log("ERROR ", err);
     }
   }
-  
+
   return (
     <div className="">
       <div>Create Mission</div>
