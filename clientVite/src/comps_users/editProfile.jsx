@@ -145,7 +145,6 @@ const EditProfile = () => {
                             <label key={field} className="inline-flex items-center mr-4">
                                 <input
                                     type="checkbox"
-                                    value={field}
                                     className="form-checkbox h-4 w-4 text-indigo-600"
                                     {...register('fields')} // Include selected fields in register
                                 />

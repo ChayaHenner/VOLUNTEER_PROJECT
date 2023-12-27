@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import { BrowserRouter, Routes, Route } from "react-router-dom"
@@ -15,8 +15,8 @@ import { AppContext } from '../context/context';
 import EditProfile from './comps_users/editProfile'
 
 function App() {
-  const [user, setUser] = useState({ full_name: "chayas" })
-
+  const [user, setUser] = useState({ full_name: "chayas" }) //maybe change
+useEffect
   return (<>
     <AppContext.Provider value={({ user, setUser })}>
 
