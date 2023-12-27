@@ -30,7 +30,7 @@ let missionSchema = new mongoose.Schema({
         },
     },
     fields: {
-        type: String,
+        type: [String],
         enum: ['Children', 'kitchen', 'driving', 'elderly', 'cleanup', 'studies', 'medical', 'technology'],
     },
     taken: {
