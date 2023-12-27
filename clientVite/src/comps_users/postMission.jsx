@@ -7,7 +7,6 @@ const PostMission = () => {
   const { register, handleSubmit, formState: { errors }, getValues } = useForm();
   
   const onSubPost = async(data) => {
-    data.user_creator = Cookies.get('token');
     console.log(data)
     let url = SERVER_URL+"/missions/"
     try {
