@@ -76,6 +76,12 @@ router.post("/login", async (req, res) => {
     if (!authPassword) {
       return res.status(401).json({ msg: "Password or email is worng ",code:2 });
     }
+    if(user.blocked){
+      return res.status(401).json({ msg: "User is blocked ",code:3})
+    }
+    if(!user.active){
+      return res.status(401).json({ msg: "User is not active ",code:4})
+    }
     let token = createToken(user._id, user.role);
     res.json({ user, token });
   }
@@ -153,10 +159,11 @@ router.post("/report/:id", auth, async (req, res) => {
 })
 
 router.put("/block/:Id", authAdmin, async (req, res) => {
-
+// console.log("hi");
   try {
-    let editId = req.params.editId;
-    let data = await UserModel.updateOne({ _id: editId }, { $set: { block: true } });
+    let editId = req.params.Id;
+    console.log(editId);
+    let data = await UserModel.updateOne({ _id: editId }, { $set: { blocked: true } });
     res.json(data);
   }
   catch (err) {
