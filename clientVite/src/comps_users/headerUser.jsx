@@ -3,9 +3,9 @@ import { Link } from 'react-router-dom'
 
 const HeaderUser = () => {
     return (
-        <header className="bg-white shadow-md mb-10">
+        <header className="bg-white border ">
           <nav className="container mx-auto flex items-center justify-between px-6 py-4">
-            <Link to="/">            <h1 className="text-gray-800 text-3xl font-bold">Illuminate</h1>
+            <Link to="/">            <h1 className="text-gray-800 text-3xl font-bold">Soulute</h1>
 </Link>
 
             <ul className="flex space-x-6 text-gray-700 text-lg">
