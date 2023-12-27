@@ -42,7 +42,7 @@ const Login = () => {
       <div className="border-l w-1/2 flex items-center justify-center">
 
         <form onSubmit={handleSubmit(onSubmitLogin)} className="w-full max-w-lg p-6 rounded-md">
-        <h1 className="font-medium text-2xl text-slate-900 px-4 pb-4">Log Iun</h1>
+        <h1 className="font-medium text-2xl text-slate-900 px-4 pb-4">Log In</h1>
           <div className="w-full md:w-1/2 mb-6">
             <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="grid-first-name">
               Email

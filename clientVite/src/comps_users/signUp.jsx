@@ -41,7 +41,6 @@ const SignUp = () => {
       <form onSubmit={handleSubmit(onSubmit)} className="mt-3">
         <div className=" gap-4">
           <h2>Register</h2>
-          {/* <h4>Help us help you to help others</h4> */}
           <div className="mb-4">
             <label className="block text-sm font-medium text-gray-700">
               Full Name:
