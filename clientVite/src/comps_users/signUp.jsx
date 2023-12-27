@@ -1,15 +1,41 @@
-import React, { useState,useContext } from 'react'
+import React, { useState } from 'react'
 import { useForm } from 'react-hook-form';
 import {fieldsEnum , SERVER_URL, apiRequest } from '../serverConnect/api';
 import Cookies from 'js-cookie';
+import { storage, db } from '../firebase/config';
+import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
+
 
 const SignUp = () => {
   const { register, handleSubmit, formState: { errors }, getValues } = useForm();
+  // const [isInitialLoad, setIsInitialLoad] = useState(true);
+  const [selectedImage, setSelectedImage] = useState(null);
+
 
   // const fieldsEnum = ['Children', 'Kitchen', 'Driving', 'Elderly', 'Cleanup', 'Studies', 'Medical', 'Technology'];
 
+  const uploadImageToStorage = async (selectedImage) => {
+    try {
+        if (selectedImage) {
+            const timestamp = new Date().getTime();
+            const fileName = `image_${timestamp}`;
+            const storageRef = ref(storage, fileName);
+
+            await uploadBytes(storageRef, selectedImage);
+            const imageUrl = await getDownloadURL(storageRef);
+
+            console.log('Image uploaded:', imageUrl);
+            return imageUrl;
+        }
+    } catch (error) {
+        console.error('Error uploading image:', error);
+    }
+};
+
   const onSubmit = async (data) => {
-    data.img_url=""
+    const imageUrl = await uploadImageToStorage(selectedImage);
+    data.img_url = imageUrl;
+    // data.img_url=""
     // const imageUrl = await uploadImageToStorage(selectedImage);
     // data.userImage = imageUrl;'
     delete data.confirmPassword
@@ -18,11 +44,8 @@ const SignUp = () => {
     let url = SERVER_URL+"/users/"
     try {
       let resp = await apiRequest(url, "POST", data)
-      console.log("token created",resp.data.token);
+      console.log("token",resp.data.token);
       Cookies.set('token', resp.data.token, { expires: 1 }); // expires in 1 day
-      setUser(resp.data.user)  
-      nav("/")
-
     }
     catch (err) {
       console.log("ERROR ",err);
@@ -57,7 +80,7 @@ const SignUp = () => {
               Phone:
             </label>
             <input {...register('phone', { required: true, pattern: /^[0-9]{10}$/ })} type="tel" className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500" />
-            {errors.phone && <div className="text-red-500 text-xs">Phone is required and must be a valid 10-digit number</div>}
+            {errors.phone && <div className="text-red-500 text-xs">Phone is required and must be a valid 8-digit number</div>}
           </div>
 
           <div className="mb-4">
