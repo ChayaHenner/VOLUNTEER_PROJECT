@@ -4,8 +4,8 @@ const { MissionModel } = require("../models/missionModel")
 const { UserModel } = require("../models/userModel")
 const { validMission } = require("../validation/missionValidation")
 const router = express.Router();
-//get all
-router.get("/", async (req, res) => {
+// get all
+router.get("/getall", async (req, res) => {
     try {
         let data = await MissionModel.find({})
             .sort({ _id: -1 });
@@ -16,6 +16,137 @@ router.get("/", async (req, res) => {
         res.status(500).json({ msg: "there error try again later", err });
     }
 });
+
+
+// router.get("/", auth, async (req, res) => {
+//     try {
+//         const userId = req.tokenData._id;
+
+//         // Find the user by ID
+//         const user = await UserModel.findById(userId);
+//         if (!user) {
+//             return res.status(404).json({ error: 'User not found' });
+//         }
+
+//         // Calculate the user's age
+//         const age = calculateUserAge(user.birth_date);
+
+//         // Query missions based on the user's age and gender
+//         const missions = await MissionModel.find({
+//             $and: [
+//                 { 'requirements.min_age': { $lte: age } },
+//                 { 'requirements.max_age': { $gte: age } },
+//                 {
+//                     $or: [
+//                         { 'requirements.gender': user.gender },
+//                         { 'requirements.gender': { $exists: false } }, // Unspecified gender
+//                     ],
+//                 },
+//             ],
+//         }).sort({ _id: -1 });
+
+//         res.json(missions);
+//     } catch (err) {
+//         console.log(err);
+//         res.status(500).json({ msg: "Internal Server Error", err });
+//     }
+// });
+
+
+// // Function to calculate user age based on birth_date
+// function calculateUserAge(birthDate) {
+//     const today = new Date();
+//     const birth = new Date(birthDate);
+//     let age = today.getFullYear() - birth.getFullYear();
+//     const monthDiff = today.getMonth() - birth.getMonth();
+//     if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birth.getDate())) {
+//         age--;
+//     }
+//     return age;
+// }
+
+
+// Function to get missions based on age and gender
+async function getMissionsByAgeAndGender(userId) {
+    const user = await UserModel.findById(userId);
+    if (!user) {
+        return { error: 'User not found' };
+    }
+
+    const age = calculateUserAge(user.birth_date);
+
+    const missions = await MissionModel.find({
+        $and: [
+            { 'requirements.min_age': { $lte: age } },
+            { 'requirements.max_age': { $gte: age } },
+            {
+                $or: [
+                    { 'requirements.gender': user.gender },
+                    { 'requirements.gender': { $exists: false } }, // Unspecified gender
+                ],
+            },
+        ],
+    }).sort({ _id: -1 });
+
+    return missions;
+}
+
+// Calculate user age based on birth_date
+function calculateUserAge(birthDate) {
+    const today = new Date();
+    const birth = new Date(birthDate);
+    let age = today.getFullYear() - birth.getFullYear();
+    const monthDiff = today.getMonth() - birth.getMonth();
+    if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birth.getDate())) {
+        age--;
+    }
+    return age;
+}
+
+// GET route for missions based on age and gender
+router.get("/", auth, async (req, res) => {
+    try {
+        const userId = req.tokenData._id;
+        const missions = await getMissionsByAgeAndGender(userId);
+        res.json(missions);
+    } catch (err) {
+        console.log(err);
+        res.status(500).json({ msg: "Internal Server Error", err });
+    }
+});
+
+// GET route for missions based on age, gender, date, and time range
+router.get("/byDateTime", auth, async (req, res) => {
+    try {
+        const userId = req.tokenData._id;
+        const missionsByAgeAndGender = await getMissionsByAgeAndGender(userId);
+
+        // Extract date and time range from request query
+        const startDate = new Date(req.query.startDate);
+        const endDate = new Date(req.query.endDate);
+
+        const startTime = req.query.startTime;
+        const endTime = req.query.endTime;
+
+        // Filter missions by date and time range
+        const filteredMissions = missionsByAgeAndGender.filter((mission) => {
+            const missionDate = new Date(mission.date);
+            const missionTime = mission.time;
+
+            const isDateInRange = missionDate >= startDate && missionDate <= endDate;
+            const isTimeInRange = missionTime >= startTime && missionTime <= endTime;
+
+            return isDateInRange && isTimeInRange;
+        });
+
+        res.json(filteredMissions);
+    } catch (err) {
+        console.log(err);
+        res.status(500).json({ msg: "Internal Server Error", err });
+    }
+});
+
+
 
 //get top ten
 router.get("/topTen", async (req, res) => {
