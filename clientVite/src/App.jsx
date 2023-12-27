@@ -36,6 +36,7 @@ function App() {
           <Route path="/post-mission" element={<PostMission />} />
           <Route path="/my-profile" element={<ProfilePage />} />
           <Route path="/edit-profile" element={<EditProfile />} />
+          <Route path="/view-missions" element={<viewMissions />} />
           <Route path="/ab" element={<AddressInput/>} />
           {/* {adminRoutes()} */}
 

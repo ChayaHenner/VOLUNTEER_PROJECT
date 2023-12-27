@@ -50,6 +50,14 @@ const HeaderUser = () => {
                   My Profile 
                 </Link>
               </li>
+              <li>
+                <Link
+                  to="/view-missions"
+                  className="hover:text-blue-600 transition duration-300"
+                >
+                  view missions 
+                </Link>
+              </li>
             </ul>
           </nav>
         </header>
