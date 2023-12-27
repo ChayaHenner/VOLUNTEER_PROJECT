@@ -18,17 +18,24 @@ const Login = () => {
       let resp = await apiRequest(url, "POST", data)
       console.log(resp.data.user)
       setUser(resp.data.user)
-      if (resp.status === 401 && resp.data.msg == "Password or email is worng ,code:1")
-        alert("password or email wrong")//fix
-      else {
+      // console.log(resp.data.msg);
+      // if (resp.status === 401 && resp.data.msg == "Password or email is worng ,code:1")
+      //   alert("password or email wrong")//fix
+      // else {
         console.log("token new", resp.data.token);
         Cookies.set('token', resp.data.token, { expires: 1 }); // expires in 1 day
         nav("/")
 
-      }
+      // }
     }
     catch (err) {
       console.log("ERROR ", err);
+      console.log(err.response.data.code);
+      let msg =err.response.data.msg;
+      alert(msg);
+      if(err.response.data.code==4){
+        nav("/sign-up")
+      }
     }
   }
 
@@ -51,7 +58,7 @@ const Login = () => {
         {errors.password && errors.password.type === 'minLength' && <div className="text-red-500 text-xs">Password must be at least 6 characters long</div>}
       </div>
       <button type="submit" className="bg-purple-500 text-white px-4 py-2 rounded-md mt-4">
-        Save
+        log in
       </button>
 
     </form>

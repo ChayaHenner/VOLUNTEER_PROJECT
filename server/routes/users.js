@@ -70,11 +70,11 @@ router.post("/login", async (req, res) => {
   try {
     let user = await UserModel.findOne({ email: req.body.email })
     if (!user) {
-      return res.status(401).json({ msg: "Password or email is worng ",code:1 })
+      return res.status(401).json({ msg: "email is worng ",code:1 })
     }
     let authPassword = await bcrypt.compare(req.body.password, user.password);
     if (!authPassword) {
-      return res.status(401).json({ msg: "Password or email is worng ",code:2 });
+      return res.status(401).json({ msg: "Password is worng ",code:2 });
     }
     if(user.blocked){
       return res.status(401).json({ msg: "User is blocked ",code:3})
