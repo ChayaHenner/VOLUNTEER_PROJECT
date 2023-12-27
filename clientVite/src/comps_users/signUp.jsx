@@ -2,14 +2,40 @@ import React, { useState } from 'react'
 import { useForm } from 'react-hook-form';
 import {fieldsEnum , SERVER_URL, apiRequest } from '../serverConnect/api';
 import Cookies from 'js-cookie';
+import { storage, db } from '../firebase/config';
+import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
+
 
 const SignUp = () => {
   const { register, handleSubmit, formState: { errors }, getValues } = useForm();
+  // const [isInitialLoad, setIsInitialLoad] = useState(true);
+  const [selectedImage, setSelectedImage] = useState(null);
+
 
   // const fieldsEnum = ['Children', 'Kitchen', 'Driving', 'Elderly', 'Cleanup', 'Studies', 'Medical', 'Technology'];
 
+  const uploadImageToStorage = async (selectedImage) => {
+    try {
+        if (selectedImage) {
+            const timestamp = new Date().getTime();
+            const fileName = `image_${timestamp}`;
+            const storageRef = ref(storage, fileName);
+
+            await uploadBytes(storageRef, selectedImage);
+            const imageUrl = await getDownloadURL(storageRef);
+
+            console.log('Image uploaded:', imageUrl);
+            return imageUrl;
+        }
+    } catch (error) {
+        console.error('Error uploading image:', error);
+    }
+};
+
   const onSubmit = async (data) => {
-    data.img_url=""
+    const imageUrl = await uploadImageToStorage(selectedImage);
+    data.img_url = imageUrl;
+    // data.img_url=""
     // const imageUrl = await uploadImageToStorage(selectedImage);
     // data.userImage = imageUrl;'
     delete data.confirmPassword
@@ -107,7 +133,8 @@ const SignUp = () => {
             <label className="block text-sm font-medium text-gray-700">
               Profile Image:
             </label>
-            <input {...register('img_url')} type="file" accept="image/*" className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500" />
+            <input {...register('img_url')} type="file" accept="image/*" onChange={(e) => setSelectedImage(e.target.files[0])} className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"/>
+            {/* <input {...register('img_url')} type="file" accept="image/*" className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500" /> */}
           </div>
         </div>
         <div className="mb-4">
