@@ -37,9 +37,6 @@ const SignUp = () => {
   const onSubmit = async (data) => {
     const imageUrl = await uploadImageToStorage(selectedImage);
     data.img_url = imageUrl;
-    // data.img_url=""
-    // const imageUrl = await uploadImageToStorage(selectedImage);
-    // data.userImage = imageUrl;'
     delete data.confirmPassword
 
     console.log(data);

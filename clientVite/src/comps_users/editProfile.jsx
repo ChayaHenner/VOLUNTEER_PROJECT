@@ -17,17 +17,17 @@ const EditProfile = () => {
         // data.userImage = imageUrl;'
         delete data.confirmPassword
 
-        // let url = SERVER_URL + `/users/${user._id}`
-        // try {
-        //     let resp = await apiRequest(url, "PUT", data)
-        //     //   setUser(resp.data)  
-        //     console.log(resp.data);
-        //     nav("/")
-        // }
-        // catch (err) {
-        //     console.log("ERROR ", err);
-        // }
-        // console.log(data);
+        let url = SERVER_URL + `/users/${user._id}`
+        try {
+            let resp = await apiRequest(url, "PUT", data)
+            //   setUser(resp.data)  
+            console.log(resp.data);
+            nav("/")
+        }
+        catch (err) {
+            console.log("ERROR ", err);
+        }
+        console.log(data);
     }
     return (
         <div className="container mx-auto">
@@ -109,7 +109,7 @@ const EditProfile = () => {
                         <label className="block text-sm font-medium text-gray-700">
                             Profile Image:
                         </label>
-                        <input defaultValue={user.img_url} {...register('img_url')} type="file" accept="image/*" className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500" />
+                        <input  {...register('img_url')} type="file" accept="image/*" className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500" />
                     </div>
                 </div>
                 <div className="mb-4">
@@ -145,6 +145,7 @@ const EditProfile = () => {
                             <label key={field} className="inline-flex items-center mr-4">
                                 <input
                                     type="checkbox"
+                                    value={field}
                                     className="form-checkbox h-4 w-4 text-indigo-600"
                                     {...register('fields')} // Include selected fields in register
                                 />

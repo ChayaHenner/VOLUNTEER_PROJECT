@@ -16,7 +16,6 @@ import EditProfile from './comps_users/editProfile'
 
 function App() {
   const [user, setUser] = useState({ full_name: "chayas" }) //maybe change
-useEffect
   return (<>
     <AppContext.Provider value={({ user, setUser })}>
 
@@ -36,6 +35,7 @@ useEffect
           <Route path="/post-mission" element={<PostMission />} />
           <Route path="/my-profile" element={<ProfilePage />} />
           <Route path="/edit-profile" element={<EditProfile />} />
+          <Route path="/ab" element={<EditProfile />} />
           {/* {adminRoutes()} */}
 
           {/* <Route path="/admin/post-mission" element={<PostMission />} /> */}
