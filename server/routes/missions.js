@@ -18,54 +18,6 @@ router.get("/getall", async (req, res) => {
 });
 
 
-// router.get("/", auth, async (req, res) => {
-//     try {
-//         const userId = req.tokenData._id;
-
-//         // Find the user by ID
-//         const user = await UserModel.findById(userId);
-//         if (!user) {
-//             return res.status(404).json({ error: 'User not found' });
-//         }
-
-//         // Calculate the user's age
-//         const age = calculateUserAge(user.birth_date);
-
-//         // Query missions based on the user's age and gender
-//         const missions = await MissionModel.find({
-//             $and: [
-//                 { 'requirements.min_age': { $lte: age } },
-//                 { 'requirements.max_age': { $gte: age } },
-//                 {
-//                     $or: [
-//                         { 'requirements.gender': user.gender },
-//                         { 'requirements.gender': { $exists: false } }, // Unspecified gender
-//                     ],
-//                 },
-//             ],
-//         }).sort({ _id: -1 });
-
-//         res.json(missions);
-//     } catch (err) {
-//         console.log(err);
-//         res.status(500).json({ msg: "Internal Server Error", err });
-//     }
-// });
-
-
-// // Function to calculate user age based on birth_date
-// function calculateUserAge(birthDate) {
-//     const today = new Date();
-//     const birth = new Date(birthDate);
-//     let age = today.getFullYear() - birth.getFullYear();
-//     const monthDiff = today.getMonth() - birth.getMonth();
-//     if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birth.getDate())) {
-//         age--;
-//     }
-//     return age;
-// }
-
-
 // Function to get missions based on age and gender
 async function getMissionsByAgeAndGender(userId) {
     const user = await UserModel.findById(userId);
