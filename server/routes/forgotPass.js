@@ -4,18 +4,17 @@ const nodemailer = require('nodemailer');
 
 router.post('/', async (req, res) => {
   const userEmail = req.body.email;
-console.log(userEmail);
+  console.log(userEmail);
   // כאן יש להוסיף לוגיקה ליצירת קישור או טוקן שישלח לאימייל למעבר לדף שחזור הסיסמה
 
   // יצירת נפשק
-  const transporter = nodemailer.createTransport({
+  const transporter = nodemailer.createTransport('SMTP',{
     service: 'gmail',
     auth: {
       user: 'illuminatectb@gmail.com',
-      pass: 'ctbctbctb'
+      pass: 'ctb!ctb!'
     }
   });
-
   // נתוני הדוא"ל
   const mailOptions = {
     from: 'illuminatectb@gmail.com',
@@ -28,7 +27,7 @@ console.log(userEmail);
     await transporter.sendMail(mailOptions);
     res.status(200).json({ success: true, message: 'Password reset email sent successfully.' });
   } catch (error) {
-    console.error('Error sending password reset email:', error);
+    console.error('Error sending password reset email:', error.message);
     res.status(500).json({ success: false, message: 'Failed to send password reset email.' });
   }
 });
