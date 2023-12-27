@@ -22,18 +22,18 @@ const Login = () => {
       // if (resp.status === 401 && resp.data.msg == "Password or email is worng ,code:1")
       //   alert("password or email wrong")//fix
       // else {
-        console.log("token new", resp.data.token);
-        Cookies.set('token', resp.data.token, { expires: 1 }); // expires in 1 day
-        nav("/")
+      console.log("token new", resp.data.token);
+      Cookies.set('token', resp.data.token, { expires: 1 }); // expires in 1 day
+      nav("/")
 
       // }
     }
     catch (err) {
       console.log("ERROR ", err);
       console.log(err.response.data.code);
-      let msg =err.response.data.msg;
+      let msg = err.response.data.msg;
       alert(msg);
-      if(err.response.data.code==4){
+      if (err.response.data.code == 4) {
         nav("/sign-up")
       }
     }
@@ -60,8 +60,12 @@ const Login = () => {
       <button type="submit" className="bg-purple-500 text-white px-4 py-2 rounded-md mt-4">
         log in
       </button>
-
     </form>
+      <div className="mb-4">
+        <a href="/forgot-password" className="text-sm text-purple-500">Forgot Password?</a>
+      </div>
+
+
   </div>
   )
 }
