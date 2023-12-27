@@ -3,6 +3,8 @@ export const SERVER_URL = "http://localhost:3001" //change to render
 import Cookies from 'js-cookie';
 export const fieldsEnum = ['children', 'kitchen', 'driving', 'elderly', 'cleanup', 'studies', 'medical', 'technology'];
 
+
+
 export const apiRequest = async (_url, _method, _body = {}) => {
     try {
       let resp = await axios({

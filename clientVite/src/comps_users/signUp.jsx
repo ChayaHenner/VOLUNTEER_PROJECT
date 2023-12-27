@@ -5,7 +5,7 @@ import Cookies from 'js-cookie';
 import { storage, db } from '../firebase/config';
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 import { AppContext } from '../../context/context';
-
+import { uploadImageToStorage } from '../helper/helper';
 
 const SignUp = () => {
   const { register, handleSubmit, formState: { errors }, getValues } = useForm();
@@ -16,23 +16,6 @@ const SignUp = () => {
 
   // const fieldsEnum = ['Children', 'Kitchen', 'Driving', 'Elderly', 'Cleanup', 'Studies', 'Medical', 'Technology'];
 
-  const uploadImageToStorage = async (selectedImage) => {
-    try {
-        if (selectedImage) {
-            const timestamp = new Date().getTime();
-            const fileName = `image_${timestamp}`;
-            const storageRef = ref(storage, fileName);
-
-            await uploadBytes(storageRef, selectedImage);
-            const imageUrl = await getDownloadURL(storageRef);
-
-            console.log('Image uploaded:', imageUrl);
-            return imageUrl;
-        }
-    } catch (error) {
-        console.error('Error uploading image:', error);
-    }
-};
 
   const onSubmit = async (data) => {
     const imageUrl = await uploadImageToStorage(selectedImage);
@@ -44,8 +27,10 @@ const SignUp = () => {
     try {
       let resp = await apiRequest(url, "POST", data)
       console.log("token",resp.data.token);
+      Cookies.set('user', JSON.stringify(resp.data.user), { expires: 1 }); // expires in 1 day
       Cookies.set('token', resp.data.token, { expires: 1 }); // expires in 1 day
       setUser(resp.data.user)
+      nav("/")
     }
     catch (err) {
       console.log("ERROR ",err);
