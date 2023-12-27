@@ -13,6 +13,7 @@ import Home from './comps_main/home'
 import ProfilePage from './comps_users/profilePage'
 import { AppContext } from '../context/context';
 import EditProfile from './comps_users/editProfile'
+import AddressInput from './comps_users/addressInput'
 
 function App() {
   const [user, setUser] = useState({ full_name: "chayas" }) //maybe change
@@ -35,7 +36,7 @@ function App() {
           <Route path="/post-mission" element={<PostMission />} />
           <Route path="/my-profile" element={<ProfilePage />} />
           <Route path="/edit-profile" element={<EditProfile />} />
-          <Route path="/ab" element={<EditProfile />} />
+          <Route path="/ab" element={<AddressInput/>} />
           {/* {adminRoutes()} */}
 
           {/* <Route path="/admin/post-mission" element={<PostMission />} /> */}
