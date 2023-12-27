@@ -1,8 +1,14 @@
 import React from 'react'
 
-const Post = () => {
+const Post = ({post}) => {
   return (
-    <div>Post</div>
+    <div>
+    <div>{Post}</div>
+    <h2>{post.title}</h2>
+    <div>{post.description}</div>
+    <div>{post.like_nums}</div>
+{/* <button>like</button> */}
+    </div>
   )
 }
 

@@ -61,7 +61,7 @@ const ProfilePage = () => {
                         className='bg-green-500 text-white px-4 py-2 rounded-md mt-4'
                         onClick={() => setShowCreatePost(true)} // Set state to true to show the CreatePost component
                     >
-                        Create Post
+                        add Post
                     </button>
                     {showCreatePost && <CreatePost />}
 
