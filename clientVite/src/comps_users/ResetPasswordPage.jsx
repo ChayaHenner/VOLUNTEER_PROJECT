@@ -11,11 +11,11 @@ const ResetPasswordPage = () => {
 
   useEffect(() => {
     handleResetPassword();
-  }, []); 
+  }, []);
 
   const handleResetPassword = async () => {
     console.log("hi");
-    let newpass=user.password;
+    let newpass = user.password;
     console.log(newpass);
     console.log(token);
     try {
@@ -25,15 +25,15 @@ const ResetPasswordPage = () => {
           'Content-Type': 'application/json',
           'x-api-key': token
         },
-        body: JSON.stringify({ password: newpass}),
+        body: JSON.stringify({ password: newpass }),
       });
 
       const data = await response.json();
-console.log(data);
+      console.log(data);
       // אם האיפוס הסיסמה הצליח
-        if (data.modifiedCount>0) {
-          setResetSuccess(true);
-        }
+      if (data.modifiedCount > 0) {
+        setResetSuccess(true);
+      }
 
       // הערה: יש לשנות את הקוד לפי התשובה שאתה מקבל מהשרת
       // setResetSuccess(true);
