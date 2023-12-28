@@ -47,7 +47,7 @@ async function getMissionsByAgeAndGender(userId) {
         for (const mission of missions) {
             let user1 = await UserModel.findOne({ _id: mission.user_creator });
             console.log(mission);
-            mission.user_creator =`${mission.user_creator},${user1.full_name}`;
+            mission.user_creator = `${mission.user_creator},${user1.full_name}`;
             // mission = { ...mission, userName: user1.full_name }
             console.log(mission);
         }
@@ -270,6 +270,38 @@ router.get('/interested/:missionId', async (req, res) => {
         res.status(500).json({ error: 'Internal Server Error' });
     }
 });
+
+router.put('/addInterested/:missionId', auth, async (req, res) => {
+    try {
+        const userId = req.tokenData._id;
+        const missionId = req.params.missionId;
+
+        // Find the mission by ID
+        const mission = await MissionModel.findById(missionId);
+
+        if (!mission) {
+            return res.status(404).json({ error: 'Mission not found' });
+        }
+
+        // Check if the user is already interested in the mission
+        if (mission.interested.includes(userId)) {
+            return res.status(400).json({ error: 'User is already interested in this mission' });
+        }
+
+        // Add the user ID to the mission's interested array
+        mission.interested.push(userId);
+
+        // Update the mission in the database
+        await mission.save();
+
+        res.json({ success: true });
+    } catch (error) {
+        console.error('Error in /mission/addInterested route:', error);
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
+});
+
+
 
 // PUT /mission/taken?idMission=<missionId>&idUser=<userId>
 router.put('/taken', async (req, res) => {
