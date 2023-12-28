@@ -20,27 +20,42 @@ router.get("/getall", async (req, res) => {
 
 // Function to get missions based on age and gender
 async function getMissionsByAgeAndGender(userId) {
-    const user = await UserModel.findById(userId);
-    if (!user) {
-        return { error: 'User not found' };
+    try {
+        const user = await UserModel.findOne({ _id: userId })
+        // .populate('users');
+        if (!user) {
+            return { error: 'User not found' };
+        }
+
+        const age = calculateUserAge(user.birth_date);
+
+        const missions = await MissionModel.find({
+            $and: [
+                { 'requirements.min_age': { $lte: age } },
+                { 'requirements.max_age': { $gte: age } },
+                {
+                    $or: [
+                        { 'requirements.gender': user.gender },
+                        { 'requirements.gender': { $exists: false } }, // Unspecified gender
+                    ],
+                },
+            ],
+        }).sort({ _id: -1 });
+        console.log(missions);
+
+
+        for (const mission of missions) {
+            let user1 = await UserModel.findOne({ _id: mission.user_creator });
+            console.log(mission);
+            mission.user_creator =`${mission.user_creator},${user1.full_name}`;
+            // mission = { ...mission, userName: user1.full_name }
+            console.log(mission);
+        }
+        return missions
     }
-
-    const age = calculateUserAge(user.birth_date);
-
-    const missions = await MissionModel.find({
-        $and: [
-            { 'requirements.min_age': { $lte: age } },
-            { 'requirements.max_age': { $gte: age } },
-            {
-                $or: [
-                    { 'requirements.gender': user.gender },
-                    { 'requirements.gender': { $exists: false } }, // Unspecified gender
-                ],
-            },
-        ],
-    }).sort({ _id: -1 });
-
-    return missions;
+    catch (error) {
+        throw error;
+    }
 }
 
 // Calculate user age based on birth_date
@@ -60,6 +75,7 @@ router.get("/", auth, async (req, res) => {
     try {
         const userId = req.tokenData._id;
         const missions = await getMissionsByAgeAndGender(userId);
+
         res.json(missions);
     } catch (err) {
         console.log(err);

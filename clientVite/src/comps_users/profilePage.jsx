@@ -5,7 +5,9 @@ import { AppContext } from '../../context/context';
 import { useNavigate } from 'react-router-dom';
 import Review from './review';
 import Post from './post';
+import StarIcon from './starIcon'
 import CreatePost from './createPost';
+import MyMission from './myMission';
 const ProfilePage = () => {
     const { user, setUser } = useContext(AppContext);
     const nav = useNavigate()
@@ -71,6 +73,10 @@ const ProfilePage = () => {
                                         <i className="fas fa-map-marker-alt mr-2 text-lg text-blueGray-400"></i>
                                         {user.email}
                                     </div>
+                                    <div className="flex justify-center items-center h-full">
+                                        <StarIcon rating={user.rating} />
+                                    </div>
+
                                     <div className="mb-2 text-blueGray-600 mt-10">
                                         <i className="fas fa-briefcase mr-2 text-lg text-blueGray-400"></i>
                                         {user.phone}        </div>
@@ -87,11 +93,11 @@ const ProfilePage = () => {
                                             </p>
                                         </div>
                                     </div>
-                                                    <div>posts: <div className=''>
+                                    <div>posts: <div className=''>
                                         {
                                             user.posts && user.posts.map((post, index) => (
                                                 <div key={index}>
-                                                    <Post post={post} profile={user.img_url}/>
+                                                    <Post post={post} profile={user.img_url} />
                                                 </div>
                                             ))
                                         }
@@ -109,7 +115,7 @@ const ProfilePage = () => {
                                         {
                                             user.misssions && user.missions.map((mission, index) => (
                                                 <div className=" border m-2" key={index}>
-                                                    <Review mission={mission} />
+                                                    <MyMission mission={mission} />
                                                 </div>
                                             ))
                                         }
@@ -128,7 +134,7 @@ const ProfilePage = () => {
 
 
                         </div>
-                        
+
                     </div>
 
 
