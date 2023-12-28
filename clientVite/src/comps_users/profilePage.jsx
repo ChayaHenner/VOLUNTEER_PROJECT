@@ -10,24 +10,27 @@ const ProfilePage = () => {
     const nav = useNavigate()
     const [showCreatePost, setShowCreatePost] = useState(false); // State to manage visibility
     const user_now = JSON.parse(Cookies.get('user'));
+    const getUser = async () => {
+        let url = SERVER_URL + "/users/"
+        try {
+            let resp = await apiRequestGet(url, "GET")
+            //   setUser(resp.data.user)
+            console.log(resp);
+        }
+        catch (err) {
+            console.log("ERROR ", err);
+        }
+
+    }
+
     useEffect(() => {
+        getUser()
         setUser(user_now);
     }, []);
     return (
         <div>
             {user ? (
                 <div>
-                    {/* <img src={user.img_url} alt={user.img_url} className="" />
-                    <p>{user.full_name}</p>
-                    <p>Email: {user.email}</p>
-                    <p>Teudat zehut: {user.tz}</p>
-                    <p>Description: {user.description}</p>
-                    <p>Phone: {user.phone}</p>
-                    <p>Address: {user.address}</p>
-                    <p>Birth Date: {user.birth_date}</p>
-                    <p>Rating: {user.rating}</p>
-                    <p>Date Created: {user.date_created}</p>
-                    <p>Gender: {user.gender}</p> */}
                     <div className="w-full lg:w-4/12 px-4 mx-auto">
                         <div className="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-xl rounded-lg mt-16">
                             <div className="px-6">
