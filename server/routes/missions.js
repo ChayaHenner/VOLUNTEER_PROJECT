@@ -42,12 +42,14 @@ async function getMissionsByAgeAndGender(userId) {
             ],
         }).sort({ _id: -1 });
         console.log(missions);
-    
+
 
         for (const mission of missions) {
             let user1 = await UserModel.findOne({ _id: mission.user_creator });
-            console.log(user1);
-            mission.user_creator = user1.full_name;
+            console.log(mission);
+            mission.user_creator =`${mission.user_creator},${user1.full_name}`;
+            // mission = { ...mission, userName: user1.full_name }
+            console.log(mission);
         }
         return missions
     }
