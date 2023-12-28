@@ -21,6 +21,7 @@ router.post('/', auth, async (req, res) => {
   const newPassword = req.body.password;
   console.log(Id, newPassword);
   try {
+    
     // newPassword = await bcrypt.hash(newPassword, 10);
     console.log(newPassword);
     data = await UserModel.updateOne({ _id: Id }, { $set: { password: newPassword } });
