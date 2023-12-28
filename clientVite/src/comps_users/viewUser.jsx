@@ -2,13 +2,14 @@ import React, { useState, useEffect, useContext } from 'react'
 import { SERVER_URL, apiRequest, apiRequestGet } from '../serverConnect/api';
 import Cookies from 'js-cookie';
 import { AppContext } from '../../context/context';
-import { useNavigate  ,useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import Review from './review';
 import Post from './post';
 import CreatePost from './createPost';
 const ViewUser = () => {
-  const { id } = useParams();
+    const { id } = useParams();
     const { user, setUser } = useContext(AppContext);
+    const [userPage, setUserPage] = useState({});
     const nav = useNavigate()
     const [showCreatePost, setShowCreatePost] = useState(false); // State to manage visibility
     const user_now = JSON.parse(Cookies.get('user'));
@@ -16,8 +17,8 @@ const ViewUser = () => {
         let url = SERVER_URL + `/users/infoById/${id}`
         try {
             let resp = await apiRequestGet(url, "GET")
-            setUser(resp.data)
             console.log(resp);
+            setUserPage(resp.data)
         }
         catch (err) {
             console.log("ERROR ", err);
@@ -26,12 +27,15 @@ const ViewUser = () => {
     }
 
     useEffect(() => {
+
         getUser()
         setUser(user_now);
+
     }, []);
+
     return (
         <div>
-            {user ? (
+            {userPage ? (
                 <div>
                     <div className="w-full lg:w-4/12 px-4 mx-auto">
                         <div className="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-xl rounded-lg mt-16">
@@ -39,7 +43,7 @@ const ViewUser = () => {
                                 <div className="flex flex-wrap justify-center">
                                     <div className="w-full px-4 flex justify-center">
                                         <div className="relative">
-                                            <img alt={user.img_url} src={user.img_url} className="shadow-xl rounded-full h-auto align-middle border-none absolute -m-16 -ml-20 lg:-ml-16 max-w-150-px" />
+                                            <img alt={userPage.img_url} src={userPage.img_url} className="shadow-xl rounded-full h-auto align-middle border-none absolute -m-16 -ml-20 lg:-ml-16 max-w-150-px" />
                                         </div>
                                     </div>
                                     <div className="w-full px-4 text-center mt-20">
@@ -67,17 +71,17 @@ const ViewUser = () => {
                                 </div>
                                 <div className="text-center mt-12">
                                     <h3 className="text-xl font-semibold leading-normal mb-2 text-blueGray-700 mb-2">
-                                        {user.full_name}         </h3>
+                                        {userPage.full_name}         </h3>
                                     <div className="text-sm leading-normal mt-0 mb-2 text-blueGray-400 font-bold uppercase">
                                         <i className="fas fa-map-marker-alt mr-2 text-lg text-blueGray-400"></i>
-                                        {user.email}
+                                        {userPage.email}
                                     </div>
                                     <div className="mb-2 text-blueGray-600 mt-10">
                                         <i className="fas fa-briefcase mr-2 text-lg text-blueGray-400"></i>
-                                        {user.phone}        </div>
+                                        {userPage.phone}        </div>
                                     <div className="mb-2 text-blueGray-600">
                                         <i className="fas fa-university mr-2 text-lg text-blueGray-400"></i>
-                                        {user.address}
+                                        {userPage.address}
                                     </div>
                                 </div>
                                 <div className="mt-10 py-10 border-t border-blueGray-200 text-center">
@@ -88,18 +92,18 @@ const ViewUser = () => {
                                             </p>
                                         </div>
                                     </div>
-                                                    <div>posts: <div className=''>
+                                    <div>posts: <div className=''>
                                         {
-                                            user.posts && user.posts.map((post, index) => (
+                                            userPage.posts && userPage.posts.map((post, index) => (
                                                 <div key={index}>
-                                                    <Post post={post} profile={user.img_url}/>
+                                                    <Post post={post} profile={user.img_url} />
                                                 </div>
                                             ))
                                         }
                                     </div></div>
                                     <div>reviews:<div className=''>
                                         {
-                                            user.reviews && user.reviews.map((review, index) => (
+                                            userPage.reviews && userPage.reviews.map((review, index) => (
                                                 <div key={index}>
                                                     <Review review={review} />
                                                 </div>
@@ -108,7 +112,7 @@ const ViewUser = () => {
                                     </div></div>
                                     <div>missions: <div className=''>
                                         {
-                                            user.misssions && user.missions.map((mission, index) => (
+                                            userPage.misssions && userPage.missions.map((mission, index) => (
                                                 <div className=" border m-2" key={index}>
                                                     <Review mission={mission} />
                                                 </div>
@@ -129,7 +133,7 @@ const ViewUser = () => {
 
 
                         </div>
-                        
+
                     </div>
 
 
