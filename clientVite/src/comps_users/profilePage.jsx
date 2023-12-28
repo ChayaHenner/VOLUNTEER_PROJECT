@@ -6,6 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import Review from './review';
 import Post from './post';
 import CreatePost from './createPost';
+import MyMission from './myMission';
 const ProfilePage = () => {
     const { user, setUser } = useContext(AppContext);
     const nav = useNavigate()
@@ -109,7 +110,7 @@ const ProfilePage = () => {
                                         {
                                             user.misssions && user.missions.map((mission, index) => (
                                                 <div className=" border m-2" key={index}>
-                                                    <Review mission={mission} />
+                                                    <MyMission mission={mission} />
                                                 </div>
                                             ))
                                         }
