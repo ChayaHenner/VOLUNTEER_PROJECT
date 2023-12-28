@@ -2,10 +2,11 @@ import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { SERVER_URL, apiRequest } from '../serverConnect/api';
 import Cookies from 'js-cookie';
+import StarReview from './starReview'
 import { uploadImageToStorage } from '../helper/helper';
 
 
-const CreateReview = () => {
+const CreateReview = ({id}) => {
     const { register, handleSubmit, formState: { errors }, getValues } = useForm();
     const [selectedImage, setSelectedImage] = useState(null);
 
@@ -16,7 +17,7 @@ const CreateReview = () => {
         data.img_url = imageUrl;
         console.log(data);
 
-        let url = SERVER_URL + "/reviews/";
+        let url = SERVER_URL + `/reviews/${id}`;//add is
         try {
             let resp = await apiRequest(url, "POST", data);
             console.log("review added");
@@ -65,6 +66,9 @@ const CreateReview = () => {
 
                             </div>
                         </template>
+                    </div>
+                    <div>
+                        <StarReview />
                     </div>
                     <button type="submit" className="bg-purple-500 text-white px-4 py-2 rounded-md mt-4">Create Review</button>
                 </div >

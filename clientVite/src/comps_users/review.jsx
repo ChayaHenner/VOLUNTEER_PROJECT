@@ -2,7 +2,7 @@ import React from 'react';
 import StarIcon from './starIcon'
 const Review = ({ review }) => {
   return (
-    <div className="rounded-md p-4 m-1 shadow-md">
+    <div className=" p-4 m-1 border-b">
       <article>
         <div className="flex items-center mb-4">
           <img className="w-10 h-10 me-4 rounded-full" src="/docs/images/people/profile-picture-5.jpg" alt="" />

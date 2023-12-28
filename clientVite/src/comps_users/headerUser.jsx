@@ -1,6 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-
+import LogOut from './logOut'
 const HeaderUser = () => {
     return (
         <header className="bg-white border ">
@@ -58,7 +58,9 @@ const HeaderUser = () => {
                   view missions 
                 </Link>
               </li>
+
             </ul>
+            <LogOut/>
           </nav>
         </header>
       );

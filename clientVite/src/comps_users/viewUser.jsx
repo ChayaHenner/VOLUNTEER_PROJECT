@@ -79,7 +79,7 @@ const ViewUser = () => {
                                         {userPage.email}
                                     </div>
                                     <div className="flex justify-center items-center h-full">
-                                         <StarIcon rating={userPage.rating} />
+                                        <StarIcon rating={userPage.rating} />
                                     </div>
 
                                     <div className="mb-2 text-blueGray-600 mt-10">
@@ -129,12 +129,12 @@ const ViewUser = () => {
                                 </div>
                             </div>
                             <button
-                                className='bg-green-500 text-white px-4 py-2 rounded-md mt-4'
+                                className='bg-purple-500 text-white px-4 py-2 rounded-md mt-4'
                                 onClick={() => setShowCreatePost(true)} // Set state to true to show the CreatePost component
                             >
                                 add Review
                             </button>
-                            {showCreatePost && <CreateReview />}
+                            {showCreatePost && <CreateReview id={id} />}
 
 
                         </div>
