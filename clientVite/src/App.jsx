@@ -18,7 +18,7 @@ import ForgotPassword from './comps_users/forgotPass'
 import ResetPassword from './comps_users/resetPass'
 import ResetPasswordPage from './comps_users/ResetPasswordPage'
 // import AddressInput from './comps_users/addressInput'
-import AddressInput from './comps_users/addressInput'
+// import AddressInput from './comps_users/addressInput'
 import ViewMissions from './comps_users/viewMissions'
 import Logout from   './comps_users/logOut'
 
@@ -47,12 +47,12 @@ function App() {
           <Route path="/forgot-password" element={<ForgotPassword />} />
           <Route path="/reset-password/:token" element={<ResetPassword />} />
           <Route path="/resetPass/:token" element={<ResetPasswordPage />} />
-          <Route path="/ab" element={<AddressInput/>} />
+          {/* <Route path="/ab" element={<AddressInput/>} /> */}
           <Route path="/view-missions" element={<viewMissions />} />
-          <Route path="/ab" element={<AddressInput />} />
+          {/* <Route path="/ab" element={<AddressInput />} /> */}
           <Route path="/view-missions" element={<ViewMissions />} />
           <Route path="/logout" element={<Logout />} />
-          <Route path="/ab" element={<AddressInput/>} />
+          {/* <Route path="/ab" element={<AddressInput/>} /> */}
           {/* {adminRoutes()} */}
 
           {/* <Route path="/admin/post-mission" element={<PostMission />} /> */}
