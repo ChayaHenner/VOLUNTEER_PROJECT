@@ -11,7 +11,7 @@ const ForgotPassword = () => {
     // let url = SERVER_URL + "/forgot-password"
     console.log(data);
     try {
-        // let response = await apiRequest(url, "POST", data)
+      // let response = await apiRequest(url, "POST", data)
       const response = await fetch(`${SERVER_URL}/forgot-password`, {
         method: 'POST',
         headers: {
@@ -19,20 +19,20 @@ const ForgotPassword = () => {
         },
         body: JSON.stringify(data),
       });
-  
+
       if (response.ok) {
         console.log('Password reset email sent successfully.');
-        // כאן תוכל להוסיף מסך אישור או הודעה נוספת למשתמש
+        alert("A password reset email has been sent \n Check your email")
       } else {
         const errorData = await response.json();
         console.error('Failed to send password reset email:', errorData.message);
-        // כאן תוכל להציג הודעת שגיאה למשתמש
+        alert("Email does not exist")
       }
     } catch (error) {
       console.error('Error sending password reset email:', error);
     }
   };
-  
+
 
   return (
     <div>
