@@ -4,6 +4,7 @@ import Cookies from 'js-cookie';
 import { AppContext } from '../../context/context';
 import { useNavigate } from 'react-router-dom';
 import Review from './review';
+import Post from './post';
 import CreatePost from './createPost';
 const ProfilePage = () => {
     const { user, setUser } = useContext(AppContext);
@@ -11,10 +12,10 @@ const ProfilePage = () => {
     const [showCreatePost, setShowCreatePost] = useState(false); // State to manage visibility
     const user_now = JSON.parse(Cookies.get('user'));
     const getUser = async () => {
-        let url = SERVER_URL + "/users/"
+        let url = SERVER_URL + "/users/myInfo"
         try {
             let resp = await apiRequestGet(url, "GET")
-            //   setUser(resp.data.user)
+            setUser(resp.data)
             console.log(resp);
         }
         catch (err) {
@@ -86,11 +87,11 @@ const ProfilePage = () => {
                                             </p>
                                         </div>
                                     </div>
-                                    k                    <div>posts: <div className=''>
+                                                    <div>posts: <div className=''>
                                         {
                                             user.posts && user.posts.map((post, index) => (
                                                 <div key={index}>
-                                                    <Review post={post} />
+                                                    <Post post={post} profile={user.img_url}/>
                                                 </div>
                                             ))
                                         }
@@ -127,7 +128,7 @@ const ProfilePage = () => {
 
 
                         </div>
-                        l
+                        
                     </div>
 
 
