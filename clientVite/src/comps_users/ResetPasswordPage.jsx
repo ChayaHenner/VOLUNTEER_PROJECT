@@ -29,14 +29,14 @@ const ResetPasswordPage = () => {
       });
 
       const data = await response.json();
-
+console.log(data);
       // אם האיפוס הסיסמה הצליח
-      //   if (data.success) {
-      //     setResetSuccess(true);
-      //   }
+        if (data.modifiedCount>0) {
+          setResetSuccess(true);
+        }
 
       // הערה: יש לשנות את הקוד לפי התשובה שאתה מקבל מהשרת
-      setResetSuccess(true);
+      // setResetSuccess(true);
     } catch (error) {
       console.error('Error resetting password:', error);
     }
