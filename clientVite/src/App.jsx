@@ -17,8 +17,7 @@ import EditProfile from './comps_users/editProfile'
 import ForgotPassword from './comps_users/forgotPass'
 import ResetPassword from './comps_users/resetPass'
 import ResetPasswordPage from './comps_users/ResetPasswordPage'
-// import AddressInput from './comps_users/addressInput'
-// import AddressInput from './comps_users/addressInput'
+import AddressInput from './comps_users/addressInput'
 import ViewMissions from './comps_users/viewMissions'
 import ViewUser from './comps_users/viewUser'
 import Logout from   './comps_users/logOut'
@@ -51,7 +50,7 @@ function App() {
           <Route path="/view-user/:id" element={<ViewUser />} />
           {/* <Route path="/ab" element={<AddressInput/>} /> */}
           <Route path="/view-missions" element={<viewMissions />} />
-          {/* <Route path="/ab" element={<AddressInput />} /> */}
+          <Route path="/ab" element={<AddressInput />} />
           <Route path="/view-missions" element={<ViewMissions />} />
           <Route path="/logout" element={<Logout />} />
           {/* <Route path="/ab" element={<AddressInput/>} /> */}
