@@ -5,6 +5,7 @@ import { AppContext } from '../../context/context';
 import { useNavigate, useParams } from 'react-router-dom';
 import Review from './review';
 import Post from './post';
+import MyMission from './myMission';
 import StarIcon from './starIcon'
 import CreateReview from './createReview';
 const ViewUser = () => {
@@ -117,9 +118,9 @@ const ViewUser = () => {
                                     </div></div>
                                     <div>missions: <div className=''>
                                         {
-                                            userPage.misssions && userPage.missions.map((mission, index) => (
+                                            userPage.missions && userPage.missions.map((mission, index) => (
                                                 <div className=" border m-2" key={index}>
-                                                    <Review mission={mission} />
+                                                    <MyMission mission={mission} />
                                                 </div>
                                             ))
                                         }
