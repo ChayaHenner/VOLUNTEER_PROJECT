@@ -5,7 +5,8 @@ import { AppContext } from '../../context/context';
 import { useNavigate, useParams } from 'react-router-dom';
 import Review from './review';
 import Post from './post';
-import CreatePost from './createPost';
+import StarIcon from './starIcon'
+import CreateReview from './createReview';
 const ViewUser = () => {
     const { id } = useParams();
     const { user, setUser } = useContext(AppContext);
@@ -76,6 +77,10 @@ const ViewUser = () => {
                                         <i className="fas fa-map-marker-alt mr-2 text-lg text-blueGray-400"></i>
                                         {userPage.email}
                                     </div>
+                                    <div className="flex justify-center items-center h-full">
+                                         <StarIcon rating={userPage.rating} />
+                                    </div>
+
                                     <div className="mb-2 text-blueGray-600 mt-10">
                                         <i className="fas fa-briefcase mr-2 text-lg text-blueGray-400"></i>
                                         {userPage.phone}        </div>
@@ -122,14 +127,13 @@ const ViewUser = () => {
 
                                 </div>
                             </div>
-                            <button className='bg-green-500 text-white px-4 py-2 rounded-md mt-4' onClick={() => { nav("/edit-profile") }}>edit</button>
                             <button
                                 className='bg-green-500 text-white px-4 py-2 rounded-md mt-4'
                                 onClick={() => setShowCreatePost(true)} // Set state to true to show the CreatePost component
                             >
-                                add Post
+                                add Review
                             </button>
-                            {showCreatePost && <CreatePost />}
+                            {showCreatePost && <CreateReview />}
 
 
                         </div>
