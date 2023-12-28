@@ -39,28 +39,28 @@ const ProfilePage = () => {
                             <div className="px-6">
                                 <div className="flex flex-wrap justify-center">
                                     <div className="w-full px-4 flex justify-center">
-                                        <div className="relative">
+                                        <div className="">
                                             <img alt={user.img_url} src={user.img_url} className="shadow-xl rounded-full h-auto align-middle border-none absolute -m-16 -ml-20 lg:-ml-16 max-w-150-px" />
                                         </div>
                                     </div>
                                     <div className="w-full px-4 text-center mt-20">
                                         <div className="flex justify-center py-4 lg:pt-4 pt-8">
                                             <div className="mr-4 p-3 text-center">
-                                                <span className="text-xl font-bold block uppercase tracking-wide text-blueGray-600">
-                                                    22
-                                                </span>
+                                                {user.posts && <span className="text-xl font-bold block uppercase tracking-wide text-blueGray-600">
+                                                    {user.posts.length}
+                                                </span>}
                                                 <span className="text-sm text-blueGray-400">Posts</span>
                                             </div>
                                             <div className="mr-4 p-3 text-center">
-                                                <span className="text-xl font-bold block uppercase tracking-wide text-blueGray-600">
-                                                    10
-                                                </span>
+                                                {user.missions && <span className="text-xl font-bold block uppercase tracking-wide text-blueGray-600">
+                                                    {user.missions.length}
+                                                </span>}
                                                 <span className="text-sm text-blueGray-400">Missions</span>
                                             </div>
-                                            <div className="lg:mr-4 p-3 text-center">
-                                                <span className="text-xl font-bold block uppercase tracking-wide text-blueGray-600">
-                                                    89
-                                                </span>
+                                            <div className="mr-4 p-3 text-center">
+                                                {user.reviews && <span className="text-xl font-bold block uppercase tracking-wide text-blueGray-600">
+                                                    {user.reviews.length}
+                                                </span>}
                                                 <span className="text-sm text-blueGray-400">Reviews</span>
                                             </div>
                                         </div>

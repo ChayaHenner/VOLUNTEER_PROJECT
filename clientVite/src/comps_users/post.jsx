@@ -8,7 +8,7 @@ const Post = (props) => {
 
   return (
     <div>
-      <div className="p-2 bg-white rounded-xl shadow-lg transform transition duration-500 hover:scale-105 hover:shadow-2xl">
+      <div className="p-2 m-3 bg-white rounded-xl shadow-lg transform transition duration-500  hover:shadow-2xl">
         <div>
           <h1 className="text-2xl mt-2 ml-4 font-bold text-gray-800 cursor-pointer hover:text-gray-900 transition duration-100"> {post.title}</h1>
           <p className="ml-4 mt-1 mb-2 text-gray-700 hover:underline cursor-pointer">{post.description}</p>
