@@ -16,6 +16,17 @@ router.get("/myInfo", auth, async (req, res) => {
   try {
     console.log(req.tokenData._id);
     let userInfo = await UserModel.findOne({ _id: req.tokenData._id }, { password: 0 });
+    if (userInfo.posts.length > 0) {
+      await userInfo.populate('posts')
+  }
+  if (userInfo.missions.length > 0) {
+    await userInfo.populate('missions')
+}
+if (userInfo.reviews.length > 0) {
+  await userInfo.populate('reviews')
+}
+
+
     res.json(userInfo);
   }
   catch (err) {

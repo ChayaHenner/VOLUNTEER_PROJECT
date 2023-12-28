@@ -2,14 +2,22 @@ import React from 'react'
 import Cookies from 'js-cookie';
 
 const Home = () => {
-  const cookieValue = Cookies.get('token');
-  console.log('Token value:', cookieValue); // Log the value to the console
 
   return (
-    <div className="">
-      <h2>your token {cookieValue}</h2>
-    <div>Home</div></div>
-  )
+    <div className='flex flex-wrap'>
+      <div className="w-full md:w-1/2">
+        <img src="https://firebasestorage.googleapis.com/v0/b/volunteer-project-3a891.appspot.com/o/image_1703703745303?alt=media&token=329b8609-d1e6-47d1-9259-799e40f1f605" alt="" className="max-w-full h-auto" />
+      </div>
+      <div className="w-full md:w-1/2 px-3 flex items-center">
+        <div className="text-7xl font-bold">
+          <p className=" leading-snug">
+            We all are HERE 
+            for each other
+          </p>
+        </div>
+      </div>
+    </div>
+  );
 }
 
 export default Home
