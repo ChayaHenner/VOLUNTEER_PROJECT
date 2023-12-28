@@ -20,6 +20,7 @@ import ResetPasswordPage from './comps_users/ResetPasswordPage'
 // import AddressInput from './comps_users/addressInput'
 // import AddressInput from './comps_users/addressInput'
 import ViewMissions from './comps_users/viewMissions'
+import ViewUser from './comps_users/viewUser'
 import Logout from   './comps_users/logOut'
 
 function App() {
@@ -47,6 +48,7 @@ function App() {
           <Route path="/forgot-password" element={<ForgotPassword />} />
           <Route path="/reset-password/:token" element={<ResetPassword />} />
           <Route path="/resetPass/:token" element={<ResetPasswordPage />} />
+          <Route path="/view-user/:id" element={<ViewUser />} />
           {/* <Route path="/ab" element={<AddressInput/>} /> */}
           <Route path="/view-missions" element={<viewMissions />} />
           {/* <Route path="/ab" element={<AddressInput />} /> */}

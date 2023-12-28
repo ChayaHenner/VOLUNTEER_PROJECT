@@ -1,9 +1,9 @@
 import React from 'react'
 
-const ProfileUser = () => {
+const viewUser = () => {
   return (
     <div>ProfileUser</div>
   )
 }
 
-export default ProfileUser
+export default viewUser
