@@ -46,10 +46,9 @@ function App() {
           <Route path="/my-profile" element={<ProfilePage />} />
           <Route path="/edit-profile" element={<EditProfile />} />
           <Route path="/view-missions" element={<ViewMissions />} />
-          <Route path="/ab" element={<AddressInput />} />
+          {/* <Route path="/ab" element={<AddressInput />} /> */}
           <Route path="/view-missions" element={<ViewMissions />} />
           <Route path="/logout" element={<Logout />} />
-          <Route path="/ab" element={<AddressInput />} />
           <Route path="/forgot-password" element={<ForgotPassword />} />
           <Route path="/reset-password/:token" element={<ResetPassword />} />
           <Route path="/resetPass/:token" element={<ResetPasswordPage />} />

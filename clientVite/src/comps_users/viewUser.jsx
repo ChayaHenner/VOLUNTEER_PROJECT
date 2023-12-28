@@ -13,7 +13,7 @@ const ViewUser = () => {
     const [showCreatePost, setShowCreatePost] = useState(false); // State to manage visibility
     const user_now = JSON.parse(Cookies.get('user'));
     const getUser = async () => {
-        let url = SERVER_URL + "/users/myInfo"
+        let url = SERVER_URL + `/users/infoById/${id}`
         try {
             let resp = await apiRequestGet(url, "GET")
             setUser(resp.data)

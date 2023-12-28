@@ -5,8 +5,8 @@ const { validLogin, validUser } = require("../validation/userValidation")
 const { validReport } = require("../validation/reportValidation")
 const { createToken } = require("../helpers/userHelper");
 const { auth, authAdmin } = require("../middlewares/auth");
-const { UserModel} = require("../models/userModel")
-const { ReportModel} = require("../models/reportModel")
+const { UserModel } = require("../models/userModel")
+const { ReportModel } = require("../models/reportModel")
 const router = express.Router();
 
 router.get("/", async (req, res) => {
@@ -18,13 +18,13 @@ router.get("/myInfo", auth, async (req, res) => {
     let userInfo = await UserModel.findOne({ _id: req.tokenData._id }, { password: 0 });
     if (userInfo.posts.length > 0) {
       await userInfo.populate('posts')
-  }
-  if (userInfo.missions.length > 0) {
-    await userInfo.populate('missions')
-}
-if (userInfo.reviews.length > 0) {
-  await userInfo.populate('reviews')
-}
+    }
+    if (userInfo.missions.length > 0) {
+      await userInfo.populate('missions')
+    }
+    if (userInfo.reviews.length > 0) {
+      await userInfo.populate('reviews')
+    }
 
 
     res.json(userInfo);
@@ -41,13 +41,13 @@ router.get("/infoById/:id", async (req, res) => {
     let userInfo = await UserModel.findOne({ _id: id }, { password: 0 });
     if (userInfo.posts.length > 0) {
       await userInfo.populate('posts')
-  }
-  if (userInfo.missions.length > 0) {
-    await userInfo.populate('missions')
-}
-if (userInfo.reviews.length > 0) {
-  await userInfo.populate('reviews')
-}
+    }
+    if (userInfo.missions.length > 0) {
+      await userInfo.populate('missions')
+    }
+    if (userInfo.reviews.length > 0) {
+      await userInfo.populate('reviews')
+    }
 
 
     res.json(userInfo);
@@ -103,17 +103,17 @@ router.post("/login", async (req, res) => {
   try {
     let user = await UserModel.findOne({ email: req.body.email })
     if (!user) {
-      return res.status(401).json({ msg: "email is worng ",code:1 })
+      return res.status(401).json({ msg: "email is worng ", code: 1 })
     }
     let authPassword = await bcrypt.compare(req.body.password, user.password);
     if (!authPassword) {
-      return res.status(401).json({ msg: "Password is worng ",code:2 });
+      return res.status(401).json({ msg: "Password is worng ", code: 2 });
     }
-    if(user.blocked){
-      return res.status(401).json({ msg: "User is blocked ",code:3})
+    if (user.blocked) {
+      return res.status(401).json({ msg: "User is blocked ", code: 3 })
     }
-    if(!user.active){
-      return res.status(401).json({ msg: "User is not active ",code:4})
+    if (!user.active) {
+      return res.status(401).json({ msg: "User is not active ", code: 4 })
     }
     let token = createToken(user._id, user.role);
     res.json({ user, token });
@@ -124,7 +124,7 @@ router.post("/login", async (req, res) => {
   }
 })
 
-router.put("/delete/:editId", auth, async (req, res) => { 
+router.put("/delete/:editId", auth, async (req, res) => {
 
   try {
     let editId = req.params.editId;
@@ -132,11 +132,11 @@ router.put("/delete/:editId", auth, async (req, res) => {
     console.log(req.tokenData.role);
     if (req.tokenData.role === "admin") {
 
-        data = await UserModel.updateOne({ _id: editId }, { $set: { active:false } });
-      } else {
-        data = await UserModel.updateOne({ _id: editId, user_id: req.tokenData._id }, { $set: { active:false} });
-      }
-      res.json(data);
+      data = await UserModel.updateOne({ _id: editId }, { $set: { active: false } });
+    } else {
+      data = await UserModel.updateOne({ _id: editId, user_id: req.tokenData._id }, { $set: { active: false } });
+    }
+    res.json(data);
   }
   catch (err) {
     console.log(err);
@@ -192,7 +192,7 @@ router.post("/report/:id", auth, async (req, res) => {
 })
 
 router.put("/block/:Id", authAdmin, async (req, res) => {
-// console.log("hi");
+  // console.log("hi");
   try {
     let editId = req.params.Id;
     console.log(editId);
