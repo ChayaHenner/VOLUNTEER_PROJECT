@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { apiRequestGet, SERVER_URL } from '../serverConnect/api';
+import { apiRequestGet, apiRequest, SERVER_URL, apiRequestNoBody } from '../serverConnect/api';
 import { Link } from 'react-router-dom';
 
 const ViewMissions = () => {
@@ -19,6 +19,23 @@ const ViewMissions = () => {
     fetchMissions();
   }, []);
 
+  const handleTakeTask = async (missionId) => {
+    try {
+      console.log('dsfsdafs')
+      // Send a request to the backend to add the user to the mission's
+      // http://localhost:3001/missions/addInterested/65895cdc1e88238084d3661e interested array
+      const response = await apiRequestNoBody(`${SERVER_URL}/missions/addInterested/${missionId}`, 'PUT');
+
+      if (response.data.success) {
+        // Handle success, e.g., show a message or update the UI
+        alert('User added to interested list');
+      }
+    } catch (error) {
+      // Handle error, e.g., show an error message
+      console.error('Error taking task:', error);
+    }
+  };
+
   return (
     <div>
       <h2>Missions</h2>
@@ -36,7 +53,7 @@ const ViewMissions = () => {
                 <p className="text-sm text-gray-500">{`Created by: ${name}`}</p>
               </Link>
               <button
-                onClick={() => handleTaskTake(mission._id)}
+                onClick={() => handleTakeTask(mission._id)}
                 className="bg-blue-500 text-white px-4 py-2 rounded-md"
               >
                 Take Task
