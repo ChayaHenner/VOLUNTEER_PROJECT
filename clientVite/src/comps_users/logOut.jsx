@@ -14,7 +14,7 @@ const Logout = () => {
 
   return (
     <div>
-      <button onClick={handleLogout}>Logout</button>
+      <button className='bg-purple-500 text-white px-4 py-2 rounded-md mt-4' onClick={handleLogout}>Logout</button>
     </div>
   );
 };
