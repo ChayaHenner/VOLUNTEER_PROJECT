@@ -1,17 +1,26 @@
 import React from 'react';
-
-const Review = ({review}) => {
+import StarIcon from './starIcon'
+const Review = ({ review }) => {
   // const review = props.review; // Destructuring props
-
   return (
-    <div className="rounded-md p-4 m-1 shadow-md">{review}
-      {/* <h2 className="text-xl font-semibold mb-2">{review.title}</h2>
-      <p className="text-gray-600 mb-2">{review.description}</p>
-      <div className="flex items-center">
-        <span className="text-yellow-500">{review.rating}</span>
-        <p className="ml-2">{rating}/5</p>
-      </div>
-      <p className="text-sm text-gray-500 mt-2">Review by {review.user_creator}</p> */}
+    <div className="rounded-md p-4 m-1 shadow-md">
+      <article>
+        <div className="flex items-center mb-4">
+          <img className="w-10 h-10 me-4 rounded-full" src="/docs/images/people/profile-picture-5.jpg" alt="" />
+          <div className="font-medium dark:text-white">
+            <p>user_creator{review.user_creator} <time className="block text-sm text-gray-500 dark:text-gray-400"></time></p>
+          </div>
+        </div>
+        <div className="flex  mb-1 space-x-1 rtl:space-x-reverse">
+          <h3 className="ms-2 text-sm  text-gray-300 dark:text-white">{review.rating}</h3>
+          <StarIcon rating={review.rating > 0 ? review.rating : 0} />
+          <h3 className="ms-2 text-sm font-semibold text-gray-900 dark:text-white">{review.title}</h3>
+        </div>
+        <p className="mb-2 text-gray-500 dark:text-gray-400">{review.description}</p>
+        <aside>
+        </aside>
+      </article>
+
     </div>
   );
 };
