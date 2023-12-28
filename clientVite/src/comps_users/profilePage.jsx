@@ -113,7 +113,7 @@ const ProfilePage = () => {
                                     </div></div>
                                     <div>missions: <div className=''>
                                         {
-                                            user.misssions && user.missions.map((mission, index) => (
+                                            user.missions && user.missions.map((mission, index) => (
                                                 <div className=" border m-2" key={index}>
                                                     <MyMission mission={mission} />
                                                 </div>
