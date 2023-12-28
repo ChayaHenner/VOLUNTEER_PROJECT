@@ -2,7 +2,7 @@ import React, { useState, useEffect, useContext } from 'react'
 import { SERVER_URL, apiRequest, apiRequestGet } from '../serverConnect/api';
 import Cookies from 'js-cookie';
 import { AppContext } from '../../context/context';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate  ,useParams } from 'react-router-dom';
 import Review from './review';
 import Post from './post';
 import CreatePost from './createPost';

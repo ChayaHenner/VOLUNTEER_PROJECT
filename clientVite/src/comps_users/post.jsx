@@ -3,7 +3,6 @@ import { AppContext } from '../../context/context';
 
 const Post = (props) => {
   const post = props.post
-  console.log(post);
   console.log(props.profile);
   const { user, setUser } = useContext(AppContext);
 
