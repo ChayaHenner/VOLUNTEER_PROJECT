@@ -6,7 +6,8 @@ import StarReview from './starReview'
 import { uploadImageToStorage } from '../helper/helper';
 
 
-const CreateReview = ({id}) => {
+const CreateReview = ({ id }) => {
+    const [ratingValue, setRatingValue] = useState(3.5);
     const { register, handleSubmit, formState: { errors }, getValues } = useForm();
     const [selectedImage, setSelectedImage] = useState(null);
 
@@ -15,6 +16,7 @@ const CreateReview = ({id}) => {
 
         const imageUrl = await uploadImageToStorage(selectedImage);
         data.img_url = imageUrl;
+        data.rating = ratingValue
         console.log(data);
 
         let url = SERVER_URL + `/reviews/${id}`;//add is
@@ -68,7 +70,7 @@ const CreateReview = ({id}) => {
                         </template>
                     </div>
                     <div>
-                        <StarReview />
+                        <StarReview setRatingValue={setRatingValue} ratingValue={ratingValue} />
                     </div>
                     <button type="submit" className="bg-purple-500 text-white px-4 py-2 rounded-md mt-4">Create Review</button>
                 </div >

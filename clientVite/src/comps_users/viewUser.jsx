@@ -8,6 +8,7 @@ import Post from './post';
 import MyMission from './myMission';
 import StarIcon from './starIcon'
 import CreateReview from './createReview';
+import Loading from '../comps_main/loading';
 const ViewUser = () => {
     const { id } = useParams();
     const { user, setUser } = useContext(AppContext);
@@ -79,7 +80,7 @@ const ViewUser = () => {
                                         {userPage.email}
                                     </div>
                                     <div className="flex justify-center items-center h-full">
-                                        <StarIcon rating={userPage.rating} />
+                                        <StarIcon rating={userPage.rating > 0 ? userPage.rating : 0} />
                                     </div>
 
                                     <div className="mb-2 text-blueGray-600 mt-10">
@@ -145,7 +146,7 @@ const ViewUser = () => {
                 </div>
 
             ) : (
-                <p>Loading...</p>
+                <Loading />
             )}
         </div>
     );
