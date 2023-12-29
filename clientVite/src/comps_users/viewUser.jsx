@@ -52,21 +52,21 @@ const ViewUser = () => {
                                     <div className="w-full px-4 text-center mt-20">
                                         <div className="flex justify-center py-4 lg:pt-4 pt-8">
                                             <div className="mr-4 p-3 text-center">
-                                                <span className="text-xl font-bold block uppercase tracking-wide text-blueGray-600">
-                                                    22
-                                                </span>
+                                                {userPage.posts && <span className="text-xl font-bold block uppercase tracking-wide text-blueGray-600">
+                                                    {userPage.posts.length}
+                                                </span>}
                                                 <span className="text-sm text-blueGray-400">Posts</span>
                                             </div>
                                             <div className="mr-4 p-3 text-center">
-                                                <span className="text-xl font-bold block uppercase tracking-wide text-blueGray-600">
-                                                    10
-                                                </span>
+                                                {userPage.missions && <span className="text-xl font-bold block uppercase tracking-wide text-blueGray-600">
+                                                    {userPage.missions.length}
+                                                </span>}
                                                 <span className="text-sm text-blueGray-400">Missions</span>
                                             </div>
-                                            <div className="lg:mr-4 p-3 text-center">
-                                                <span className="text-xl font-bold block uppercase tracking-wide text-blueGray-600">
-                                                    89
-                                                </span>
+                                            <div className="mr-4 p-3 text-center">
+                                                {userPage.reviews && <span className="text-xl font-bold block uppercase tracking-wide text-blueGray-600">
+                                                    {userPage.reviews.length}
+                                                </span>}
                                                 <span className="text-sm text-blueGray-400">Reviews</span>
                                             </div>
                                         </div>

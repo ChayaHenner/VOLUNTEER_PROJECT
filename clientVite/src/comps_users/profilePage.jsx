@@ -11,7 +11,18 @@ import MyMission from './myMission';
 const ProfilePage = () => {
     const { user, setUser } = useContext(AppContext);
     const nav = useNavigate()
-    const [showCreatePost, setShowCreatePost] = useState(false); // State to manage visibility
+    const [showCreatePost, setShowCreatePost] = useState(false);
+
+    const openCreatePost = () => {
+        setShowCreatePost(true);
+        document.body.style.overflow = 'hidden'; // Prevent scrolling when the popup is open
+    };
+
+    const closeCreatePost = () => {
+        setShowCreatePost(false);
+        document.body.style.overflow = ''; // Re-enable scrolling when the popup is closed
+    };
+
     const user_now = JSON.parse(Cookies.get('user'));
     const getUser = async () => {
         let url = SERVER_URL + "/users/myInfo"
@@ -74,7 +85,7 @@ const ProfilePage = () => {
                                         {user.email}
                                     </div>
                                     <div className="flex justify-center items-center h-full">
-                                        <StarIcon rating={user.rating} />
+                                        <StarIcon rating={user.rating > 0 ? user.rating : 0} />
                                     </div>
 
                                     <div className="mb-2 text-blueGray-600 mt-10">
@@ -130,7 +141,16 @@ const ProfilePage = () => {
                             >
                                 add Post
                             </button>
-                            {showCreatePost && <CreatePost />}
+                            {showCreatePost && (
+                                <div  className="fixed top-0 left-0 w-full h-full bg-purple-500 bg-opacity-50 backdrop-blur-lg flex justify-center items-center">
+                                    <div className="bg-white p-6 rounded-lg shadow-lg">
+                                        <button className="absolute top-2 right-2 text-gray-600 text-7xl" onClick={closeCreatePost}>
+                                            x
+                                        </button>
+                                        <CreatePost closeCreatePost={closeCreatePost}/>
+                                    </div>
+                                </div>
+                            )}
 
 
                         </div>
