@@ -9,11 +9,13 @@ import MyMission from './myMission';
 import StarIcon from './starIcon'
 import CreateReview from './createReview';
 import Loading from '../comps_main/loading';
+import ReportForm from './ReportForm';
 const ViewUser = () => {
     const { id } = useParams();
     const { user, setUser } = useContext(AppContext);
     const [userPage, setUserPage] = useState({});
     const nav = useNavigate()
+    const [showReportForm, setShowReportForm] = useState(false);
     const [showCreatePost, setShowCreatePost] = useState(false); // State to manage visibility
     const user_now = JSON.parse(Cookies.get('user'));
     const getUser = async () => {
@@ -137,7 +139,13 @@ const ViewUser = () => {
                             </button>
                             {showCreatePost && <CreateReview id={id} />}
 
-
+                            <button
+                                className='bg-red-500 text-white px-4 py-2 rounded-md mt-4 ml-4'
+                                onClick={() => setShowReportForm(true)}
+                            >
+                                Report User
+                            </button>
+                            {showReportForm && <ReportForm id={id} />}
                         </div>
 
                     </div>
