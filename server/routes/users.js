@@ -212,6 +212,20 @@ console.log(data);
     res.status(500).json({ msg: "There was an error, try again later.", err });
   }
 });
+router.post("/role/:param1/:param2", authAdmin, async (req, res) => {
+  try {
+    let editId = req.params.id;
+    console.log(editId);
+
+    // עדכון בטבלת היוזרים
+    let data = await UserModel.updateOne({ _id: editId }, { $set: { role: true } });
+console.log(data);
+  }
+  catch (err) {
+    console.log(err);
+    res.status(500).json({ msg: "err", err })
+  }
+})
 
 
 module.exports = router;
