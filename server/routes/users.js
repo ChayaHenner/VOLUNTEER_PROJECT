@@ -197,7 +197,7 @@ router.put("/block/:Id", authAdmin, async (req, res) => {
 
     // עדכון בטבלת היוזרים
     let data = await UserModel.updateOne({ _id: editId }, { $set: { blocked: true } });
-console.log(data);
+    console.log(data);
     // בדיקה האם העדכון בטבלת היוזרים הצליח
     if (data.modifiedCount > 0) {
       // מחיקת הדיווח המתאים מטבלת הדיווחים
@@ -212,14 +212,15 @@ console.log(data);
     res.status(500).json({ msg: "There was an error, try again later.", err });
   }
 });
-router.post("/role/:param1/:param2", authAdmin, async (req, res) => {
+router.put("/role/:id/:role", authAdmin, async (req, res) => {
   try {
     let editId = req.params.id;
+    let role = req.params.role
     console.log(editId);
 
-    // עדכון בטבלת היוזרים
-    let data = await UserModel.updateOne({ _id: editId }, { $set: { role: true } });
-console.log(data);
+    let data = await UserModel.updateOne({ _id: editId }, { $set: { role: role } });
+    console.log(data);
+    res.status(500).json({ });
   }
   catch (err) {
     console.log(err);
