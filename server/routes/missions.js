@@ -155,7 +155,10 @@ router.get("/createdByMe", auth, async (req, res) => {
     try {
         const userId = req.tokenData._id;
 
-        const missionsCreatedByUser = await MissionModel.find({ user_creator: userId }).sort({ _id: -1 }).populate('interested');
+        const missionsCreatedByUser = await MissionModel.find({ user_creator: userId }).sort({ _id: -1 }).populate({
+            path: 'interested',
+            select: '_id full_name'
+        });
         res.json(missionsCreatedByUser);
     } catch (err) {
         console.log(err);

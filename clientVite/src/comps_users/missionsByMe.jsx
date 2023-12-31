@@ -50,25 +50,6 @@ const MissionsByMe = () => {
         console.log(resolvedName); // This will log the resolved string
         return resolvedName;
     };
-    // useEffect(() => {
-    //     const fetchNames = async () => {
-    //         const updatedNames = {};
-    //         for (const mission of missions) {
-    //             if (mission.interested) {
-    //                 for (const id of mission.interested) {
-    //                     if (!names[id]) {
-    //                         const name = await nameById(id);
-    //                         updatedNames[id] = name;
-    //                     }
-    //                 }
-    //             }
-    //         }
-    //         setNames({ ...names, ...updatedNames });
-    //     };
-
-    //     fetchNames();
-    // }, [missions]); // Ensure this useEffect runs when missions change
-
 
     useEffect(() => {
         getMissions()
@@ -89,9 +70,9 @@ const MissionsByMe = () => {
                                 </Link> */}
                                 <div className="text-sm text-gray-500">Interested:</div>
                                 {
-                                    mission.interested && mission.interested.map((id, index) => (
+                                    mission.interested && mission.interested.map((user, index) => (
                                         < div key={index} >
-                                            <div>{id}</div>
+                                            <div>{user.full_name}</div>
                                             {/* {
                                                 setName(id) ? <div>{name}</div> : <div>waa</div>
 
