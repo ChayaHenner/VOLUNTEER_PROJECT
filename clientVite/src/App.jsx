@@ -47,7 +47,6 @@ function App() {
           <Route path="/post-mission" element={<PostMission />} />
           <Route path="/my-profile" element={<ProfilePage />} />
           <Route path="/edit-profile" element={<EditProfile />} />
-          <Route path="/view-missions" element={<ViewMissions />} />
           <Route path="/ViewUser-Admin" element={<ViewUserAdmin />} />
           <Route path="/logout" element={<Logout />} />
           <Route path="/star" element={<StarReview />} />
@@ -55,7 +54,7 @@ function App() {
           <Route path="/reset-password/:token" element={<ResetPassword />} />
           <Route path="/resetPass/:token" element={<ResetPasswordPage />} />
           <Route path="/view-user/:id" element={<ViewUser />} />
-          <Route path="/view-missions" element={<viewMissions />} />
+          <Route path="/view-missions" element={<ViewMissions />} />
           <Route path="/ab" element={<AddressInput />} />
           <Route path="/logout" element={<Logout />} />
 
