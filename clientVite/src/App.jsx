@@ -23,6 +23,7 @@ import Logout from './comps_users/logOut'
 import ViewUser from './comps_users/viewUser'
 import ViewUserAdmin from './comps_admin/viewUsers'
 import StarReview from './comps_users/starReview'
+import MissionsByMe from './comps_users/missionsByMe'
 
 function App() {
 
@@ -42,11 +43,10 @@ function App() {
 
           <Route path="/login" element={<Login />} />
           <Route path="/sign-up" element={<SignUp />} />
-          <Route path="/my-missions" element={<MyMission />} />
+          <Route path="/my-missions" element={<MissionsByMe />} />
           <Route path="/post-mission" element={<PostMission />} />
           <Route path="/my-profile" element={<ProfilePage />} />
           <Route path="/edit-profile" element={<EditProfile />} />
-          <Route path="/view-missions" element={<ViewMissions />} />
           <Route path="/ViewUser-Admin" element={<ViewUserAdmin />} />
           <Route path="/logout" element={<Logout />} />
           <Route path="/star" element={<StarReview />} />
@@ -54,7 +54,7 @@ function App() {
           <Route path="/reset-password/:token" element={<ResetPassword />} />
           <Route path="/resetPass/:token" element={<ResetPasswordPage />} />
           <Route path="/view-user/:id" element={<ViewUser />} />
-          <Route path="/view-missions" element={<viewMissions />} />
+          <Route path="/view-missions" element={<ViewMissions />} />
           <Route path="/ab" element={<AddressInput />} />
           <Route path="/logout" element={<Logout />} />
 

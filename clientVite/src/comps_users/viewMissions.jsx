@@ -144,9 +144,9 @@ const ViewMissions = () => {
               </div>
             </div> */}
 
-            <div key={mission._id} class="max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 m-4">
-              <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">{mission.title}</h5>
-              <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">{mission.description}</p>
+            <div key={mission._id} className="max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 m-4">
+              <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">{mission.title}</h5>
+              <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">{mission.description}</p>
               <div className="flex">
                 <Link className='w-1/2' to={`/view-user/${id}`}>
                   <p className="text-sm text-gray-500">{`Created by: ${name}`}</p>
