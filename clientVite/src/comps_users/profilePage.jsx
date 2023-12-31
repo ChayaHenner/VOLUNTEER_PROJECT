@@ -50,8 +50,12 @@ const ProfilePage = () => {
                             <div className="px-6">
                                 <div className="flex flex-wrap justify-center">
                                     <div className="w-full px-4 flex justify-center">
-                                        <div className="">
-                                            <img alt={user.img_url} src={user.img_url} className="shadow-xl rounded-full h-auto align-middle border-none absolute -m-16 -ml-20 lg:-ml-16 max-w-150-px" />
+                                        <div className="flex justify-center ">
+                                            {/* <img alt={user.img_url} src={user.img_url} className="shadow-xl rounded-full  align-middle border-none  -m-16 -ml-20 lg:-ml-16 max-w-150-px " /> */}
+                                            <div className="flex justify-center items-center h-64 w-64 border border-gray-300 rounded-full">
+                                                <img src={user.img_url} alt="{user.img_alt}" class="max-h-full max-w-full rounded-full" />
+                                            </div>
+
                                         </div>
                                     </div>
                                     <div className="w-full px-4 text-center mt-20">
@@ -142,12 +146,12 @@ const ProfilePage = () => {
                                 add Post
                             </button>
                             {showCreatePost && (
-                                <div  className="fixed top-0 left-0 w-full h-full bg-purple-500 bg-opacity-50 backdrop-blur-lg flex justify-center items-center">
+                                <div className="fixed top-0 left-0 w-full h-full bg-purple-500 bg-opacity-50 backdrop-blur-lg flex justify-center items-center">
                                     <div className="bg-white p-6 rounded-lg shadow-lg">
                                         <button className="absolute top-2 right-2 text-gray-600 text-7xl" onClick={closeCreatePost}>
                                             x
                                         </button>
-                                        <CreatePost closeCreatePost={closeCreatePost}/>
+                                        <CreatePost closeCreatePost={closeCreatePost} />
                                     </div>
                                 </div>
                             )}

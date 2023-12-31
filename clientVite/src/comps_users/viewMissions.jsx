@@ -52,6 +52,7 @@
 //     <div className=''>
 //       <h2>Missions</h2>
 
+<<<<<<< Updated upstream
 //       {/* Add the DateFilter component to handle date and time range filtering */}
 //       <DateFilter updateMissions={updateMissions} />
 // <<<<<<< HEAD
@@ -60,6 +61,15 @@
 //           const userArray = mission.user_creator.split(',');
 //           const id = userArray[0];
 //           const name = userArray[1];
+=======
+      {/* Add the DateFilter component to handle date and time range filtering */}
+      <DateFilter updateMissions={updateMissions} />
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-1 center">
+        {missions.map((mission) => {
+          const userArray = mission.user_creator.split(',');
+          const id = userArray[0];
+          const name = userArray[1];
+>>>>>>> Stashed changes
 
 //           return (
 
@@ -71,6 +81,7 @@
 //                   <p className="text-sm text-gray-500">{`Created by: ${name}`}</p>
 //                 </Link>
 
+<<<<<<< Updated upstream
 //                 {!mission.taken ? (<button
 //                   onClick={() => handleTakeTask(mission._id)}
 //                   className="w-1/2 bg-blue-500 text-white px-4 py-2 rounded-md m-2"
@@ -116,4 +127,21 @@
 //   );
 // }
 // export default ViewMissions;
+=======
+                {!mission.taken ? (<button
+                  onClick={() => handleTakeTask(mission._id)}
+                  className="w-1/2 bg-blue-500 text-white px-4 py-2 rounded-md m-2"
+                >
+                  Take Task
+                </button>) : (<div className="w-1/2 bg-blue-300 text-white px-4 py-2 rounded-md m-2">Taken</div>)}
+              </div>
+            </div>
+          );
+        })}
+      </div>
+    </div>
+  );
+}
+export default ViewMissions;
+>>>>>>> Stashed changes
 

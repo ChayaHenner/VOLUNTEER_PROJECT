@@ -47,8 +47,8 @@ const Management = () => {
                 }
                 <tbody>
                     {userList.map((report) => (
-                        <tr key={report._id}>
-                            <td className="border p-2">{report.id_reporter[0].full_name}</td>
+                        <tr key={report._id} className='hover:bg-gray-100 border-b border-gray-200 py-10'>
+                            <td className="px-4 py-2 bg-gray-200">{report.id_reporter[0].full_name}</td>
                             <td className="border p-2">{report.id_reportee[0].full_name}</td>
                             <td className="border p-2">{report.Message}</td>
                             <td className="border p-2">
