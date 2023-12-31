@@ -24,6 +24,7 @@ import ViewUser from './comps_users/viewUser'
 import ViewUserAdmin from './comps_admin/viewUsers'
 import StarReview from './comps_users/starReview'
 import MissionsByMe from './comps_users/missionsByMe'
+import Management from './comps_admin/management'
 
 function App() {
 
@@ -57,6 +58,7 @@ function App() {
           <Route path="/view-missions" element={<ViewMissions />} />
           <Route path="/ab" element={<AddressInput />} />
           <Route path="/logout" element={<Logout />} />
+          <Route path="/management" element={<Management />} />
 
           {/* {adminRoutes()} */}
 

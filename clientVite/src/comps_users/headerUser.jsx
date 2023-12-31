@@ -1,4 +1,4 @@
-import React,{useContext} from 'react'
+import React, { useContext } from 'react'
 import { Link } from 'react-router-dom'
 import LogOut from './logOut'
 import { AppContext } from '../../context/context';
@@ -62,15 +62,26 @@ const HeaderUser = () => {
             </Link>
           </li>
           {
-             user.role == "admin" &&
-          <li>
-            <Link
-              to="/ViewUser-Admin"
-              className="hover:text-blue-600 transition duration-300"
-            >
-              view user
-            </Link>
-          </li>
+            user.role == "admin" &&
+            <li>
+              <Link
+                to="/ViewUser-Admin"
+                className="hover:text-blue-600 transition duration-300"
+              >
+                view user
+              </Link>
+            </li>
+          }
+          {
+            user.role == "admin" &&
+            <li>
+              <Link
+                to="/management"
+                className="hover:text-blue-600 transition duration-300"
+              >
+                Management
+              </Link>
+            </li>
           }
 
 
