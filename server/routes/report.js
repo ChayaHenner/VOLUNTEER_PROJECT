@@ -6,7 +6,10 @@ const { validReport } = require("../validation/reportValidation")
 
 router.get("/", authAdmin, async (req, res) => {
     try {
-      let data = await ReportModel.find();
+      let data = await ReportModel.find().populate({
+        path: 'id_reportee id_reporter',
+        select: '_id full_name'
+    });
       res.json(data)
     }
     catch (err) {
