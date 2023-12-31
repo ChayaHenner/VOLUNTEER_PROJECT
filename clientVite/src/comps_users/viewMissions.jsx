@@ -73,17 +73,22 @@ import React, { useEffect, useState } from 'react';
 import { apiRequestGet, apiRequest, SERVER_URL, apiRequestNoBody } from '../serverConnect/api';
 import { Link } from 'react-router-dom';
 
+
 // Import the new DateFilter component
 import DateFilter from './dateFilter'; // Update the path based on your project structure
 
 const ViewMissions = () => {
   const [missions, setMissions] = useState([]);
+  const [searchQuery, setSearchQuery] = useState('');
 
   useEffect(() => {
     // Fetch missions on component mount
     const fetchMissions = async () => {
       try {
-        const url = `${SERVER_URL}/missions`;
+        const url = searchQuery ? `${SERVER_URL}/missions/search?s=${searchQuery}` : `${SERVER_URL}/missions`;
+        console.log('Fetch URL:', url); // Log the URL for debugging
+
+        // const url = `${SERVER_URL}/missions/`;
         const response = await apiRequestGet(url);
         setMissions(response.data);
       } catch (error) {
@@ -92,7 +97,7 @@ const ViewMissions = () => {
     };
 
     fetchMissions();
-  }, []);
+  }, [searchQuery]);
 
   const handleTakeTask = async (missionId) => {
     try {
@@ -121,6 +126,13 @@ const ViewMissions = () => {
       {/* Add the DateFilter component to handle date and time range filtering */}
       <DateFilter updateMissions={updateMissions} />
 
+      <input
+        type="text"
+        placeholder="Search missions..."
+        value={searchQuery}
+        onChange={(e) => setSearchQuery(e.target.value)}
+        className="border p-2 mb-4"
+      />
       {missions.map((mission) => {
         const userArray = mission.user_creator.split(',');
         const id = userArray[0];
@@ -152,7 +164,7 @@ const ViewMissions = () => {
                   <p className="text-sm text-gray-500">{`Created by: ${name}`}</p>
                 </Link>
 
-                <button 
+                <button
                   onClick={() => handleTakeTask(mission._id)}
                   className="w-1/2 bg-blue-500 text-white px-4 py-2 rounded-md m-2"
                 >
