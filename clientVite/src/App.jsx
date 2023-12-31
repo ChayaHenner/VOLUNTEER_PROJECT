@@ -18,9 +18,10 @@ import ForgotPassword from './comps_users/forgotPass'
 import ResetPassword from './comps_users/resetPass'
 import ResetPasswordPage from './comps_users/ResetPasswordPage'
 import AddressInput from './comps_users/addressInput'
-import ViewMissions from './comps_users/viewMissions'
+// import ViewMissions from './comps_users/viewMissions'
 import Logout from './comps_users/logOut'
 import ViewUser from './comps_users/viewUser'
+import ViewUserAdmin from './comps_admin/viewUsers'
 import StarReview from './comps_users/starReview'
 
 function App() {
@@ -45,9 +46,11 @@ function App() {
           <Route path="/post-mission" element={<PostMission />} />
           <Route path="/my-profile" element={<ProfilePage />} />
           <Route path="/edit-profile" element={<EditProfile />} />
-          <Route path="/view-missions" element={<ViewMissions />} />
+          {/* <Route path="/view-missions" element={<ViewMissions />} /> */}
           {/* <Route path="/ab" element={<AddressInput />} /> */}
-          <Route path="/view-missions" element={<ViewMissions />} />
+          {/* <Route path="/view-missions" element={<ViewMissions />} /> */}
+          <Route path="/ViewUser-Admin" element={<ViewUserAdmin />} />
+
           <Route path="/logout" element={<Logout />} />
           <Route path="/star" element={<StarReview />} />
           {/* <Route path="/ab" element={<AddressInput />} /> */}
@@ -58,7 +61,7 @@ function App() {
           <Route path="/view-user/:id" element={<ViewUser />} />
           <Route path="/view-missions" element={<viewMissions />} />
           <Route path="/ab" element={<AddressInput />} />
-          <Route path="/view-missions" element={<ViewMissions />} />
+          {/* <Route path="/view-missions" element={<ViewMissions />} /> */}
           <Route path="/logout" element={<Logout />} />
           {/* <Route path="/view-user/:userId" element={<ProfilePage />} /> */}
 

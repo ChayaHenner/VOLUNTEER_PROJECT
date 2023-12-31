@@ -24,8 +24,13 @@ const Login = () => {
       // else {
       console.log("token new", resp.data.token);
       Cookies.set('token', resp.data.token, { expires: 1 }); // expires in 1 day
-      nav("/")
-
+      console.log(user.role);
+      if (user.role == "admin") {
+        nav("/ViewUser-Admin")
+      }
+      else {
+        nav("/")
+      }
       // }
       console.log("token new", resp.data.token);
       Cookies.set('token', resp.data.token, { expires: 1 }); // expires in 1 day
