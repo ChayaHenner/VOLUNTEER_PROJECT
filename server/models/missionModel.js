@@ -13,7 +13,10 @@ let missionSchema = new mongoose.Schema({
         required: true,
     },
     user_creator: String,
-    interested: [],
+    interested: [{
+        type:mongoose.Schema.Types.ObjectId,
+        ref:'users'
+    }],
     requirements: {
         min_age: {
             type: Number,

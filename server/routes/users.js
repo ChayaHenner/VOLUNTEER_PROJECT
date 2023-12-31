@@ -190,19 +190,43 @@ router.post("/report/:id", auth, async (req, res) => {
     res.status(500).json({ msg: "err", err })
   }
 })
-
 router.put("/block/:Id", authAdmin, async (req, res) => {
-  // console.log("hi");
   try {
     let editId = req.params.Id;
     console.log(editId);
+
+    // עדכון בטבלת היוזרים
     let data = await UserModel.updateOne({ _id: editId }, { $set: { blocked: true } });
-    res.json(data);
+    console.log(data);
+    // בדיקה האם העדכון בטבלת היוזרים הצליח
+    if (data.modifiedCount > 0) {
+      // מחיקת הדיווח המתאים מטבלת הדיווחים
+      await ReportModel.deleteOne({ id_reportee: editId });
+      console.log("blocked");
+      res.json({ msg: "User blocked successfully, and corresponding report deleted." });
+    } else {
+      res.status(500).json({ msg: "User blocking failed." });
+    }
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({ msg: "There was an error, try again later.", err });
+  }
+});
+router.put("/role/:id/:role", authAdmin, async (req, res) => {
+  try {
+    let editId = req.params.id;
+    let role = req.params.role
+    console.log(editId);
+
+    let data = await UserModel.updateOne({ _id: editId }, { $set: { role: role } });
+    console.log(data);
+    res.status(500).json({ });
   }
   catch (err) {
     console.log(err);
-    res.status(500).json({ msg: "there error try again later", err })
+    res.status(500).json({ msg: "err", err })
   }
 })
+
 
 module.exports = router;
