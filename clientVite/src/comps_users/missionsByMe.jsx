@@ -26,6 +26,19 @@ const MissionsByMe = () => {
         }
 
     }
+    const nameById = async (id) => {
+        let url = SERVER_URL + `/users/infoById/${id}`
+        try {
+            let resp = await apiRequestGet(url)
+            console.log(resp.data.full_name);
+            return resp.data.full_name
+        }
+        catch (err) {
+            console.log("ERROR ", err);
+            return '';
+        }
+
+    }
     useEffect(() => {
         getMissions()
     }, []);
@@ -48,27 +61,40 @@ const MissionsByMe = () => {
                                     <p className="text-sm text-gray-500">{`Created by: ${name}`}</p>
                                 </Link>
                                 <div className="text-sm text-gray-500">Interested:</div>
-                                {
+                                {/* {
                                     mission.interested && mission.interested.map((user, index) => (
-                                        <div key={index}>
-                                            <div>{user}</div>
+                                        // const userNamePromise = nameById(user)
+                                            < div key = { index } >
+                                                <div>{userNamePromise}</div>
                                         </div>
-                                    ))
+                            ))
+                                } */}
+
+                            {
+                                    mission.interested && mission.interested.map((user, index) => {
+                                        const userNamePromise = nameById(user); // Get the Promise for user's name
+                                        return (
+                                            <div key={index}>
+                                                <div>
+                                                    {
+                                                        userNamePromise.then(userName => 
+                                                        console.log(userName))
+                                                        // <div>{userName}</div>)
+                                                    }
+                                                </div>
+                                            </div>
+                                        );
+                                    })
                                 }
-                                {/* 
-              <button
-                onClick={() => handleTakeTask(mission._id)}
-                className="w-1/2 bg-blue-500 text-white px-4 py-2 rounded-md m-2"
-              >
-                Take Task
-              </button> */}
-                            </div>
+
                         </div>
-                    );
+                        </div>
+            );
                 })}
-            </div>) :
-                <div>You have not created any missions.</div>}
-        </div>
+        </div>) :
+    <div>You have not created any missions.</div>
+}
+        </div >
     )
 }
 
