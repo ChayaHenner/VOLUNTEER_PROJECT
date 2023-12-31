@@ -14,7 +14,6 @@ const SignUp = () => {
   const nav = useNavigate()
 
   const { register, handleSubmit, formState: { errors }, getValues } = useForm();
-  // const [isInitialLoad, setIsInitialLoad] = useState(true);
   const [selectedImage, setSelectedImage] = useState(null);
   const [selectedAddress, setSelectedAddress] = useState(null);
   const { user, setUser } = useContext(AppContext);

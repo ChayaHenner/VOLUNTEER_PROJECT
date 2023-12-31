@@ -44,37 +44,38 @@ const ViewMissions = () => {
   };
 
   return (
-    <div>
+    <div className=''>
       <h2>Missions</h2>
 
       {/* Add the DateFilter component to handle date and time range filtering */}
-      <DateFilter  updateMissions={updateMissions} />
+      <DateFilter updateMissions={updateMissions} />
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-1 center">
+        {missions.map((mission) => {
+          const userArray = mission.user_creator.split(',');
+          const id = userArray[0];
+          const name = userArray[1];
 
-      {missions.map((mission) => {
-        const userArray = mission.user_creator.split(',');
-        const id = userArray[0];
-        const name = userArray[1];
+          return (
 
-        return (
+            <div key={mission._id} className="max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 m-4">
+              <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">{mission.title}</h5>
+              <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">{mission.description}</p>
+              <div className="flex">
+                <Link className='w-1/2' to={`/view-user/${id}`}>
+                  <p className="text-sm text-gray-500">{`Created by: ${name}`}</p>
+                </Link>
 
-          <div key={mission._id} className="max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 m-4">
-            <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">{mission.title}</h5>
-            <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">{mission.description}</p>
-            <div className="flex">
-              <Link className='w-1/2' to={`/view-user/${id}`}>
-                <p className="text-sm text-gray-500">{`Created by: ${name}`}</p>
-              </Link>
-
-              <button
-                onClick={() => handleTakeTask(mission._id)}
-                className="w-1/2 bg-blue-500 text-white px-4 py-2 rounded-md m-2"
-              >
-                Take Task
-              </button>
+                {!mission.taken ? (<button
+                  onClick={() => handleTakeTask(mission._id)}
+                  className="w-1/2 bg-blue-500 text-white px-4 py-2 rounded-md m-2"
+                >
+                  Take Task
+                </button>) : (<div className="w-1/2 bg-blue-300 text-white px-4 py-2 rounded-md m-2">Taken</div>)}
+              </div>
             </div>
-          </div>
-        );
-      })}
+          );
+        })}
+      </div>
     </div>
   );
 };
