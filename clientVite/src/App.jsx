@@ -28,7 +28,7 @@ import Footer from './comps_users/footer';
 
 function App() {
 
-  const [user, setUser] = useState({}) //maybe change
+  const [user, setUser] = useState(null) //maybe change
   return (<>
     <AppContext.Provider value={({ user, setUser })}>
 
