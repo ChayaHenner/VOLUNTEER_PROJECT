@@ -8,22 +8,43 @@ const ChooseVolunteer = ({ interested, mission }) => {
         setSelectedVolunteer(volunteer);
     };
 
+    // const handleAssignVolunteer = async () => {
+
+    //     if (selectedVolunteer) {
+    //         try {
+
+    //             const url = `${SERVER_URL}/missions/taken?idMission=${mission}&idUser=${selectedVolunteer._id}`;
+    //             const resp = await apiRequest(url, 'PUT',data);
+    //             console.log(resp.data);
+    //             // alert(`Assigned ${selectedVolunteer.full_name} to the mission!`);
+    //         } catch (err) {
+    //             console.log('ERROR:', err);
+    //             // alert('Failed to assign the volunteer. Please try again.');
+    //         }
+    //     } else {
+    //         alert('Please select a volunteer first.');
+    //     }
+    // };
     const handleAssignVolunteer = async () => {
         if (selectedVolunteer) {
             try {
-                const url = `${SERVER_URL}/mission/taken?idMission=${mission}&&idUser=${selectedVolunteer._id}`;
-                console.log(url)
-                const resp = await apiRequest(url, 'PUT');
-                console.log(resp.data);
-                alert(`Assigned ${selectedVolunteer.full_name} to the mission!`);
-            } catch (err) {
-                console.log('ERROR:', err);
-                alert('Failed to assign the volunteer. Please try again.');
+                const url = `${SERVER_URL}/missions/taken?idMission=${mission}&idUser=${selectedVolunteer._id}`;
+                const requestOptions = {
+                    method: 'PATCH',
+                    headers: { 'Content-Type': 'application/json' }
+                };
+
+                const response = await fetch(url, requestOptions);
+                console.log(response);
+
+            } catch (error) {
+                console.error('Error assigning volunteer:', error);
             }
         } else {
             alert('Please select a volunteer first.');
         }
     };
+
 
     return (
         <div className="fixed top-0 left-0 w-full h-full bg-gray-200 bg-opacity-10 backdrop-blur-lg flex justify-center items-center">
@@ -45,7 +66,7 @@ const ChooseVolunteer = ({ interested, mission }) => {
                             </div>
                         ))}
                     </div>
-                    <button onClick={handleAssignVolunteer}>Assign Volunteer</button>
+                    {interested.length > 0 && <button onClick={handleAssignVolunteer}>Assign Volunteer</button>}
                 </div>
             </div>
         </div>

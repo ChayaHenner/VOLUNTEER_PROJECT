@@ -11,6 +11,7 @@ const ViewUsers = () => {
       try {
         const url = `${SERVER_URL}/users/usersList`;
         const response = await apiRequestGet(url);
+        console.log(response);
         setUserList(response.data);
       } catch (error) {
         console.error('Error fetching userList:', error);

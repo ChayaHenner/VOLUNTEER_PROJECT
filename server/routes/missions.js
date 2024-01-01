@@ -362,10 +362,55 @@ router.put('/addInterested/:missionId', auth, async (req, res) => {
 
 
 
-// PUT /mission/taken?idMission=<missionId>&idUser=<userId>
-router.put('/taken', async (req, res) => {
+// // PUT /mission/taken?idMission=<missionId>&idUser=<userId>
+// router.put('/taken', async (req, res) => {
+//     try {
+//         console.log("hi");
+//         const missionId = req.query.idMission;
+//         const userId = req.query.idUser;
+
+//         console.log('Received request to mark mission as taken. Mission ID:', missionId, 'User ID:', userId);
+
+//         // Find the mission by ID
+//         const mission = await MissionModel.findById(missionId).lean();
+
+//         if (!mission) {
+//             console.log('Mission not found');
+//             return res.status(404).json({ error: 'Mission not found' });
+//         }
+
+//         // Mark the mission as taken
+//         mission.taken = true;
+
+//         // Update the mission in the database
+//         await MissionModel.findByIdAndUpdate(missionId, mission);
+
+//         // Find the user by ID
+//         const user = await UserModel.findById(userId);
+
+//         if (!user) {
+//             console.log('User not found');
+//             return res.status(404).json({ error: 'User not found' });
+//         }
+
+//         // Add the mission ID to the user's missions array
+//         user.missions.push(missionId);
+
+//         // Update the user in the database
+//         await UserModel.findByIdAndUpdate(userId, user);
+
+//         console.log('Mission marked as taken. User missions updated.');
+
+//         res.json({ success: true });
+
+//     } catch (error) {
+//         console.error('Error in /mission/taken route:', error);
+//         res.status(500).json({ error: 'Internal Server Error' });
+//     }
+// });
+
+router.patch('/taken', async (req, res) => {
     try {
-        console.log("hi");
         const missionId = req.query.idMission;
         const userId = req.query.idUser;
 
@@ -383,7 +428,7 @@ router.put('/taken', async (req, res) => {
         mission.taken = true;
 
         // Update the mission in the database
-        await MissionModel.findByIdAndUpdate(missionId, mission);
+        await MissionModel.findByIdAndUpdate(missionId,mission);
 
         // Find the user by ID
         const user = await UserModel.findById(userId);
@@ -397,11 +442,12 @@ router.put('/taken', async (req, res) => {
         user.missions.push(missionId);
 
         // Update the user in the database
-        await UserModel.findByIdAndUpdate(userId, user);
+        await UserModel.findByIdAndUpdate(userId, { $push: { missions: missionId } });
 
         console.log('Mission marked as taken. User missions updated.');
 
         res.json({ success: true });
+
     } catch (error) {
         console.error('Error in /mission/taken route:', error);
         res.status(500).json({ error: 'Internal Server Error' });

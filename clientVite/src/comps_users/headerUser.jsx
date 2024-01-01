@@ -121,18 +121,17 @@ const HeaderUser = () => {
                 </ul>
               )}
             </li>
-
-          ) : (
-            <>
-              {/* Render other elements for non-authenticated users */}
-            </>
           )}
-
         </ul>
       </nav>
     </header>
-  );
+)}
+// const HeaderUser = () => {
+//   const { user } = useContext(AppContext);
+//   if (!user) {
+//     // If user is not yet available, you can return a loading state or placeholder
+//     return <p>Loading...</p>;
+//   }
 
-}
 
 export default HeaderUser
