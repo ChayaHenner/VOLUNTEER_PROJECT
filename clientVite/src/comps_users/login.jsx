@@ -28,11 +28,12 @@ const Login = () => {
       //   nav("/")
       // }
       // }
-      //  nav("/")
+      nav("/")
       console.log("token new", resp.data.token);
       Cookies.set('token', resp.data.token, { expires: 1 }); // expires in 1 day
       Cookies.set('user', JSON.stringify(resp.data.user), { expires: 1 }); // expires in 1 day
-      nav("/")
+      console.log(JSON.stringify(resp.data.user));
+      // nav("/")
     }
     catch (err) {
       console.log("ERROR ", err);

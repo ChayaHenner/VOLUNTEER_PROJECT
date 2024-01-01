@@ -1,4 +1,4 @@
-import React, { useState, useContext, useRef } from 'react'
+import React, { useState, useEffect, useContext, useRef } from 'react'
 import { useForm } from 'react-hook-form';
 import { fieldsEnum, SERVER_URL, apiRequest } from '../serverConnect/api';
 import Cookies from 'js-cookie';
@@ -7,7 +7,7 @@ import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 import { AppContext } from '../../context/context';
 import { uploadImageToStorage } from '../helper/helper';
 import { useNavigate } from 'react-router-dom';
-// import AddressInput from './addressInput'
+import AddressInput from './addressInput'
 
 
 const SignUp = () => {
@@ -16,15 +16,18 @@ const SignUp = () => {
 
   const { register, handleSubmit, formState: { errors }, getValues } = useForm();
   const [selectedImage, setSelectedImage] = useState(null);
+  const [address, setAddress] = useState(null);
   const [selectedAddress, setSelectedAddress] = useState(null);
   const { user, setUser } = useContext(AppContext);
-
+  useEffect(() => {
+    console.log(address);
+  }, []);
   const onSubmit = async (data) => {
     const imageUrl = await uploadImageToStorage(selectedImage);
     data.img_url = imageUrl;
     delete data.confirmPassword
     data.address = selectedAddress;
-
+    data.address = address //new
     console.log(data);
     let url = SERVER_URL + "/users/"
     try {
@@ -42,7 +45,6 @@ const SignUp = () => {
   }
   return (
     <div className='flex  justify-center w-full'>
-
       <div className="w-7/10 mx-auto">
         <form onSubmit={handleSubmit(onSubmit)} className="mt-3">
           <div className=" ">
@@ -83,9 +85,9 @@ const SignUp = () => {
               <div className="mb-4 px-3 w-1/3">
                 <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
                   Address:</label>
-                <input {...register('address')} type="text" className="appearance-none block w-full bg-gray-200 text-gray-700 border border-purple-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" />
+                {/* <input {...register('address')} type="text" className="appearance-none block w-full bg-gray-200 text-gray-700 border border-purple-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" /> */}
+                <AddressInput setAddress={setAddress} />
                 {errors.address && <div className="text-red-500 text-xs italic">choose valid address</div>}
-                {/* <AddressInput/> */}
                 {/* <AddressInput onAddressSelected={(address) => setSelectedAddress(address.description)} /> */}
                 {/* <AddressInput ref={addressInputRef} onAddressSelected={(address) => setSelectedAddress(address.description)} /> */}
 
