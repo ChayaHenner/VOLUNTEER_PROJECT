@@ -1,24 +1,25 @@
-import React, { useContext, useState } from 'react'
-import { Link } from 'react-router-dom'
-import LogOut from './logOut'
+import React, { useContext, useState } from 'react';
+import { Link } from 'react-router-dom';
+import LogOut from './logOut';
 import { AppContext } from '../../context/context';
 import ProfileImg from './profileImg';
-
 
 const HeaderUser = () => {
   const { user, setUser } = useContext(AppContext);
   const [dropdownOpen, setDropdownOpen] = useState(false);
 
   const handleProfileClick = () => {
-    setDropdownOpen(!dropdownOpen);
-  };
-  const handleLogout = () => {
-    // Implement your logout logic here
-    // For example, you can clear user data from context or perform API logout
-    setUser(null);
-    setDropdownOpen(false); // Close dropdown on logout
+    setDropdownOpen((prevOpen) => !prevOpen);
   };
 
+  const handleLogout = () => {
+    setUser(null);
+    setDropdownOpen(false);
+  };
+
+  const closeDropdown = () => {
+    setDropdownOpen(false);
+  };
 
   return (
     <header className="bg-white border ">
@@ -28,85 +29,57 @@ const HeaderUser = () => {
         </Link>
 
         <ul className="flex space-x-6 text-gray-700 text-lg">
-
           <li>
-            <Link
-              to="/login"
-              className="hover:text-blue-600 transition duration-300"
-            >
+            <Link to="/login" className="hover:text-blue-600 transition duration-300">
               Login
             </Link>
           </li>
           <li>
-            <Link
-              to="/sign-up"
-              className="hover:text-blue-600 transition duration-300"
-            >
+            <Link to="/sign-up" className="hover:text-blue-600 transition duration-300">
               Sign Up
             </Link>
           </li>
           <li>
-            <Link
-              to="/my-missions"
-              className="hover:text-blue-600 transition duration-300"
-            >
+            <Link to="/my-missions" className="hover:text-blue-600 transition duration-300">
               My Missions
             </Link>
           </li>
           <li>
-            <Link
-              to="/post-mission"
-              className="hover:text-blue-600 transition duration-300"
-            >
+            <Link to="/post-mission" className="hover:text-blue-600 transition duration-300">
               New Mission
             </Link>
           </li>
-
           <li>
-            <Link
-              to="/view-missions"
-              className="hover:text-blue-600 transition duration-300"
-            >
+            <Link to="/view-missions" className="hover:text-blue-600 transition duration-300">
               view missions
             </Link>
           </li>
-          {
-            user.role == "admin" &&
+          {user && user.role === 'admin' && (
             <li>
-              <Link
-                to="/ViewUser-Admin"
-                className="hover:text-blue-600 transition duration-300"
-              >
+              <Link to="/ViewUser-Admin" className="hover:text-blue-600 transition duration-300">
                 view user
               </Link>
             </li>
-          }
-          {
-            user.role == "admin" &&
+          )}
+          {user && user.role === 'admin' && (
             <li>
-              <Link
-                to="/management"
-                className="hover:text-blue-600 transition duration-300"
-              >
+              <Link to="/management" className="hover:text-blue-600 transition duration-300">
                 Management
               </Link>
             </li>
-          }
-          {user ? (
+          )}
+          {user && (
             <li className="relative">
-              {/* Profile picture with dropdown */}
               <button onClick={handleProfileClick} className="focus:outline-none">
                 <ProfileImg img_url={user.img_url} />
               </button>
-
-              {/* Dropdown menu */}
               {dropdownOpen && (
                 <ul className="absolute right-0 mt-2 w-48 bg-white border rounded shadow-lg">
                   <li>
                     <Link
                       to="/my-profile"
                       className="block px-4 py-2 text-gray-800 hover:bg-gray-200"
-                      onClick={() => setDropdownOpen(false)} // Close dropdown on link click
+                      onClick={closeDropdown}
                     >
                       My Profile
                     </Link>
@@ -114,6 +87,7 @@ const HeaderUser = () => {
                   <li>
                     <button
                       className="block px-4 py-2 text-gray-800 hover:bg-gray-200 w-full text-left"
+                      onClick={handleLogout}
                     >
                       <LogOut />
                     </button>
@@ -125,13 +99,7 @@ const HeaderUser = () => {
         </ul>
       </nav>
     </header>
-)}
-// const HeaderUser = () => {
-//   const { user } = useContext(AppContext);
-//   if (!user) {
-//     // If user is not yet available, you can return a loading state or placeholder
-//     return <p>Loading...</p>;
-//   }
+  );
+};
 
-
-export default HeaderUser
+export default HeaderUser;
