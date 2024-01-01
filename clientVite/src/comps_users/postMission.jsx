@@ -2,6 +2,8 @@ import React from 'react'
 import { useForm } from 'react-hook-form';
 import { fieldsEnum, SERVER_URL, apiRequest } from '../serverConnect/api';
 import Cookies from 'js-cookie';
+import AddressInput from './addressInput'
+
 
 const PostMission = () => {
   const { register, handleSubmit, formState: { errors }, getValues } = useForm();
@@ -33,11 +35,16 @@ const PostMission = () => {
           {errors.description && <div className="text-red-500 text-xs italic">Description is required</div>}
         </div>
         <div className='flex'>
-
-          <div className="w-1/3 mb-4 px-3">
+          <div className="mb-4 px-3 w-1/3">
             <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">Address:</label>
-            <input {...register('address')} type="text" className="appearance-none block w-full bg-gray-200 text-gray-700 border border-purple-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" />
+
+            {/* <input {...register('address')} type="text" className="appearance-none block w-full bg-gray-200 text-gray-700 border border-purple-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" />
+            {errors.address && <div className="text-red-500 text-xs italic">choose valid address</div>} */}
+            {/* <AddressInput/> */}
+            <AddressInput {...register('address')} onAddressSelected={(address) => setSelectedAddress(address.description)} />
+
           </div>
+
           <div className="w-1/3 mb-4 px-3">
             <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">Date:</label>
             <input {...register('date', { required: true })} type="date" className="appearance-none block w-full bg-gray-200 text-gray-700 border border-purple-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" />

@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react'
+import React, { useState, useContext, useRef } from 'react'
 import { useForm } from 'react-hook-form';
 import { fieldsEnum, SERVER_URL, apiRequest } from '../serverConnect/api';
 import Cookies from 'js-cookie';
@@ -12,6 +12,7 @@ import AddressInput from './addressInput'
 
 const SignUp = () => {
   const nav = useNavigate()
+  const addressInputRef = useRef();
 
   const { register, handleSubmit, formState: { errors }, getValues } = useForm();
   const [selectedImage, setSelectedImage] = useState(null);
@@ -85,7 +86,8 @@ const SignUp = () => {
                 {/* <input {...register('address')} type="text" className="appearance-none block w-full bg-gray-200 text-gray-700 border border-purple-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" />
             {errors.address && <div className="text-red-500 text-xs italic">choose valid address</div>} */}
                 {/* <AddressInput/> */}
-                <AddressInput onAddressSelected={(address) => setSelectedAddress(address.description)} />
+                {/* <AddressInput onAddressSelected={(address) => setSelectedAddress(address.description)} /> */}
+                <AddressInput ref={addressInputRef} onAddressSelected={(address) => setSelectedAddress(address.description)} />
 
               </div>
             </div>
