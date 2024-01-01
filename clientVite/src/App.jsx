@@ -24,6 +24,7 @@ import ViewUserAdmin from './comps_admin/viewUsers'
 import StarReview from './comps_users/starReview'
 import MissionsByMe from './comps_users/missionsByMe'
 import Management from './comps_admin/management'
+import Footer from './comps_users/footer';
 
 function App() {
 
@@ -37,32 +38,34 @@ function App() {
           <Route path="/*" element={<HeaderUser />} />
         </Routes>
 
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/*" element={<h2>Page 404</h2>} />
+        <main className="flex-grow">
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/*" element={<h2>Page 404</h2>} />
 
-          <Route path="/login" element={<Login />} />
-          <Route path="/sign-up" element={<SignUp />} />
-          <Route path="/my-missions" element={<MissionsByMe />} />
-          <Route path="/post-mission" element={<PostMission />} />
-          <Route path="/my-profile" element={<ProfilePage />} />
-          <Route path="/edit-profile" element={<EditProfile />} />
-          <Route path="/ViewUser-Admin" element={<ViewUserAdmin />} />
-          <Route path="/logout" element={<Logout />} />
-          <Route path="/star" element={<StarReview />} />
-          <Route path="/forgot-password" element={<ForgotPassword />} />
-          <Route path="/reset-password/:token" element={<ResetPassword />} />
-          <Route path="/resetPass/:token" element={<ResetPasswordPage />} />
-          <Route path="/view-user/:id" element={<ViewUser />} />
-          <Route path="/view-missions" element={<ViewMissions />} />
-          <Route path="/logout" element={<Logout />} />
-          <Route path="/management" element={<Management />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/sign-up" element={<SignUp />} />
+            <Route path="/my-missions" element={<MissionsByMe />} />
+            <Route path="/post-mission" element={<PostMission />} />
+            <Route path="/my-profile" element={<ProfilePage />} />
+            <Route path="/edit-profile" element={<EditProfile />} />
+            <Route path="/ViewUser-Admin" element={<ViewUserAdmin />} />
+            <Route path="/logout" element={<Logout />} />
+            <Route path="/star" element={<StarReview />} />
+            <Route path="/forgot-password" element={<ForgotPassword />} />
+            <Route path="/reset-password/:token" element={<ResetPassword />} />
+            <Route path="/resetPass/:token" element={<ResetPasswordPage />} />
+            <Route path="/view-user/:id" element={<ViewUser />} />
+            <Route path="/view-missions" element={<ViewMissions />} />
+            <Route path="/logout" element={<Logout />} />
+            <Route path="/management" element={<Management />} />
+            {/* {adminRoutes()} */}
 
-          {/* {adminRoutes()} */}
-
-          {/* <Route path="/admin/post-mission" element={<PostMission />} /> */}
-        </Routes>
+            {/* <Route path="/admin/post-mission" element={<PostMission />} /> */}
+          </Routes>
+        </main>
       </BrowserRouter>
+      <Footer></Footer>
     </AppContext.Provider>
   </>
   )
