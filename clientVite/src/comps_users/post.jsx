@@ -76,7 +76,7 @@ const Post = (props) => {
         <p className="ml-4 mt-1 mb-2 text-gray-700 hover:underline cursor-pointer">{post.description}</p>
         <div className="flex p-4 justify-between">
           <div className="flex items-center space-x-2">
-            <h2 className="text-gray-800 font-bold cursor-pointer">{user.full_name}</h2>
+            {/* <h2 className="text-gray-800 font-bold cursor-pointer">{user.full_name}</h2> */}
           </div>
           <div className="flex space-x-2">
             <div className="flex space-x-1 items-center">
