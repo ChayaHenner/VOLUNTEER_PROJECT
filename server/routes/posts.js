@@ -85,7 +85,10 @@ router.post("/", auth, async (req, res) => {
 
 
 router.get("/:id", async (req, res) => {
-    const post = await PostModel.findById(req.params.id);
+    const post = await PostModel.findById(req.params.id).populate({
+        path: 'like_user',
+        select: '_id full_name'
+    });
     res.json(post);
 });
 
@@ -107,5 +110,59 @@ router.delete("/:id", auth, async (req, res) => {
     }
     res.json(post);
 });
+router.put("/add/:id", auth, async (req, res) => {
+    let id = req.params.id;
+    let tokenId = req.tokenData._id;
+    console.log( tokenId);
+    try {
+        let post = await PostModel.findOne({ _id: id });
+
+        if (!post) {
+            return res.status(404).json({ msg: "Post not found" });
+        }
+
+        // החלק החשוב: מחשבים את הערך החדש של like_num
+        let newLikeNum = post.like_num + 1;
+
+        // מעדכנים את המודל עם הערכים החדשים
+        let data = await PostModel.updateOne(
+            { _id: id },
+            { $push: { like_user: tokenId }, $set: { like_num: newLikeNum } }
+        );
+
+        res.json({ msg: "Successfully updated user likes", data });
+    } catch (err) {
+        console.log(err);
+        res.status(500).json({ msg: "There was an error, please try again later", err });
+    }
+});
+router.put("/decrease/:id", auth, async (req, res) => {
+    let id = req.params.id;
+    let tokenId = req.tokenData._id;
+    console.log(tokenId);
+
+    try {
+        let post = await PostModel.findOne({ _id: id });
+
+        if (!post) {
+            return res.status(404).json({ msg: "Post not found" });
+        }
+
+        // החלק החשוב: מחשבים את הערך החדש של like_num
+        let newLikeNum = post.like_num - 1;
+
+        // מעדכנים את המודל עם הערכים החדשים
+        let data = await PostModel.updateOne(
+            { _id: id },
+            { $pull: { like_user: tokenId }, $set: { like_num: newLikeNum } }
+        );
+
+        res.json({ msg: "Successfully updated user likes", data });
+    } catch (err) {
+        console.log(err);
+        res.status(500).json({ msg: "There was an error, please try again later", err });
+    }
+});
+
 
 module.exports = router;

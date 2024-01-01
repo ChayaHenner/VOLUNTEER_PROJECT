@@ -74,6 +74,28 @@ const HeaderUser = () => {
               view missions
             </Link>
           </li>
+          {
+            user.role == "admin" &&
+            <li>
+              <Link
+                to="/ViewUser-Admin"
+                className="hover:text-blue-600 transition duration-300"
+              >
+                view user
+              </Link>
+            </li>
+          }
+          {
+            user.role == "admin" &&
+            <li>
+              <Link
+                to="/management"
+                className="hover:text-blue-600 transition duration-300"
+              >
+                Management
+              </Link>
+            </li>
+          }
 
 
 
