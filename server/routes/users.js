@@ -95,7 +95,13 @@ router.get("/infoById/:id", async (req, res) => {
       await userInfo.populate('posts')
     }
     if (userInfo.missions.length > 0) {
-      await userInfo.populate('missions')
+      await userInfo.populate({
+        path: 'missions',
+        populate: {
+          path: 'user_creator',
+          select: '_id full_name',
+        },
+      });
     }
     res.json(userInfo);
   } catch (err) {

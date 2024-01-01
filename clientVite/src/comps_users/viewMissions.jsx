@@ -63,17 +63,17 @@ const ViewMissions = () => {
         className="border p-2 mb-4"
       />
       {missions.map((mission) => {
-        const userArray = mission.user_creator.split(',');
-        const id = userArray[0];
-        const name = userArray[1];
-
+        // const userArray = mission.user_creator.split(',');
+        // const id = userArray[0];
+        // const name = userArray[1];
+        console.log(mission);
         return (
           <div key={mission._id} className="max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 m-4">
             <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">{mission.title}</h5>
             <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">{mission.description}</p>
             <div className="flex">
-              <Link className='w-1/2' to={`/view-user/${id}`}>
-                <p className="text-sm text-gray-500">{`Created by: ${name}`}</p>
+              <Link className='w-1/2' to={`/view-user/${mission.user_creator._id}`}>
+                <p className="text-sm text-gray-500">{`Created by: ${mission.user_creator.full_name}`}</p>
               </Link>
 
               <button

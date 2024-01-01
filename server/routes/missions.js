@@ -46,12 +46,15 @@ async function getMissionsByAgeAndGender(userId, searchQuery) {
 
         }
 
-        const missions = await MissionModel.find(baseQuery).sort({ _id: -1 });
+        const missions = await MissionModel.find(baseQuery).sort({ _id: -1 }).populate({
+            path: 'user_creator',
+            select: '_id full_name'
+        });
 
-        for (const mission of missions) {
-            let user1 = await UserModel.findOne({ _id: mission.user_creator });
-            mission.user_creator = `${mission.user_creator},${user1.full_name}`;
-        }
+        // for (const mission of missions) {
+        //     let user1 = await UserModel.findOne({ _id: mission.user_creator._id });
+        //     mission.user_creator = `${mission.user_creator},${user1.full_name}`;
+        // }
 
         return missions;
     } catch (error) {
@@ -67,7 +70,10 @@ router.get("/", auth, async (req, res) => {
         console.log('Search Query:', searchQuery); // Log the search query for debugging
 
         const missions = await getMissionsByAgeAndGender(userId, searchQuery);
-
+        // missions = await missions.populate({
+        //     path: 'user_creator',
+        //     select: '_id full_name'
+        // })
         res.json(missions);
     } catch (err) {
         console.log(err);
@@ -97,17 +103,20 @@ async function getMissionsByAgeAndGender(userId) {
                     ],
                 },
             ],
-        }).sort({ _id: -1 });
+        }).sort({ _id: -1 }) .populate({
+            path: 'user_creator',
+            select: '_id full_name'
+        });
         console.log(missions);
 
 
-        for (const mission of missions) {
-            let user1 = await UserModel.findOne({ _id: mission.user_creator });
-            console.log(mission);
-            mission.user_creator = `${mission.user_creator},${user1.full_name}`;
-            // mission = { ...mission, userName: user1.full_name }
-            console.log(mission);
-        }
+        // for (const mission of missions) {
+        //     let user1 = await UserModel.findOne({ _id: mission.user_creator });
+        //     console.log(mission);
+        //     mission.user_creator = `${mission.user_creator},${user1.full_name}`;
+        //     // mission = { ...mission, userName: user1.full_name }
+        //     console.log(mission);
+        // }
         return missions
     }
     catch (error) {
@@ -199,7 +208,10 @@ router.get("/search", async (req, res) => {
         // i -> מבטל את כל מה שקשור ל CASE SENSITVE
         let searchReg = new RegExp(queryS, "i")
         let data = await MissionModel.find({ title: searchReg })
-            .limit(50)
+            .populate({
+                path: 'user_creator',
+                select: '_id full_name'
+            }).limit(50)
         res.json(data);
     }
     catch (err) {
@@ -428,7 +440,7 @@ router.patch('/taken', async (req, res) => {
         mission.taken = true;
 
         // Update the mission in the database
-        await MissionModel.findByIdAndUpdate(missionId,mission);
+        await MissionModel.findByIdAndUpdate(missionId, mission);
 
         // Find the user by ID
         const user = await UserModel.findById(userId);

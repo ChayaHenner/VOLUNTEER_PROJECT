@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useState ,useEffect} from 'react';
 import { Link } from 'react-router-dom';
 import LogOut from './logOut';
 import { AppContext } from '../../context/context';
@@ -8,6 +8,9 @@ import Cookies from 'js-cookie';
 const HeaderUser = () => {
   const { user, setUser } = useContext(AppContext);
   const [dropdownOpen, setDropdownOpen] = useState(false);
+  // useEffect(()=>{
+  //   setUser(Cookies.get(user));
+  // },[])
 
   const handleProfileClick = () => {
     setDropdownOpen((prevOpen) => !prevOpen);
@@ -59,6 +62,9 @@ const HeaderUser = () => {
                 </Link>
               </li></>
           )}
+          {
+            console.log(user)
+          }
           {user && user.role === 'admin' && (
             <li>
               <Link to="/ViewUser-Admin" className="hover:text-blue-600 transition duration-300">
