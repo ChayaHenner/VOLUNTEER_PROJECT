@@ -24,7 +24,7 @@ const ProfilePage = () => {
     };
 
     const user_now = JSON.parse(Cookies.get('user'));
-    console.log("user now",user_now);
+    console.log("user now", user_now);
     const getUser = async () => {
         let url = SERVER_URL + "/users/myInfo"
         try {
@@ -52,11 +52,9 @@ const ProfilePage = () => {
                                 <div className="flex flex-wrap justify-center">
                                     <div className="w-full px-4 flex justify-center">
                                         <div className="flex justify-center ">
-                                            {/* <img alt={user.img_url} src={user.img_url} className="shadow-xl rounded-full  align-middle border-none  -m-16 -ml-20 lg:-ml-16 max-w-150-px " /> */}
-                                            <div className="flex justify-center items-center h-64 w-64 border border-gray-300 rounded-full">
-                                                <img src={user.img_url} alt="{user.img_alt}" className="max-h-full max-w-full rounded-full" />
+                                            <div className="w-64 h-64 rounded-full overflow-hidden shadow-xl position">
+                                                <img src={user.img_url} alt={user.full_name}  className="w-full h-full object-cover" />
                                             </div>
-
                                         </div>
                                     </div>
                                     <div className="w-full px-4 text-center mt-20">
@@ -109,7 +107,7 @@ const ProfilePage = () => {
                                             </p>
                                         </div>
                                     </div>
-                                    <div>posts: <div className=''>
+                                    <div><div className=''>
                                         {
                                             user.posts && user.posts.map((post, index) => (
                                                 <div key={index}>
@@ -118,7 +116,7 @@ const ProfilePage = () => {
                                             ))
                                         }
                                     </div></div>
-                                    <div>reviews:<div className=''>
+                                    <div><div className=''>
                                         {
                                             user.reviews && user.reviews.map((review, index) => (
                                                 <div key={index}>
@@ -127,7 +125,7 @@ const ProfilePage = () => {
                                             ))
                                         }
                                     </div></div>
-                                    <div>missions: <div className=''>
+                                    <div> <div className=''>
                                         {
                                             user.missions && user.missions.map((mission, index) => (
                                                 <div className=" border m-2" key={index}>

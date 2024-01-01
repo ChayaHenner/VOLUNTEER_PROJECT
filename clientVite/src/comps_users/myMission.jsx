@@ -2,7 +2,6 @@ import React from 'react'
 
 const MyMission = ({ mission }) => {
 
-
   return (
     <div className="mission-details">
       <div className="flex font-sans">

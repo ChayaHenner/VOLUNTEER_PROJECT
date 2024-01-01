@@ -76,21 +76,25 @@ const MissionsByMe = () => {
                         <div key={mission._id} className=" max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 m-4">
                             <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">{mission.title}</h5>
                             <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">{mission.description}</p>
+                            <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">{mission.address}</p>
+                            <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">{mission.date}</p>
                             <div className="">
-                                <div className="text-sm text-gray-500">Interested:</div>
-                                {mission.interested && mission.interested.map((user, index) => (
-                                    <div key={index}>
-                                        <Link className='w-1/2' to={`/view-user/${user._id}`}>
-                                            <p className="text-sm text-gray-500">{user.full_name}</p>
-                                        </Link>
-                                    </div>
-                                ))}
-                                <button onClick={() => handleChooseVolunteer(mission._id)}>Choose Volunteer</button>
-                                {selectedMissionId === mission._id && (
-                                    <ChooseVolunteer interested={mission.interested} mission={mission._id}
-                                        onClose={handleCloseChooseVolunteer}
-                                    />
-                                )}
+                                {mission.interested.length > 0 ? (<><div className="text-sm text-gray-500">Interested:</div>
+                                    {mission.interested && mission.interested.map((user, index) => (
+                                        <div key={index}>
+                                            <Link className='w-1/2' to={`/view-user/${user._id}`}>
+                                                <p className="text-sm text-gray-500">{user.full_name}</p>
+                                            </Link>
+                                        </div>
+                                    ))}
+                                    <button onClick={() => handleChooseVolunteer(mission._id)}>Choose Volunteer</button>
+                                    {selectedMissionId === mission._id && (
+                                        <ChooseVolunteer interested={mission.interested} mission={mission._id}
+                                            onClose={handleCloseChooseVolunteer}
+                                        />
+                                    )}</>) : (<>no one is interseted</>)}
+
+
                             </div>
                         </div>
                     ))}
