@@ -6,7 +6,7 @@ const apiKey = import.meta.env.VITE_GOOGLE_MAPS_API_KEY;
 const inputClasses = 'appearance-none block w-full bg-gray-200 text-gray-700 border border-purple-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white';
 const listItemClasses = 'py-2 px-4 border-b border-gray-200';
 
-const AddressInput = ({ onAddressSelected }) => {
+const AddressInput = forwardRef(({ onAddressSelected }, ref) => {
   const [value, setValue] = useState(null);
   const [inputValue, setInputValue] = useState('');
   const [options, setOptions] = useState([]);
@@ -85,6 +85,8 @@ const AddressInput = ({ onAddressSelected }) => {
                     setValue(option);
                     setInputValue(option.description); // Set input value to selected option
                     setOptions([]); // Clear options to hide the dropdown
+                    onAddressSelected && onAddressSelected(option.description);
+
                   }}
                 >
                   <div className="flex items-center">
@@ -125,6 +127,6 @@ const AddressInput = ({ onAddressSelected }) => {
 
     </>
   );
-};
+});
 
 export default AddressInput;

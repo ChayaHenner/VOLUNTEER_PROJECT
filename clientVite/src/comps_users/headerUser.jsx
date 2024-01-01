@@ -1,93 +1,137 @@
-import React, { useContext } from 'react'
+import React, { useContext, useState } from 'react'
 import { Link } from 'react-router-dom'
 import LogOut from './logOut'
-import ProfileImg from './profileImg';
 import { AppContext } from '../../context/context';
+import ProfileImg from './profileImg';
+
 
 const HeaderUser = () => {
-  const { user } = useContext(AppContext);
-  if (!user) {
-    // If user is not yet available, you can return a loading state or placeholder
-    return <p>Loading...</p>;
-  }
+  const { user, setUser } = useContext(AppContext);
+  const [dropdownOpen, setDropdownOpen] = useState(false);
 
-  const HeaderUser = () => {
-    const { user, setUser } = useContext(AppContext);
-    return (
-      <header className="bg-white border ">
-        <nav className="container mx-auto flex items-center justify-between px-6 py-4">
-          <Link to="/">            <h1 className="text-gray-800 text-3xl font-bold">Soulute</h1>
-          </Link>
-          <ul className="flex space-x-6 text-gray-700 text-lg">
-            {user ? (
-              <li>
-                {/* Render ProfileImg component if the user is authenticated */}
+  const handleProfileClick = () => {
+    setDropdownOpen(!dropdownOpen);
+  };
+  const handleLogout = () => {
+    // Implement your logout logic here
+    // For example, you can clear user data from context or perform API logout
+    setUser(null);
+    setDropdownOpen(false); // Close dropdown on logout
+  };
+
+
+  return (
+    <header className="bg-white border ">
+      <nav className="container mx-auto flex items-center justify-between px-6 py-4">
+        <Link to="/">
+          <h1 className="text-gray-800 text-3xl font-bold">Soulute</h1>
+        </Link>
+
+        <ul className="flex space-x-6 text-gray-700 text-lg">
+
+          <li>
+            <Link
+              to="/login"
+              className="hover:text-blue-600 transition duration-300"
+            >
+              Login
+            </Link>
+          </li>
+          <li>
+            <Link
+              to="/sign-up"
+              className="hover:text-blue-600 transition duration-300"
+            >
+              Sign Up
+            </Link>
+          </li>
+          <li>
+            <Link
+              to="/my-missions"
+              className="hover:text-blue-600 transition duration-300"
+            >
+              My Missions
+            </Link>
+          </li>
+          <li>
+            <Link
+              to="/post-mission"
+              className="hover:text-blue-600 transition duration-300"
+            >
+              New Mission
+            </Link>
+          </li>
+
+          <li>
+            <Link
+              to="/view-missions"
+              className="hover:text-blue-600 transition duration-300"
+            >
+              view missions
+            </Link>
+          </li>
+          {
+            user.role == "admin" &&
+            <li>
+              <Link
+                to="/ViewUser-Admin"
+                className="hover:text-blue-600 transition duration-300"
+              >
+                view user
+              </Link>
+            </li>
+          }
+          {
+            user.role == "admin" &&
+            <li>
+              <Link
+                to="/management"
+                className="hover:text-blue-600 transition duration-300"
+              >
+                Management
+              </Link>
+            </li>
+          }
+          {user ? (
+            <li className="relative">
+              {/* Profile picture with dropdown */}
+              <button onClick={handleProfileClick} className="focus:outline-none">
                 <ProfileImg img_url={user.img_url} />
-              </li>
-            ) : (
-              <>
+              </button>
 
-
-
-              </>
-            )}
-            <li>
-              <Link to="/login" className="hover:text-blue-600 transition duration-300">
-                Login
-              </Link>
-            </li>
-            <li>
-              <Link to="/sign-up" className="hover:text-blue-600 transition duration-300">
-                Sign Up
-              </Link>
-            </li>
-            <li>
-              <Link
-                to="/my-missions"
-                className="hover:text-blue-600 transition duration-300"
-              >
-                My Missions
-              </Link>
-            </li>
-            <li>
-              <Link
-                to="/post-mission"
-                className="hover:text-blue-600 transition duration-300"
-              >
-                New Mission
-              </Link>
-            </li>
-            <li>
-              <Link
-                to="/my-profile"
-                className="hover:text-blue-600 transition duration-300"
-              >
-                My Profile
-              </Link>
-            </li>
-            <li>
-              <Link
-                to="/view-missions"
-                className="hover:text-blue-600 transition duration-300"
-              >
-                view missions
-              </Link>
+              {/* Dropdown menu */}
+              {dropdownOpen && (
+                <ul className="absolute right-0 mt-2 w-48 bg-white border rounded shadow-lg">
+                  <li>
+                    <Link
+                      to="/my-profile"
+                      className="block px-4 py-2 text-gray-800 hover:bg-gray-200"
+                      onClick={() => setDropdownOpen(false)} // Close dropdown on link click
+                    >
+                      My Profile
+                    </Link>
+                  </li>
+                  <li>
+                    <button
+                      className="block px-4 py-2 text-gray-800 hover:bg-gray-200 w-full text-left"
+                    >
+                      <LogOut />
+                    </button>
+                  </li>
+                </ul>
+              )}
             </li>
 
+          ) : (
+            <>
+              {/* Render other elements for non-authenticated users */}
+            </>
+          )}
 
-
-          </ul>
-
-
-          <LogOut />
-        </nav>
-      </header>
-    );
-
-
-
-  }
-
+        </ul>
+      </nav>
+    </header>
+  );
 
 }
 
