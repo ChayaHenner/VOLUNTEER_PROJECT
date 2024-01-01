@@ -17,7 +17,7 @@ import EditProfile from './comps_users/editProfile'
 import ForgotPassword from './comps_users/forgotPass'
 import ResetPassword from './comps_users/resetPass'
 import ResetPasswordPage from './comps_users/ResetPasswordPage'
-// import ViewMissions from './comps_users/viewMissions'
+import ViewMissions from './comps_users/viewMissions'
 import Logout from './comps_users/logOut'
 import ViewUser from './comps_users/viewUser'
 import ViewUserAdmin from './comps_admin/viewUsers'
@@ -54,7 +54,7 @@ function App() {
           <Route path="/reset-password/:token" element={<ResetPassword />} />
           <Route path="/resetPass/:token" element={<ResetPasswordPage />} />
           <Route path="/view-user/:id" element={<ViewUser />} />
-          {/* <Route path="/view-missions" element={<ViewMissions />} /> */}
+          <Route path="/view-missions" element={<ViewMissions />} />
           <Route path="/logout" element={<Logout />} />
           <Route path="/management" element={<Management />} />
 

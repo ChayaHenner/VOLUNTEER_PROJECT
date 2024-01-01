@@ -76,69 +76,69 @@ router.get("/", auth, async (req, res) => {
 });
 
 // // Function to get missions based on age and gender
-// async function getMissionsByAgeAndGender(userId) {
-//     try {
-//         const user = await UserModel.findOne({ _id: userId })
-//         // .populate('users');
-//         if (!user) {
-//             return { error: 'User not found' };
-//         }
+async function getMissionsByAgeAndGender(userId) {
+    try {
+        const user = await UserModel.findOne({ _id: userId })
+        // .populate('users');
+        if (!user) {
+            return { error: 'User not found' };
+        }
 
-//         const age = calculateUserAge(user.birth_date);
+        const age = calculateUserAge(user.birth_date);
 
-//         const missions = await MissionModel.find({
-//             $and: [
-//                 { 'requirements.min_age': { $lte: age } },
-//                 { 'requirements.max_age': { $gte: age } },
-//                 {
-//                     $or: [
-//                         { 'requirements.gender': user.gender },
-//                         { 'requirements.gender': { $exists: false } }, // Unspecified gender
-//                     ],
-//                 },
-//             ],
-//         }).sort({ _id: -1 });
-//         console.log(missions);
+        const missions = await MissionModel.find({
+            $and: [
+                { 'requirements.min_age': { $lte: age } },
+                { 'requirements.max_age': { $gte: age } },
+                {
+                    $or: [
+                        { 'requirements.gender': user.gender },
+                        { 'requirements.gender': { $exists: false } }, // Unspecified gender
+                    ],
+                },
+            ],
+        }).sort({ _id: -1 });
+        console.log(missions);
 
 
-//         for (const mission of missions) {
-//             let user1 = await UserModel.findOne({ _id: mission.user_creator });
-//             console.log(mission);
-//             mission.user_creator = `${mission.user_creator},${user1.full_name}`;
-//             // mission = { ...mission, userName: user1.full_name }
-//             console.log(mission);
-//         }
-//         return missions
-//     }
-//     catch (error) {
-//         throw error;
-//     }
-// }
+        for (const mission of missions) {
+            let user1 = await UserModel.findOne({ _id: mission.user_creator });
+            console.log(mission);
+            mission.user_creator = `${mission.user_creator},${user1.full_name}`;
+            // mission = { ...mission, userName: user1.full_name }
+            console.log(mission);
+        }
+        return missions
+    }
+    catch (error) {
+        throw error;
+    }
+}
 
 // // Calculate user age based on birth_date
-// function calculateUserAge(birthDate) {
-//     const today = new Date();
-//     const birth = new Date(birthDate);
-//     let age = today.getFullYear() - birth.getFullYear();
-//     const monthDiff = today.getMonth() - birth.getMonth();
-//     if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birth.getDate())) {
-//         age--;
-//     }
-//     return age;
-// }
+function calculateUserAge(birthDate) {
+    const today = new Date();
+    const birth = new Date(birthDate);
+    let age = today.getFullYear() - birth.getFullYear();
+    const monthDiff = today.getMonth() - birth.getMonth();
+    if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birth.getDate())) {
+        age--;
+    }
+    return age;
+}
 
-// // GET route for missions based on age and gender
-// router.get("/", auth, async (req, res) => {
-//     try {
-//         const userId = req.tokenData._id;
-//         const missions = await getMissionsByAgeAndGender(userId);
+// GET route for missions based on age and gender
+router.get("/", auth, async (req, res) => {
+    try {
+        const userId = req.tokenData._id;
+        const missions = await getMissionsByAgeAndGender(userId);
 
-//         res.json(missions);
-//     } catch (err) {
-//         console.log(err);
-//         res.status(500).json({ msg: "Internal Server Error", err });
-//     }
-// });
+        res.json(missions);
+    } catch (err) {
+        console.log(err);
+        res.status(500).json({ msg: "Internal Server Error", err });
+    }
+});
 
 // GET route for missions based on age, gender, date, and time range
 router.get("/byDateTime", auth, async (req, res) => {
