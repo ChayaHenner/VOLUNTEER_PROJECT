@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import LogOut from './logOut';
 import { AppContext } from '../../context/context';
 import ProfileImg from './profileImg';
+import Cookies from 'js-cookie';
 
 const HeaderUser = () => {
   const { user, setUser } = useContext(AppContext);
@@ -39,7 +40,9 @@ const HeaderUser = () => {
               Sign Up
             </Link>
           </li>
-          
+          {
+            console.log(Cookies.get('token'))
+          }
           {user &&(
           
           <><li>
