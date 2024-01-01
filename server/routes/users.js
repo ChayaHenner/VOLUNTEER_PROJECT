@@ -83,6 +83,16 @@ router.post("/", async (req, res) => {
     user.password = "******";
     // user.token = token;
     console.log(user);
+    if (user.posts.length > 0) {
+      await user.populate('posts')
+    }
+    if (user.missions.length > 0) {
+      await user.populate('missions')
+    }
+    if (user.reviews.length > 0) {
+      await user.populate('reviews')
+    }
+
     res.status(201).json({ user, token });
   }
   catch (err) {
@@ -115,6 +125,16 @@ router.post("/login", async (req, res) => {
     if (!user.active) {
       return res.status(401).json({ msg: "User is not active ", code: 4 })
     }
+    if (user.posts.length > 0) {
+      await user.populate('posts')
+    }
+    if (user.missions.length > 0) {
+      await user.populate('missions')
+    }
+    if (user.reviews.length > 0) {
+      await user.populate('reviews')
+    }
+
     let token = createToken(user._id, user.role);
     res.json({ user, token });
   }
@@ -220,7 +240,7 @@ router.put("/role/:id/:role", authAdmin, async (req, res) => {
 
     let data = await UserModel.updateOne({ _id: editId }, { $set: { role: role } });
     console.log(data);
-    res.status(500).json({ });
+    res.status(500).json({});
   }
   catch (err) {
     console.log(err);

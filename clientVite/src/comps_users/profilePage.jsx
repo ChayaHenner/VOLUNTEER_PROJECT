@@ -24,12 +24,13 @@ const ProfilePage = () => {
     };
 
     const user_now = JSON.parse(Cookies.get('user'));
+    console.log("user now",user_now);
     const getUser = async () => {
         let url = SERVER_URL + "/users/myInfo"
         try {
             let resp = await apiRequestGet(url, "GET")
             setUser(resp.data)
-            console.log(resp);
+            console.log("user shld be", resp);
         }
         catch (err) {
             console.log("ERROR ", err);
@@ -53,7 +54,7 @@ const ProfilePage = () => {
                                         <div className="flex justify-center ">
                                             {/* <img alt={user.img_url} src={user.img_url} className="shadow-xl rounded-full  align-middle border-none  -m-16 -ml-20 lg:-ml-16 max-w-150-px " /> */}
                                             <div className="flex justify-center items-center h-64 w-64 border border-gray-300 rounded-full">
-                                                <img src={user.img_url} alt="{user.img_alt}" class="max-h-full max-w-full rounded-full" />
+                                                <img src={user.img_url} alt="{user.img_alt}" className="max-h-full max-w-full rounded-full" />
                                             </div>
 
                                         </div>
