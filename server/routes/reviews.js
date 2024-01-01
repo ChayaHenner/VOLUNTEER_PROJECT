@@ -9,7 +9,10 @@ const router = express.Router();
 router.get("/", async (req, res) => {
     try {
         let data = await ReviewModel.find({})
-            .sort({ _id: -1 });
+            .sort({ _id: -1 }).populate({
+                path: 'user_creater',
+                select: '_id full_name'
+            });
 
         res.json(data);
     } catch (err) {
@@ -19,11 +22,11 @@ router.get("/", async (req, res) => {
 });
 
 
-router.post('/:idVol', async (req, res) => {
+router.post('/:idVol', auth, async (req, res) => {
     try {
         const userToReviewId = req.params.idVol;
-        const { user_creator, title, description, rating } = req.body;
-
+        const { title, description, rating } = req.body;
+        const user_creater = req.tokenData._id
         // Find the user to review by ID
         const userToReview = await UserModel.findById(userToReviewId);
 
@@ -33,7 +36,7 @@ router.post('/:idVol', async (req, res) => {
 
         // Create a new review
         const newReview = new ReviewModel({
-            user_creator,
+            user_creater,
             title,
             description,
             rating,
@@ -56,7 +59,7 @@ router.post('/:idVol', async (req, res) => {
 
         // Update the user in the database
         await UserModel.findByIdAndUpdate(userToReviewId, userToReview);
-
+console.log(newReview);
         res.json({ success: true, review: newReview });
     } catch (error) {
         console.error(error);

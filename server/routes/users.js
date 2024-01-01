@@ -7,6 +7,8 @@ const { createToken } = require("../helpers/userHelper");
 const { auth, authAdmin } = require("../middlewares/auth");
 const { UserModel } = require("../models/userModel")
 const { ReportModel } = require("../models/reportModel")
+const { ReviewModel } = require("../models/reviewModel");
+
 const router = express.Router();
 
 router.get("/", async (req, res) => {
@@ -34,29 +36,75 @@ router.get("/myInfo", auth, async (req, res) => {
     res.status(500).json({ msg: "err", err })
   }
 })
+// router.get("/infoById/:id", async (req, res) => {
+//   try {
+//     // console.log(req.tokenData._id);
+//     let id = req.params.id;
+//     let userInfo = await UserModel.findOne({ _id: id }, { password: 0 });
+//     if (userInfo.posts.length > 0) {
+//       await userInfo.populate('posts')
+//     }
+//     if (userInfo.missions.length > 0) {
+//       await userInfo.populate('missions')
+//     }
+//     if (userInfo.reviews.length > 0) {
+//       await userInfo.populate('reviews')
+//     }
+
+
+//     res.json(userInfo);
+//   }
+//   catch (err) {
+//     console.log(err)
+//     res.status(500).json({ msg: "err", err })
+//   }
+// })
+// router.get("/infoById/:id", async (req, res) => {
+//   try {
+//     let id = req.params.id;
+
+//     // Use findOne to find the user by ID
+//     let userInfo = await UserModel.findOne({ _id: id }, { password: 0 });
+
+//     // Use populate to get the details of the user_creater in reviews
+//     await userInfo.populate('reviews'); // Assuming 'reviews' is the path in the UserModel
+
+//     res.json(userInfo);
+//   } catch (err) {
+//     console.log(err);
+//     res.status(500).json({ msg: "err", err });
+//   }
+// });
+
 router.get("/infoById/:id", async (req, res) => {
   try {
-    // console.log(req.tokenData._id);
-    let id = req.params.id;
-    let userInfo = await UserModel.findOne({ _id: id }, { password: 0 });
+    let userId = req.params.id;
+
+    // Use findOne to find the user by ID
+    let userInfo = await UserModel.findOne({ _id: userId }, { password: 0 });
+
+    // Use populate to get the details of the user_creater in reviews
+    await userInfo.populate({
+      path: 'reviews',
+      populate: {
+        path: 'user_creater',
+        select: '_id full_name img_url',
+      },
+    });
     if (userInfo.posts.length > 0) {
       await userInfo.populate('posts')
     }
     if (userInfo.missions.length > 0) {
       await userInfo.populate('missions')
     }
-    if (userInfo.reviews.length > 0) {
-      await userInfo.populate('reviews')
-    }
-
-
     res.json(userInfo);
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({ msg: "err", err });
   }
-  catch (err) {
-    console.log(err)
-    res.status(500).json({ msg: "err", err })
-  }
-})
+});
+
+
 router.get("/usersList", authAdmin, async (req, res) => {
   try {
     let data = await UserModel.find({}, { password: 0 });

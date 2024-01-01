@@ -9,6 +9,7 @@ const Logout = () => {
 const nav = useNavigate()
 
   const handleLogout = () => {
+    console.log("logout");
     Cookies.remove('token');
     Cookies.remove('user');
     nav("/")
