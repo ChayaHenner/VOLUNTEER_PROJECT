@@ -189,12 +189,22 @@ const EditProfile = () => {
     const { register, handleSubmit, formState: { errors }, getValues, setValue } = useForm();
     const nav = useNavigate()
 
+    const formatDate = (dateString) => {
+        const date = new Date(dateString);
+        return date.toISOString().split('T')[0];
+    };
+
+
     const onSubmit = async (data) => {
         data.img_url = ""
         delete data.confirmPassword
 
         let url = SERVER_URL + `/users/${user._id}`
         try {
+            // const formData = new FormData();
+            // formData.append('image', data.img_url[0]);
+            // let resp = await apiRequest(url, "PUT", formData, { 'Content-Type': 'multipart/form-data' });
+
             let resp = await apiRequest(url, "PUT", data)
             console.log(resp.data)
             setUser(resp.data)
@@ -248,20 +258,21 @@ const EditProfile = () => {
                     <div className="mb-4 px-3">
                         <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
                             Address:</label>
-                        <input defaultValue={user.address} {...register('address')} type="text" className="appearance-none block w-full bg-gray-200 text-gray-700 border border-purple-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" />
+                        <input {...register('address')} type="text" className="appearance-none block w-full bg-gray-200 text-gray-700 border border-purple-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" />
                         {errors.address && <div className="text-red-500 text-xs italic">choose valid address</div>}
                     </div>
 
                     <div className="mb-4 px-3">
                         <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
                             description:</label>
+
                         <input defaultValue={user.description} {...register('description')} type="text" className="appearance-none block w-full bg-gray-200 text-gray-700 border border-purple-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" />
                     </div>
 
                     <div className="mb-4 px-3">
                         <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
                             Birth date</label>
-                        <input defaultValue={user.birth_date} {...register('birth_date', { required: true })} type="date" className="appearance-none block w-full bg-gray-200 text-gray-700 border border-purple-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" />
+                        <input value={formatDate(user.birth_date) || ''} {...register('birth_date', { required: true })} type="date" className="appearance-none block w-full bg-gray-200 text-gray-700 border border-purple-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" />
                         {errors.birth_date && <div className="text-red-500 text-xs italic">bithdate is required and must be a valid email address</div>}
                     </div>
 
@@ -271,11 +282,15 @@ const EditProfile = () => {
                         </label>
                         <div className="mt-1">
                             <label className="inline-flex items-center">
-                                <input {...register('gender', { required: true })} type="radio" value="male" className="form-radio h-4 w-4 text-indigo-600" />
+                                <input {...register('gender', { required: true })} type="radio" value="male"
+                                    defaultChecked={user.gender === 'male'}
+                                    className="form-radio h-4 w-4 text-indigo-600" />
                                 <span className="ml-2">Male</span>
                             </label>
                             <label className="inline-flex items-center ml-6">
-                                <input {...register('gender', { required: true })} type="radio" value="female" className="form-radio h-4 w-4 text-indigo-600" />
+                                <input {...register('gender', { required: true })} type="radio" value="female"
+                                    defaultChecked={user.gender === 'female'}
+                                    className="form-radio h-4 w-4 text-indigo-600" />
                                 <span className="ml-2">Female</span>
                             </label>
                         </div>
@@ -287,7 +302,11 @@ const EditProfile = () => {
                         <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
                             Profile Image:
                         </label>
-                        <input  {...register('img_url')} type="file" accept="image/*" className="appearance-none block w-full bg-gray-200 text-gray-700 border border-purple-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" />
+                        {user.img_url && (
+                            <img src={user.img_url} alt="Profile" className="mb-4" style={{ maxWidth: '100px' }} />
+                        )}
+                        <input  {...register('img_url')} type="file" accept="image/*"
+                            className="appearance-none block w-full bg-gray-200 text-gray-700 border border-purple-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" />
                     </div>
                 </div>
                 <div className="mb-4 px-3">
@@ -324,6 +343,8 @@ const EditProfile = () => {
                                 <input
                                     type="checkbox"
                                     value={field}
+                                    defaultChecked={user.fields && user.fields.includes(field)}
+
                                     className="form-checkbox h-4 w-4 text-indigo-600"
                                     {...register('fields')} // Include selected fields in register
                                 />
