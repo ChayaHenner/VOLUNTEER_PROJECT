@@ -28,7 +28,7 @@ import Management from './comps_admin/management'
 
 function App() {
 
-  const [user, setUser] = useState({ }) //maybe change
+  const [user, setUser] = useState({}) //maybe change
   return (<>
     <AppContext.Provider value={({ user, setUser })}>
 
