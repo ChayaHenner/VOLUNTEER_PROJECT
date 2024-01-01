@@ -4,6 +4,8 @@ import { SERVER_URL, apiRequestNoBody } from '../serverConnect/api';
 
 const Post = (props) => {
   const post = props.post;
+  console.log(post);
+
   const { user } = useContext(AppContext);
   const [like, setLike] = useState(false);
   const [numLike, setNumLike] = useState(post.like_num);
@@ -11,7 +13,7 @@ const Post = (props) => {
   const [onClick, setOnClick] = useState(false);
 
   useEffect(() => {
-    console.log(post.like_user);
+    console.log(post);
     console.log(user);
     post.like_user.forEach(item => {
       console.log(item);
