@@ -39,21 +39,23 @@ const HeaderUser = () => {
               Sign Up
             </Link>
           </li>
-          <li>
-            <Link to="/my-missions" className="hover:text-blue-600 transition duration-300">
-              My Missions
-            </Link>
-          </li>
-          <li>
-            <Link to="/post-mission" className="hover:text-blue-600 transition duration-300">
-              New Mission
-            </Link>
-          </li>
-          <li>
-            <Link to="/view-missions" className="hover:text-blue-600 transition duration-300">
-              view missions
-            </Link>
-          </li>
+          
+          {user &&(
+          
+          <><li>
+              <Link to="/my-missions" className="hover:text-blue-600 transition duration-300">
+                My Missions
+              </Link>
+            </li><li>
+                <Link to="/post-mission" className="hover:text-blue-600 transition duration-300">
+                  New Mission
+                </Link>
+              </li><li>
+                <Link to="/view-missions" className="hover:text-blue-600 transition duration-300">
+                  view missions
+                </Link>
+              </li></>
+          )}
           {user && user.role === 'admin' && (
             <li>
               <Link to="/ViewUser-Admin" className="hover:text-blue-600 transition duration-300">
@@ -92,10 +94,12 @@ const HeaderUser = () => {
                       <LogOut />
                     </button>
                   </li>
+
                 </ul>
               )}
             </li>
           )}
+              
         </ul>
       </nav>
     </header>
