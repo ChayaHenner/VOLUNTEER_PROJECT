@@ -4,12 +4,15 @@ import { SERVER_URL, apiRequest } from '../serverConnect/api';
 import Cookies from 'js-cookie';
 import StarReview from './starReview'
 import { uploadImageToStorage } from '../helper/helper';
+import { AppContext } from '../../context/context';
 
 
 const CreateReview = ({ id }) => {
     const [ratingValue, setRatingValue] = useState(3.5);
     const { register, handleSubmit, formState: { errors }, getValues } = useForm();
     const [selectedImage, setSelectedImage] = useState(null);
+    // const { user, setUser } = useContext(AppContext);
+
 
     const onSubPost = async (data) => {
         console.log(data);

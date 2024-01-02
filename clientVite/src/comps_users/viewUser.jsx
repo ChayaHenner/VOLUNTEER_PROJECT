@@ -40,6 +40,9 @@ const ViewUser = () => {
 
     return (
         <div>
+            {
+                console.log(user)
+            }
             {userPage ? (
                 <div>
                     <div className="w-full lg:w-4/12 px-4 mx-auto">
@@ -97,7 +100,7 @@ const ViewUser = () => {
                                     <div className="flex flex-wrap justify-center">
                                         <div className="w-full lg:w-9/12 px-4">
                                             <p className="mb-4 text-lg leading-relaxed text-blueGray-700">
-                                                {user.description}
+                                                {userPage.description}
                                             </p>
                                         </div>
                                     </div>

@@ -4,6 +4,9 @@ const MyMission = ({ mission }) => {
 
   return (
     <div className="mission-details">
+      {
+        console.log(mission)
+      }
       <div className="flex font-sans">
         <form className="flex-auto p-6">
           <div className="flex flex-wrap">
@@ -24,7 +27,7 @@ const MyMission = ({ mission }) => {
             </button>
           </div>
           <p className="text-sm text-slate-500">
-            Mission created by <a> {mission.user_creator}</a>
+            Mission created by <a> {mission.user_creator.full_name}</a>
           </p>
           <button
             className={`py-2 px-4 rounded ${mission.taken ? 'bg-purple-600 text-white' : 'border-purple-600 text-purple-600'} `}
