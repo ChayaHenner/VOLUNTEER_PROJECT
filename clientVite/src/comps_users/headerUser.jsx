@@ -16,7 +16,10 @@ const HeaderUser = () => {
   //   }
   // }, []);
   useEffect(() => {
-    setUser(JSON.parse(Cookies.get('user')));
+    const userCookie = Cookies.get('user');
+    if (userCookie) {
+      setUser(JSON.parse(userCookie));
+    }
   }, [])
 
   const handleProfileClick = () => {
@@ -92,7 +95,7 @@ const HeaderUser = () => {
                 <ProfileImg img_url={user.img_url} />
               </button>
               {dropdownOpen && (
-                <ul className="absolute right-0 mt-2 w-48 bg-white border rounded shadow-lg">
+                <ul className="z-10 absolute right-0 mt-2 w-48 bg-white border rounded shadow-lg">
                   <li>
                     <Link
                       to="/my-profile"
