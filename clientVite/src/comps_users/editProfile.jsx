@@ -186,11 +186,21 @@ import { AppContext } from '../../context/context';
 const EditProfile = () => {
     const { user, setUser } = useContext(AppContext);
 
-    const { register, handleSubmit, formState: { errors }, getValues, setValue } = useForm();
+    const { register, handleSubmit, formState: { errors }, getValues } = useForm();
     const nav = useNavigate()
 
     const formatDate = (dateString) => {
+        if (!dateString) {
+            return '';  // Return an empty string or another default value if dateString is falsy
+        }
+
         const date = new Date(dateString);
+
+        if (isNaN(date.getTime())) {
+            console.error(`Invalid date string: ${dateString}`);
+            return '';  // Return an empty string or another default value for invalid dates
+        }
+
         return date.toISOString().split('T')[0];
     };
 
@@ -201,16 +211,13 @@ const EditProfile = () => {
 
         let url = SERVER_URL + `/users/${user._id}`
         try {
-            // const formData = new FormData();
-            // formData.append('image', data.img_url[0]);
-            // let resp = await apiRequest(url, "PUT", formData, { 'Content-Type': 'multipart/form-data' });
-
+            console.log("hi i m here");
+            nav("/my-profile")
             let resp = await apiRequest(url, "PUT", data)
             console.log(resp.data)
             setUser(resp.data)
             Cookies.set('user', JSON.stringify(resp.data), { expires: 1 }); // expires in 1 day
             console.log(resp.data);
-            nav("/")
         }
         catch (err) {
             console.log("ERROR ", err);
@@ -298,16 +305,30 @@ const EditProfile = () => {
                     </div>
 
 
+                    {/* <div className="mb-4 px-3">
+                        <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
+                            Profile Image:
+                        </label>
+                        <input
+                            {...register('img_url')}
+                            type="file"
+                            accept="image/*"
+                            defaultValue={user.img_url || ''}
+                            className="appearance-none block w-full bg-gray-200 text-gray-700 border border-purple-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
+                        />
+                    </div> */}
                     <div className="mb-4 px-3">
                         <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
                             Profile Image:
                         </label>
-                        {user.img_url && (
-                            <img src={user.img_url} alt="Profile" className="mb-4" style={{ maxWidth: '100px' }} />
-                        )}
-                        <input  {...register('img_url')} type="file" accept="image/*"
-                            className="appearance-none block w-full bg-gray-200 text-gray-700 border border-purple-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" />
+                        <input
+                            {...register('img_url')}
+                            type="file"
+                            accept="image/*"
+                            className="appearance-none block w-full bg-gray-200 text-gray-700 border border-purple-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
+                        />
                     </div>
+
                 </div>
                 <div className="mb-4 px-3">
                     <label htmlFor="password" className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
