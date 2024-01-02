@@ -4,7 +4,7 @@ import { SERVER_URL, apiRequestNoBody } from '../serverConnect/api';
 
 const Post = (props) => {
   const post = props.post;
-  console.log(post);
+  // console.log(post);
 
   const { user } = useContext(AppContext);
   const [like, setLike] = useState(false);
