@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { useForm } from 'react-hook-form';
+import { useNavigate } from 'react-router-dom';
 import { fieldsEnum, SERVER_URL, apiRequest } from '../serverConnect/api';
 import Cookies from 'js-cookie';
 import AddressInput from './addressInput'
@@ -8,6 +9,7 @@ import AddressInput from './addressInput'
 const PostMission = ({ setShowCreateNewMission }) => {
   const { register, handleSubmit, formState: { errors }, getValues } = useForm();
   const [address, setAddress] = useState(null);
+  const nav = useNavigate()
 
   const onSubPost = async (data) => {
     data.address = address //new
@@ -76,11 +78,11 @@ const PostMission = ({ setShowCreateNewMission }) => {
             </label>
             <div className="mt-1">
               <label className="inline-flex items-center">
-                <input {...register('requirements.gender', { required: true })} type="radio" value="male" className="form-radio h-4 w-4 text-indigo-600" />
+                <input {...register('requirements.gender')} type="radio" value="male" className="form-radio h-4 w-4 text-indigo-600" />
                 <span className="ml-2">Male</span>
               </label>
               <label className="inline-flex items-center ml-6">
-                <input {...register('requirements.gender', { required: true })} type="radio" value="female" className="form-radio h-4 w-4 text-indigo-600" />
+                <input {...register('requirements.gender')} type="radio" value="female" className="form-radio h-4 w-4 text-indigo-600" />
                 <span className="ml-2">Female</span>
               </label>
             </div>
