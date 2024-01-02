@@ -40,6 +40,7 @@ const ViewMissions = () => {
     } catch (error) {
       // Handle error, e.g., show an error message
       console.error('Error taking task:', error);
+      alert(error)
     }
   };
 
