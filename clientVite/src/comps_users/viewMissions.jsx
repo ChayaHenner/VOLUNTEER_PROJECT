@@ -30,7 +30,12 @@ const ViewMissions = () => {
 
     fetchMissions();
   }, [searchQuery]);
+  useEffect(() => {
+    
+  }, []);
 
+
+  
   const handleTakeTask = async (missionId) => {
     try {
       const response = await apiRequestNoBody(`${SERVER_URL}/missions/addInterested/${missionId}`, 'PUT');
@@ -40,8 +45,8 @@ const ViewMissions = () => {
       }
     } catch (error) {
       // Handle error, e.g., show an error message
-      console.error('Error taking task:', error);
-      alert(error)
+      console.error('Error taking task:', error.response.data);
+      alert(error.response.data.error)
     }
   };
 
@@ -64,11 +69,9 @@ const ViewMissions = () => {
         onChange={(e) => setSearchQuery(e.target.value)}
         className="border p-2 mb-4"
       />
-      {missions.map((mission) => {
-        // const userArray = mission.user_creator.split(',');
-        // const id = userArray[0];
-        // const name = userArray[1];
-        console.log(mission);
+                    <div className='align-center justify-center flex flex-wrap -mx-4'>
+
+      {missions && missions.map((mission) => {
         return (
           <div key={mission._id} className="max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 m-4">
             <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">{mission.title}</h5>
@@ -103,6 +106,7 @@ const ViewMissions = () => {
           </div>
         );
       })}
+      </div>
     </div>
   );
 }
