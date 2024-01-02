@@ -8,12 +8,12 @@ import { AppContext } from '../../context/context';
 import { uploadImageToStorage } from '../helper/helper';
 import { useNavigate } from 'react-router-dom';
 import AddressInput from './addressInput'
-
+import Loading from '../comps_main/loading';
 
 const SignUp = () => {
   const nav = useNavigate()
   const addressInputRef = useRef();
-
+  const [loading, setLoading] = useState(false); // Loading state
   const { register, handleSubmit, formState: { errors }, getValues } = useForm();
   const [selectedImage, setSelectedImage] = useState(null);
   const [address, setAddress] = useState(null);
@@ -23,6 +23,7 @@ const SignUp = () => {
     console.log(address);
   }, []);
   const onSubmit = async (data) => {
+    setLoading(true)
     const imageUrl = await uploadImageToStorage(selectedImage);
     data.img_url = imageUrl;
     delete data.confirmPassword
@@ -36,16 +37,21 @@ const SignUp = () => {
       Cookies.set('user', JSON.stringify(resp.data.user), { expires: 1 }); // expires in 1 day
       Cookies.set('token', resp.data.token, { expires: 1 }); // expires in 1 day
       setUser(resp.data.user)
+      setLoading(false)
+      alert("Welcome.your account has been created successfully")
       nav("/")
     }
     catch (err) {
       console.log("ERROR ", err);
+      let msg = err.response.data.msg;
+      alert(msg);
     }
     console.log(data);
   }
   return (
     <div className='flex  justify-center w-full'>
       <div className="w-7/10 mx-auto">
+        {loading && <Loading text={"adding user ..."}/>}
         <form onSubmit={handleSubmit(onSubmit)} className="mt-3">
           <div className=" ">
             <div className='flex'>

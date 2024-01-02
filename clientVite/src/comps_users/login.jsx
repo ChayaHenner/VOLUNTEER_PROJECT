@@ -20,20 +20,11 @@ const Login = () => {
       setUser(resp.data.user)
       console.log("token new", resp.data.token);
       Cookies.set('token', resp.data.token, { expires: 1 }); // expires in 1 day
-      // console.log(user.role);
-      // if (user.role == "admin") {
-      //   nav("/ViewUser-Admin")
-      // }
-      // else {
-      //   nav("/")
-      // }
-      // }
       nav("/")
       console.log("token new", resp.data.token);
       Cookies.set('token', resp.data.token, { expires: 1 }); // expires in 1 day
       Cookies.set('user', JSON.stringify(resp.data.user), { expires: 1 }); // expires in 1 day
       console.log(JSON.stringify(resp.data.user));
-      // nav("/")
     }
     catch (err) {
       console.log("ERROR ", err);

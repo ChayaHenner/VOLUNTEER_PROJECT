@@ -36,7 +36,7 @@ const ViewUser = () => {
         getUser()
         setUser(user_now);
 
-    }, []);
+    }, [showCreatePost]);
 
     return (
         <div>
@@ -140,7 +140,7 @@ const ViewUser = () => {
                             >
                                 add Review
                             </button>
-                            {showCreatePost && <CreateReview id={id} />}
+                            {showCreatePost && <CreateReview id={id} setShowCreatePost={setShowCreatePost}/>}
 
                             <button
                                 className='bg-red-500 text-white px-4 py-2 rounded-md mt-4 ml-4'

@@ -15,6 +15,9 @@ const HeaderUser = () => {
   //     setUser(parsedUser);
   //   }
   // }, []);
+  useEffect(() => {
+    setUser(JSON.parse(Cookies.get('user')));
+  }, [])
 
   const handleProfileClick = () => {
     setDropdownOpen((prevOpen) => !prevOpen);
