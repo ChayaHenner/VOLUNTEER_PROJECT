@@ -5,6 +5,7 @@ const { UserModel } = require("../models/userModel")
 const { validMission } = require("../validation/missionValidation")
 const router = express.Router();
 // get all
+//search and only give missions that are not taken
 router.get("/getall", async (req, res) => {
     try {
         let data = await MissionModel.find({})

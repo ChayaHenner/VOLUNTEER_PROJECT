@@ -40,8 +40,8 @@ const ViewMissions = () => {
       }
     } catch (error) {
       // Handle error, e.g., show an error message
-      console.error('Error taking task:', error);
-      alert(error)
+      console.error('Error taking task:', error.response.data);
+      alert(error.response.data.error)
     }
   };
 
@@ -63,46 +63,47 @@ const ViewMissions = () => {
         value={searchQuery}
         onChange={(e) => setSearchQuery(e.target.value)}
         className="border p-2 mb-4"
-      />
-      {missions.map((mission) => {
-        // const userArray = mission.user_creator.split(',');
-        // const id = userArray[0];
-        // const name = userArray[1];
-        console.log(mission);
-        return (
-          <div key={mission._id} className="max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 m-4">
-            <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">{mission.title}</h5>
-            <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">{mission.description}</p>
-            <div>
-              <div className="flex items-center mb-3">
-                <AddressIcon className="inline-block w-6 h-6 mr-2" />
-                <p className="mb-0 font-normal text-gray-700 dark:text-gray-400">{mission.address}</p>
+      />                    <div className='align-center justify-center flex flex-wrap -mx-4'>
+
+        {missions.map((mission) => {
+          // const userArray = mission.user_creator.split(',');
+          // const id = userArray[0];
+          // const name = userArray[1];
+          console.log(mission);
+          return (
+            <div key={mission._id} className="max-w-sm p-6 bg-white-100 border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 m-4">
+              <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">{mission.title}</h5>
+              <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">{mission.description}</p>
+              <div>
+                <div className="flex items-center mb-3">
+                  <AddressIcon className="inline-block w-6 h-6 mr-2" />
+                  <p className="mb-0 font-normal text-gray-700 dark:text-gray-400">{mission.address}</p>
+                </div>
+                <div className="flex items-center mb-3">
+                  <CalenderIcon className="inline-block w-6 h-6 mr-2" />
+                  <p className="mb-0 font-normal text-gray-700 dark:text-gray-400">{mission.date}</p>
+                </div>
+                <div className="flex items-center mb-3">
+                  <TimeIcon className="inline-block w-6 h-6 mr-2" />
+                  <p className="mb-0 font-normal text-gray-700 dark:text-gray-400">{mission.time}</p>
+                </div>
               </div>
-              <div className="flex items-center mb-3">
-                <CalenderIcon className="inline-block w-6 h-6 mr-2" />
-                <p className="mb-0 font-normal text-gray-700 dark:text-gray-400">{mission.date}</p>
-              </div>
-              <div className="flex items-center mb-3">
-                <TimeIcon className="inline-block w-6 h-6 mr-2" />
-                <p className="mb-0 font-normal text-gray-700 dark:text-gray-400">{mission.time}</p>
-              </div>
-            </div>
-            <div className="flex">
-              <Link className='w-1/2' to={`/view-user/${mission.user_creator._id}`}>
-                <p className="text-sm text-gray-500">{`Created by: ${mission.user_creator.full_name}`}</p>
-              </Link>
+              <div className="flex">
+                <Link className='w-1/2' to={`/view-user/${mission.user_creator._id}`}>
+                  <p className="text-sm text-gray-500">{`Created by: ${mission.user_creator.full_name}`}</p>
+                </Link>
 
 
-              <button
-                onClick={() => handleTakeTask(mission._id)}
-                className="w-1/2 bg-blue-500 text-white px-4 py-2 rounded-md m-2"
-              >
-                Take Task
-              </button>
+                <button
+                  onClick={() => handleTakeTask(mission._id)}
+                  className="w-1/2 hover:bg-purple-500 bg-white-500 border text-purple-500 border-purple-500 hover:text-white px-4 py-2 rounded-md m-2"
+                >
+                  Take Task
+                </button>
+              </div>
             </div>
-          </div>
-        );
-      })}
+          );
+        })}</div>
     </div>
   );
 }

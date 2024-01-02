@@ -109,6 +109,11 @@ const ProfilePage = () => {
                                             </p>
                                         </div>
                                     </div>
+                                    {/* <button className=' bg-purple-500 text-white px-4 py-2 rounded-md mt-4 z-5  absolute right-0 top-200' onClick={() => { nav("/edit-profile") }}>edit</button> */}
+                                    <button
+                                        className=' bg-purple-500 text-white px-4 py-2 rounded-md mt-4 z-5  ' onClick={() => setShowCreatePost(true)} // Set state to true to show the CreatePost component
+                                    >  add Post</button>
+
                                     <div><div className=''>
                                         {
                                             user.posts && user.posts.map((post, index) => (
@@ -139,13 +144,16 @@ const ProfilePage = () => {
 
                                 </div>
                             </div>
-                            <button className='bg-green-500 text-white px-4 py-2 rounded-md mt-4' onClick={() => { nav("/edit-profile") }}>edit</button>
                             <button
+                                className=' bg-purple-500 text-white px-4 py-2 rounded-md mt-4 z-5  absolute right-0 top-200' onClick={() => { nav("/edit-profile") }}>edit</button>
+
+                            {/* <button
                                 className='bg-green-500 text-white px-4 py-2 rounded-md mt-4'
                                 onClick={() => setShowCreatePost(true)} // Set state to true to show the CreatePost component
                             >
                                 add Post
-                            </button>
+                            </button> */}
+
                             {showCreatePost && (
                                 <CreatePost setShowCreatePost={setShowCreatePost} />)}
                         </div>
@@ -156,7 +164,7 @@ const ProfilePage = () => {
                 </div>
 
             ) : (
-                <Loading text={"loading profile..."}/>
+                <Loading text={"loading profile..."} />
             )}
         </div>
     );
