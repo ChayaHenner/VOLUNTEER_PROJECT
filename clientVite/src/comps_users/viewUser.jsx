@@ -104,7 +104,7 @@ const ViewUser = () => {
                                             </p>
                                         </div>
                                     </div>
-                                    <div>posts: <div className=''>
+                                    <div><div className=''>
                                         {
                                             userPage.posts && userPage.posts.map((post, index) => (
                                                 <div key={index}>
@@ -113,7 +113,7 @@ const ViewUser = () => {
                                             ))
                                         }
                                     </div></div>
-                                    <div>reviews:<div className=''>
+                                    <div><div className=''>
                                         {
                                             userPage.reviews && userPage.reviews.map((review, index) => (
                                                 <div key={index}>
@@ -122,7 +122,7 @@ const ViewUser = () => {
                                             ))
                                         }
                                     </div></div>
-                                    <div>missions: <div className=''>
+                                    <div><div className=''>
                                         {
                                             userPage.missions && userPage.missions.map((mission, index) => (
                                                 <div className=" border m-2" key={index}>
