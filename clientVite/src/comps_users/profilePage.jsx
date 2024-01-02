@@ -23,8 +23,6 @@ const ProfilePage = () => {
         document.body.style.overflow = ''; // Re-enable scrolling when the popup is closed
     };
 
-    const user_now = JSON.parse(Cookies.get('user'));
-    console.log("user now", user_now);
     const getUser = async () => {
         let url = SERVER_URL + "/users/myInfo"
         try {
@@ -37,11 +35,14 @@ const ProfilePage = () => {
         }
 
     }
+    const user_now = JSON.parse(Cookies.get('user'));
+    // getUser()
 
     useEffect(() => {
         getUser()
-        setUser(user_now);
-    }, []);
+        console.log("get user");
+        // setUser(user_now);
+    }, [showCreatePost]);
     return (
         <div>
             {user ? (
@@ -53,7 +54,7 @@ const ProfilePage = () => {
                                     <div className="w-full px-4 flex justify-center">
                                         <div className="flex justify-center ">
                                             <div className="w-64 h-64 rounded-full overflow-hidden shadow-xl position">
-                                                <img src={user.img_url} alt={user.full_name}  className="w-full h-full object-cover" />
+                                                <img src={user.img_url} alt={user.full_name} className="w-full h-full object-cover" />
                                             </div>
                                         </div>
                                     </div>
@@ -145,17 +146,7 @@ const ProfilePage = () => {
                                 add Post
                             </button>
                             {showCreatePost && (
-                                <div className="fixed top-0 left-0 w-full h-full bg-purple-500 bg-opacity-50 backdrop-blur-lg flex justify-center items-center">
-                                    <div className="bg-white p-6 rounded-lg shadow-lg">
-                                        <button className="absolute top-2 right-2 text-gray-600 text-7xl" onClick={closeCreatePost}>
-                                            x
-                                        </button>
-                                        <CreatePost closeCreatePost={closeCreatePost} />
-                                    </div>
-                                </div>
-                            )}
-
-
+                                <CreatePost setShowCreatePost={setShowCreatePost} />)}
                         </div>
 
                     </div>
