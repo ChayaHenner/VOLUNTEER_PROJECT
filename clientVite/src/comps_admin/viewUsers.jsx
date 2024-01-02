@@ -6,7 +6,6 @@ const ViewUsers = () => {
   const [userList, setUserList] = useState([]);
 
   useEffect(() => {
-    // Fetch missions on component mount
     const fetchUserList = async () => {
       try {
         const url = `${SERVER_URL}/users/usersList`;

@@ -8,6 +8,7 @@ import Post from './post';
 import StarIcon from './starIcon'
 import CreatePost from './createPost';
 import MyMission from './myMission';
+import Loading from '../comps_main/loading';
 const ProfilePage = () => {
     const { user, setUser } = useContext(AppContext);
     const nav = useNavigate()
@@ -155,7 +156,7 @@ const ProfilePage = () => {
                 </div>
 
             ) : (
-                <p>Loading...</p>
+                <Loading text={"loading profile..."}/>
             )}
         </div>
     );
