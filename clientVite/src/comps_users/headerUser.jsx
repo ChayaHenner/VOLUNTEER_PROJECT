@@ -62,11 +62,13 @@ const HeaderUser = () => {
               <Link to="/my-missions" className="hover:text-blue-600 transition duration-300">
                 My Missions
               </Link>
-            </li><li>
+            </li>
+            {/* <li>
                 <Link to="/post-mission" className="hover:text-blue-600 transition duration-300">
                   New Mission
                 </Link>
-              </li><li>
+              </li> */}
+              <li>
                 <Link to="/view-missions" className="hover:text-blue-600 transition duration-300">
                   view missions
                 </Link>
