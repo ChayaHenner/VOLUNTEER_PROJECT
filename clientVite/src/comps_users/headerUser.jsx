@@ -8,6 +8,13 @@ import Cookies from 'js-cookie';
 const HeaderUser = () => {
   const { user, setUser } = useContext(AppContext);
   const [dropdownOpen, setDropdownOpen] = useState(false);
+  // useEffect(() => {
+  //   const userFromCookie = Cookies.get('user');
+  //   if (userFromCookie) {
+  //     const parsedUser = JSON.parse(userFromCookie);
+  //     setUser(parsedUser);
+  //   }
+  // }, []);
   useEffect(() => {
     setUser(JSON.parse(Cookies.get('user')));
   }, [])
