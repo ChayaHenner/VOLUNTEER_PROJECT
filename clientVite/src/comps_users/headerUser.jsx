@@ -8,26 +8,34 @@ import Cookies from 'js-cookie';
 const HeaderUser = () => {
   const { user, setUser } = useContext(AppContext);
   const [dropdownOpen, setDropdownOpen] = useState(false);
-  const dropdownRef = useRef(null);
 
-  // useEffect(() => {
-  //   const userFromCookie = Cookies.get('user');
-  //   if (userFromCookie) {
-  //     const parsedUser = JSON.parse(userFromCookie);
-  //     setUser(parsedUser);
-  //   }
-  // }, []);
+
+
+
   useEffect(() => {
-    const userCookie = Cookies.get('user');
-    if (userCookie) {
-      setUser(JSON.parse(userCookie));
-    }
-    document.addEventListener('click', handleClickOutside);
-    return () => {
-      document.removeEventListener('click', handleClickOutside);
+    const updateUserFromCookie = () => {
+      const userCookie = Cookies.get('user');
+      if (userCookie) {
+        setUser(JSON.parse(userCookie));
+      }
+      console.log("User updated");
     };
-  }, [setUser]);
 
+    updateUserFromCookie()
+  }, [])
+  useEffect(() => {
+    const interval = setInterval(() => {
+      // Update the counter to trigger useEffect
+      setUpdateCounter(prevCounter => prevCounter + 1);
+    }, 5000); // Run every 5 seconds (adjust this time interval as needed)
+
+    // Clean up the interval on component unmount
+    return () => clearInterval(interval);
+  }, []); // Empty dependency array for initial mount only
+
+  useEffect(() => {
+    updateUserFromCookie();
+  }, [updateCounter]); // Run whenever 'updateCounter' changes
 
   const handleProfileClick = () => {
     setDropdownOpen((prevOpen) => !prevOpen);
@@ -67,7 +75,8 @@ const HeaderUser = () => {
             </Link>
           </li>
           {
-            console.log(Cookies.get('token'))
+            console.log(Cookies.get('user'))
+
           }
           {user && (
 
@@ -75,11 +84,13 @@ const HeaderUser = () => {
               <Link to="/my-missions" className="hover:text-blue-600 transition duration-300">
                 My Missions
               </Link>
-            </li><li>
+            </li>
+              {/* <li>
                 <Link to="/post-mission" className="hover:text-blue-600 transition duration-300">
                   New Mission
                 </Link>
-              </li><li>
+              </li> */}
+              <li>
                 <Link to="/view-missions" className="hover:text-blue-600 transition duration-300">
                   view missions
                 </Link>

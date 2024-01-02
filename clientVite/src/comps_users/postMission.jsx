@@ -6,7 +6,7 @@ import Cookies from 'js-cookie';
 import AddressInput from './addressInput'
 
 
-const PostMission = () => {
+const PostMission = ({ setShowCreateNewMission }) => {
   const { register, handleSubmit, formState: { errors }, getValues } = useForm();
   const [address, setAddress] = useState(null);
   const nav = useNavigate()
@@ -17,9 +17,8 @@ const PostMission = () => {
     let url = SERVER_URL + "/missions/"
     try {
       let resp = await apiRequest(url, "POST", data)
-      alert("mission added")
-      nav("/my-missions")
-
+      console.log("mission added")
+      setShowCreateNewMission(false)
     }
     catch (err) {
       console.log("ERROR ", err);
@@ -27,8 +26,7 @@ const PostMission = () => {
   }
 
   return (
-    <div className="">
-      <div>Create Mission</div>
+    <div className="fixed w-1/2 top-0 left-0 z-50 w-full h-full flex justify-center items-center bg-gray-200 bg-opacity-50 backdrop-filter backdrop-blur-md">
       <form onSubmit={handleSubmit(onSubPost)} className="mt-3">
         <div className="w-1/3 mb-4 px-3">
           <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">Title:</label>
@@ -108,7 +106,8 @@ const PostMission = () => {
               </label>
             ))}
           </div>
-        </div>        <button type="submit" className="bg-purple-500 text-white px-4 py-2 rounded-md mt-4">Create Mission</button>
+        </div>        <button type="submit" className="m-2 bg-purple-500 text-white px-4 py-2 rounded-md mt-4">Create Mission</button>
+        <button type="button" className=" m-2 bg-purple-500 text-white px-4 py-2 rounded-md mt-4" onClick={() => { setShowCreateNewMission(false) }}>close</button>
       </form>
     </div>
   );

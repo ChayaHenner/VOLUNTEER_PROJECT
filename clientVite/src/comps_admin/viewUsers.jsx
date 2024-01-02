@@ -1,21 +1,22 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { SERVER_URL, apiRequestGet, apiRequestNoBody } from '../serverConnect/api';
+import { EditIcon } from '../comps_users/Icons';
 
 const ViewUsers = () => {
   const [userList, setUserList] = useState([]);
+  const fetchUserList = async () => {
+    try {
+      const url = `${SERVER_URL}/users/usersList`;
+      const response = await apiRequestGet(url);
+      console.log(response);
+      setUserList(response.data);
+    } catch (error) {
+      console.error('Error fetching userList:', error);
+    }
+  };
 
   useEffect(() => {
-    const fetchUserList = async () => {
-      try {
-        const url = `${SERVER_URL}/users/usersList`;
-        const response = await apiRequestGet(url);
-        console.log(response);
-        setUserList(response.data);
-      } catch (error) {
-        console.error('Error fetching userList:', error);
-      }
-    };
     fetchUserList();
   }, []);
 
@@ -29,6 +30,8 @@ const ViewUsers = () => {
       console.error('Error fetching userList:', error);
     }
     console.log('Edit role for user with ID:', userId);
+    fetchUserList();
+    
   };
 
   return (
@@ -54,8 +57,7 @@ const ViewUsers = () => {
                   onClick={() => handleEditRole(user._id, user.role)}
                   className="text-green-500"
                 >
-                  Edit Role
-                </button></td>
+                  <EditIcon />                </button></td>
               <td className="py-2 px-4 border-b">
                 <Link to={`/view-user/${user._id}`} className="text-blue-500 mr-2">
                   Profile Page
