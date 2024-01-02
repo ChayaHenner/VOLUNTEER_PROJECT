@@ -5,7 +5,6 @@ import { useNavigate } from 'react-router-dom';
 
 
 const Logout = () => {
-//   const history = useHistory();
 const nav = useNavigate()
 
   const handleLogout = () => {
@@ -14,7 +13,6 @@ const nav = useNavigate()
     Cookies.remove('user');
     nav("/")
 
-    // history.push('/');
   };
 
   return (
