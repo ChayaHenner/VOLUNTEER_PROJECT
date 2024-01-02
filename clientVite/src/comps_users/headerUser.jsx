@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect } from 'react';
+import React, { useContext, useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import LogOut from './logOut';
 import { AppContext } from '../../context/context';
@@ -15,6 +15,11 @@ const HeaderUser = () => {
   //     setUser(parsedUser);
   //   }
   // }, []);
+
+
+
+
+
   useEffect(() => {
     const userCookie = Cookies.get('user');
     if (userCookie) {
@@ -33,6 +38,12 @@ const HeaderUser = () => {
 
   const closeDropdown = () => {
     setDropdownOpen(false);
+  };
+
+  const handleClickOutside = (event) => {
+    if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+      setDropdownOpen(false);
+    }
   };
 
   return (
