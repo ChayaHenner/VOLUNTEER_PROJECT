@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect } from 'react';
+import React, { useContext, useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import LogOut from './logOut';
 import { AppContext } from '../../context/context';
@@ -8,6 +8,7 @@ import Cookies from 'js-cookie';
 const HeaderUser = () => {
   const { user, setUser } = useContext(AppContext);
   const [dropdownOpen, setDropdownOpen] = useState(false);
+
 
 
 
@@ -47,6 +48,12 @@ const HeaderUser = () => {
 
   const closeDropdown = () => {
     setDropdownOpen(false);
+  };
+
+  const handleClickOutside = (event) => {
+    if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+      setDropdownOpen(false);
+    }
   };
 
   return (
