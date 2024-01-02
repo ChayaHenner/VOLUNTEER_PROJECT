@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect } from 'react';
+import React, { useContext, useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import LogOut from './logOut';
 import { AppContext } from '../../context/context';
@@ -8,6 +8,8 @@ import Cookies from 'js-cookie';
 const HeaderUser = () => {
   const { user, setUser } = useContext(AppContext);
   const [dropdownOpen, setDropdownOpen] = useState(false);
+  const dropdownRef = useRef(null);
+
   // useEffect(() => {
   //   const userFromCookie = Cookies.get('user');
   //   if (userFromCookie) {
@@ -20,7 +22,12 @@ const HeaderUser = () => {
     if (userCookie) {
       setUser(JSON.parse(userCookie));
     }
-  }, [])
+    document.addEventListener('click', handleClickOutside);
+    return () => {
+      document.removeEventListener('click', handleClickOutside);
+    };
+  }, [setUser]);
+
 
   const handleProfileClick = () => {
     setDropdownOpen((prevOpen) => !prevOpen);
@@ -33,6 +40,12 @@ const HeaderUser = () => {
 
   const closeDropdown = () => {
     setDropdownOpen(false);
+  };
+
+  const handleClickOutside = (event) => {
+    if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+      setDropdownOpen(false);
+    }
   };
 
   return (
