@@ -12,30 +12,21 @@ const HeaderUser = () => {
 
 
   useEffect(() => {
-    const updateUserFromCookie = () => {
-      const userCookie = Cookies.get('user');
-      if (userCookie) {
-        setUser(JSON.parse(userCookie));
-      }
+  const updateUserFromCookie = () => {
+    const userCookie = Cookies.get('user');
+    if (userCookie) {
+      setUser(JSON.parse(userCookie));
       console.log("User updated");
-    };
+      console.log(user);
 
-    updateUserFromCookie()
+    }
+    console.log("User not updated");
+
+
+  };
+
+  updateUserFromCookie()
   }, [])
-  useEffect(() => {
-    const interval = setInterval(() => {
-      // Update the counter to trigger useEffect
-      setUpdateCounter(prevCounter => prevCounter + 1);
-    }, 5000); // Run every 5 seconds (adjust this time interval as needed)
-
-    // Clean up the interval on component unmount
-    return () => clearInterval(interval);
-  }, []); // Empty dependency array for initial mount only
-
-  useEffect(() => {
-    updateUserFromCookie();
-  }, [updateCounter]); // Run whenever 'updateCounter' changes
-
   const handleProfileClick = () => {
     setDropdownOpen((prevOpen) => !prevOpen);
   };

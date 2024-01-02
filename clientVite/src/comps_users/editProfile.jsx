@@ -1,34 +1,48 @@
 
-import React, { useState, useContext } from 'react'
+import React, { useEffect, useState, useContext } from 'react'
 import { useForm } from 'react-hook-form';
 import { fieldsEnum, SERVER_URL, apiRequest } from '../serverConnect/api';
 import { useNavigate } from 'react-router-dom';
 import { AppContext } from '../../context/context';
 import Loading from '../comps_main/loading'
+import AddressInput from './addressInput'
+import Cookies from 'js-cookie';
 
 const EditProfile = () => {
+    const [address, setAddress] = useState(null);
     const { user, setUser } = useContext(AppContext);
     const { register, handleSubmit, formState: { errors }, getValues } = useForm();
     const nav = useNavigate()
+
+    // useEffect(() => { })
+    // const updateUserFromCookie = () => {
+    //     const userCookie = Cookies.get('user');
+    //     if (userCookie) {
+    //         setUser(JSON.parse(userCookie));
+    //     }
+    //     console.log("User updated");
+    // };
+
+    // updateUserFromCookie()
+
 
     const formatDate = (dateString) => {
         if (!dateString) {
             return '';  // Return an empty string or another default value if dateString is falsy
         }
-
         const date = new Date(dateString);
-
         if (isNaN(date.getTime())) {
             console.error(`Invalid date string: ${dateString}`);
             return '';  // Return an empty string or another default value for invalid dates
         }
-
         return date.toISOString().split('T')[0];
     };
 
 
     const onSubmit = async (data) => {
-        data.img_url = ""
+        setLoading(true)
+        const imageUrl = await uploadImageToStorage(selectedImage);
+        data.img_url = imageUrl;
         delete data.confirmPassword
 
         let url = SERVER_URL + `/users/${user._id}`
@@ -93,7 +107,7 @@ const EditProfile = () => {
                             <div className="mb-4 px-3 w-1/3">
                                 <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
                                     Address:</label>
-                                <AddressInput setAddress={setAddress} />
+                                {/* <AddressInput setAddress={setAddress} /> */}
 
                                 {/* <input {...register('address')} type="text" className="appearance-none block w-full bg-gray-200 text-gray-700 border border-purple-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" /> */}
                                 {errors.address && <div className="text-red-500 text-xs italic">choose valid address</div>}
