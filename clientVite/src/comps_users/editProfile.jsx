@@ -182,10 +182,10 @@ import { useForm } from 'react-hook-form';
 import { fieldsEnum, SERVER_URL, apiRequest } from '../serverConnect/api';
 import { useNavigate } from 'react-router-dom';
 import { AppContext } from '../../context/context';
+import Loading from '../comps_main/loading'
 
 const EditProfile = () => {
     const { user, setUser } = useContext(AppContext);
-
     const { register, handleSubmit, formState: { errors }, getValues } = useForm();
     const nav = useNavigate()
 
@@ -211,17 +211,19 @@ const EditProfile = () => {
 
         let url = SERVER_URL + `/users/${user._id}`
         try {
-            console.log("hi i m here");
-            nav("/my-profile")
             let resp = await apiRequest(url, "PUT", data)
             console.log(resp.data)
+            nav("/my-profile")
+
             setUser(resp.data)
             Cookies.set('user', JSON.stringify(resp.data), { expires: 1 }); // expires in 1 day
             console.log(resp.data);
+
         }
         catch (err) {
             console.log("ERROR ", err);
         }
+
         console.log(data);
     }
     return (
