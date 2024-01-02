@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect } from 'react';
+import React, { useContext, useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import LogOut from './logOut';
 import { AppContext } from '../../context/context';
@@ -8,25 +8,26 @@ import Cookies from 'js-cookie';
 const HeaderUser = () => {
   const { user, setUser } = useContext(AppContext);
   const [dropdownOpen, setDropdownOpen] = useState(false);
+  // useEffect(() => {
+  //   const userFromCookie = Cookies.get('user');
+  //   if (userFromCookie) {
+  //     const parsedUser = JSON.parse(userFromCookie);
+  //     setUser(parsedUser);
+  //   }
+  // }, []);
+
+
 
 
 
   useEffect(() => {
-  const updateUserFromCookie = () => {
+
     const userCookie = Cookies.get('user');
     if (userCookie) {
       setUser(JSON.parse(userCookie));
-      console.log("User updated");
-      console.log(user);
-
     }
-    console.log("User not updated");
-
-
-  };
-
-  updateUserFromCookie()
   }, [])
+
   const handleProfileClick = () => {
     setDropdownOpen((prevOpen) => !prevOpen);
   };
@@ -38,6 +39,12 @@ const HeaderUser = () => {
 
   const closeDropdown = () => {
     setDropdownOpen(false);
+  };
+
+  const handleClickOutside = (event) => {
+    if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+      setDropdownOpen(false);
+    }
   };
 
   return (
@@ -59,8 +66,7 @@ const HeaderUser = () => {
             </Link>
           </li>
           {
-            console.log(Cookies.get('user'))
-
+            console.log(Cookies.get('token'))
           }
           {user && (
 
@@ -69,7 +75,7 @@ const HeaderUser = () => {
                 My Missions
               </Link>
             </li>
-              {/* <li>
+            {/* <li>
                 <Link to="/post-mission" className="hover:text-blue-600 transition duration-300">
                   New Mission
                 </Link>
