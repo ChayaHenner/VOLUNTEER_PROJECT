@@ -13,6 +13,7 @@ const ProfilePage = () => {
     const { user, setUser } = useContext(AppContext);
     const nav = useNavigate()
     const [showCreatePost, setShowCreatePost] = useState(false);
+    const [loading, setLoding] = useState(true);
 
     const openCreatePost = () => {
         setShowCreatePost(true);
@@ -29,24 +30,39 @@ const ProfilePage = () => {
         try {
             let resp = await apiRequestGet(url, "GET")
             setUser(resp.data)
-            console.log("user shld be", resp);
+            console.log("user shld be", resp.data);
+            setLoding(false);
         }
         catch (err) {
             console.log("ERROR ", err);
         }
 
     }
-    const user_now = JSON.parse(Cookies.get('user'));
+    // const user_now = JSON.parse(Cookies.get('user'));
     // getUser()
-
     useEffect(() => {
-        getUser()
-        console.log("get user");
-        // setUser(user_now);
-    }, [showCreatePost]);
+        const fetchUser = async () => {
+          try {
+            // Assuming getUser is an asynchronous function
+             await getUser();
+            console.log("User:", user);
+            // Update state or perform other actions with the user data
+            // setUser(user);
+          } catch (error) {
+            console.error("Error fetching user:", error);
+          }
+        };
+      
+        // Call the fetchUser function
+        fetchUser();
+      
+        // The dependency array should include any variables that are being used inside the effect
+        // In this case, if `getUser` is a dependency or any variable inside `getUser`, include it in the dependency array
+      }, [showCreatePost]);
+      
     return (
         <div>
-            {user ? (
+            {!loading  ? (
                 <div>
                     <div className="w-full lg:w-4/12 px-4 mx-auto">
                         <div className="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-xl rounded-lg mt-16">
@@ -126,7 +142,10 @@ const ProfilePage = () => {
                                     <div><div className=''>
                                         {
                                             user.reviews && user.reviews.map((review, index) => (
-                                                <div key={index}>
+                                                <div key={index}>{
+
+                                                   console.log(review)
+                                                }
                                                     <Review review={review} />
                                                 </div>
                                             ))
@@ -167,8 +186,12 @@ const ProfilePage = () => {
                 <Loading text={"loading profile..."} />
             )}
         </div>
+        // <div>{
+        //     console.log(user)
+        // }</div>
     );
 
+   
 }
 
 export default ProfilePage
