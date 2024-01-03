@@ -22,10 +22,22 @@ router.get("/myInfo", auth, async (req, res) => {
       await userInfo.populate('posts')
     }
     if (userInfo.missions.length > 0) {
-      await userInfo.populate('missions')
+      await userInfo.populate({
+        path: 'missions',
+        populate: {
+          path: 'user_creator',
+          select: '_id full_name',
+        },
+      });
     }
     if (userInfo.reviews.length > 0) {
-      await userInfo.populate('reviews')
+      await userInfo.populate({
+        path: 'reviews',
+        populate: {
+          path: 'user_creater',
+          select: '_id full_name img_url',
+        },
+      });
     }
 
 
@@ -179,15 +191,15 @@ router.post("/login", async (req, res) => {
     if (!user.active) {
       return res.status(401).json({ msg: "User is not active ", code: 4 })
     }
-    if (user.posts.length > 0) {
-      await user.populate('posts')
-    }
-    if (user.missions.length > 0) {
-      await user.populate('missions')
-    }
-    if (user.reviews.length > 0) {
-      await user.populate('reviews')
-    }
+    // if (user.posts.length > 0) {
+    //   await user.populate('posts')
+    // }
+    // if (user.missions.length > 0) {
+    //   await user.populate('missions')
+    // }
+    // if (user.reviews.length > 0) {
+    //   await user.populate('reviews')
+    // }
 
     let token = createToken(user._id, user.role);
     res.json({ user, token });
