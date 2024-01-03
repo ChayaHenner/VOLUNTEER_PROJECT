@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { SERVER_URL, apiRequestGet, apiRequestNoBody } from '../serverConnect/api';
-import { EditIcon } from '../comps_users/Icons';
+import { EditIcon, ProfileIcon } from '../comps_users/Icons';
 
 const ViewUsers = () => {
   const [userList, setUserList] = useState([]);
@@ -31,7 +31,7 @@ const ViewUsers = () => {
     }
     console.log('Edit role for user with ID:', userId);
     fetchUserList();
-    
+
   };
 
   return (
@@ -60,7 +60,7 @@ const ViewUsers = () => {
                   <EditIcon />                </button></td>
               <td className="py-2 px-4 border-b">
                 <Link to={`/view-user/${user._id}`} className="text-blue-500 mr-2">
-                  Profile Page
+                  <ProfileIcon />
                 </Link>
               </td>
             </tr>
