@@ -1,8 +1,7 @@
-
 import React, { useEffect, useState } from 'react';
 import { apiRequestGet, apiRequest, SERVER_URL, apiRequestNoBody } from '../serverConnect/api';
 import { Link } from 'react-router-dom';
-import {SearchIcon, AddressIcon, CalenderIcon, TimeIcon } from './Icons';
+import { AddressIcon, CalenderIcon, TimeIcon } from './Icons';
 
 
 // Import the new DateFilter component
@@ -14,13 +13,9 @@ const ViewMissions = () => {
   const [searchQuery, setSearchQuery] = useState('');
 
   useEffect(() => {
-    // Fetch missions on component mount
     const fetchMissions = async () => {
       try {
         const url = searchQuery ? `${SERVER_URL}/missions/search?s=${searchQuery}` : `${SERVER_URL}/missions`;
-        console.log('Fetch URL:', url); // Log the URL for debugging
-
-        // const url = `${SERVER_URL}/missions/`;
         const response = await apiRequestGet(url);
         setMissions(response.data);
       } catch (error) {
@@ -39,76 +34,67 @@ const ViewMissions = () => {
         alert('User added to interested list');
       }
     } catch (error) {
-      // Handle error, e.g., show an error message
       console.error('Error taking task:', error.response.data);
       alert(error.response.data.error)
     }
   };
 
-  // Update missions based on filtered data
   const updateMissions = (filteredMissions) => {
     setMissions(filteredMissions);
   };
 
   return (
     <div>
-      <div className='flex justify-between'>
-        {/* Add the DateFilter component to handle date and time range filtering */}
-        <DateFilter updateMissions={updateMissions} />
+      <h2>Missions</h2>
 
-        <div className="">
-          <span className="absolute  flex align-center">
-            <SearchIcon className="h-5 w-5 text-gray-400" />
-          </span>
-          <input
-            type="text"
-            placeholder="Search missions..."
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-            className="pl-10 border p-2 mb-4"
-          />
-        </div>   </div>                 <div className='align-center justify-center flex flex-wrap -mx-4'>
+      {/* Add the DateFilter component to handle date and time range filtering */}
+      <DateFilter updateMissions={updateMissions} />
 
+      <input
+        type="text"
+        placeholder="Search missions..."
+        value={searchQuery}
+        onChange={(e) => setSearchQuery(e.target.value)}
+        className="border p-2 mb-4"
+      />                    <div className='align-center justify-center flex flex-wrap -mx-4'>
+
+      <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4'>
         {missions.map((mission) => {
-          // const userArray = mission.user_creator.split(',');
-          // const id = userArray[0];
-          // const name = userArray[1];
-          console.log(mission);
           return (
-            <div key={mission._id} className="max-w-sm p-6 bg-white-100 border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 m-4">
-              <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">{mission.title}</h5>
-              <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">{mission.description}</p>
-              <div>
-                <div className="flex items-center mb-3">
-                  <AddressIcon className="inline-block w-6 h-6 mr-2" />
-                  <p className="mb-0 font-normal text-gray-700 dark:text-gray-400">{mission.address}</p>
+            <div key={mission._id} className="bg-white border border-gray-200 rounded-lg shadow p-6">
+              <h5 className="text-xl font-bold mb-2">{mission.title}</h5>
+              <p className="text-gray-700 mb-3">{mission.description}</p>
+              <div className="mb-3">
+                <div className="flex items-center mb-2">
+                  <AddressIcon className="w-4 h-4 mr-2" />
+                  <p className="text-gray-700">{mission.address}</p>
                 </div>
-                <div className="flex items-center mb-3">
-                  <CalenderIcon className="inline-block w-6 h-6 mr-2" />
-                  <p className="mb-0 font-normal text-gray-700 dark:text-gray-400">{mission.date}</p>
+                <div className="flex items-center mb-2">
+                  <CalenderIcon className="w-4 h-4 mr-2" />
+                  <p className="text-gray-700">{mission.date}</p>
                 </div>
-                <div className="flex items-center mb-3">
-                  <TimeIcon className="inline-block w-6 h-6 mr-2" />
-                  <p className="mb-0 font-normal text-gray-700 dark:text-gray-400">{mission.time}</p>
+                <div className="flex items-center">
+                  <TimeIcon className="w-4 h-4 mr-2" />
+                  <p className="text-gray-700">{mission.time}</p>
                 </div>
               </div>
-              <div className="flex">
-                <Link className='w-1/2' to={`/view-user/${mission.user_creator._id}`}>
+              <div className="flex justify-between">
+                <Link to={`/view-user/${mission.user_creator._id}`}>
                   <p className="text-sm text-gray-500">{`Created by: ${mission.user_creator.full_name}`}</p>
                 </Link>
-
-
                 <button
                   onClick={() => handleTakeTask(mission._id)}
-                  className="w-1/2 hover:bg-purple-500 bg-white-500 border text-purple-500 border-purple-500 hover:text-white px-4 py-2 rounded-md m-2"
+                  className="hover:bg-blue-700 bg-blue-500 text-white border border-blue-500 px-4 py-2 rounded-md"
                 >
                   Take Task
                 </button>
               </div>
             </div>
           );
-        })}</div>
+        })}
+      </div>
     </div>
   );
-}
+};
+
 export default ViewMissions;
