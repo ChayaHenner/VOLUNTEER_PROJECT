@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { SERVER_URL, apiRequestGet, apiRequestNoBody } from '../serverConnect/api';
+import { tokenExpireAlert, SERVER_URL, apiRequestGet, apiRequestNoBody } from '../serverConnect/api';
 
 const Management = () => {
     const [userList, setUserList] = useState([]);
@@ -14,6 +14,7 @@ const Management = () => {
                 // console.log(response.data);
                 setUserList(response.data);
             } catch (error) {
+                tokenExpireAlert(error)
                 console.error('Error fetching userList:', error);
             }
         };
@@ -26,6 +27,7 @@ const Management = () => {
             await apiRequestNoBody(url, "PUT");
             fetchUserList();
         } catch (error) {
+            tokenExpireAlert(error)
             console.error('Error deleting report:', error);
         }
     };

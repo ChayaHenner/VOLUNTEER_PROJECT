@@ -35,6 +35,8 @@ const ProfilePage = () => {
         }
         catch (err) {
             console.log("ERROR ", err);
+            tokenExpireAlert(err)
+
         }
 
     }
@@ -58,7 +60,7 @@ const ProfilePage = () => {
 
         // The dependency array should include any variables that are being used inside the effect
         // In this case, if `getUser` is a dependency or any variable inside `getUser`, include it in the dependency array
-    }, [showCreatePost]);
+    }, []);
 
     return (
         <div>

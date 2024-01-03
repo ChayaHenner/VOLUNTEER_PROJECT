@@ -23,7 +23,7 @@ const DateFilter = ({ updateMissions }) => {
 
     return (
         <div className="flex items-center mb-4">
-            <div className="border rounded-md p-2 mr-4">
+            <div className=" rounded-md p-2 mr-4">
                 <label className="block text-sm font-medium text-gray-700">Start Date</label>
                 <input
                     type="date"
@@ -33,7 +33,7 @@ const DateFilter = ({ updateMissions }) => {
                 />
             </div>
 
-            <div className="border rounded-md p-2 mr-4">
+            <div className=" rounded-md p-2 mr-4">
                 <label className="block text-sm font-medium text-gray-700">End Date</label>
                 <input
                     type="date"
@@ -43,7 +43,7 @@ const DateFilter = ({ updateMissions }) => {
                 />
             </div>
 
-            <div className="border rounded-md p-2 mr-4">
+            <div className=" rounded-md p-2 mr-4">
                 <label className="block text-sm font-medium text-gray-700">Start Time</label>
                 <input
                     type="time"
@@ -53,7 +53,7 @@ const DateFilter = ({ updateMissions }) => {
                 />
             </div>
 
-            <div className="border rounded-md p-2 mr-4">
+            <div className=" rounded-md p-2 mr-4">
                 <label className="block text-sm font-medium text-gray-700">End Time</label>
                 <input
                     type="time"
