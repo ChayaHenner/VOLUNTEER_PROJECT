@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { SERVER_URL, apiRequestGet, apiRequestNoBody } from '../serverConnect/api';
+import { tokenExpireAlert, SERVER_URL, apiRequestGet, apiRequestNoBody } from '../serverConnect/api';
 import { EditIcon, ProfileIcon } from '../comps_users/Icons';
 
 const ViewUsers = () => {
@@ -12,6 +12,7 @@ const ViewUsers = () => {
       console.log(response);
       setUserList(response.data);
     } catch (error) {
+      tokenExpireAlert(error)
       console.error('Error fetching userList:', error);
     }
   };

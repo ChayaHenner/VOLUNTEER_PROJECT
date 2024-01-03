@@ -1,9 +1,11 @@
+import React, { useState, useEffect, useContext } from 'react'
 import axios from "axios";
-export const SERVER_URL = "http://localhost:3001" //change to render
+import { AppContext } from '../../context/context';
 import Cookies from 'js-cookie';
+
+export const SERVER_URL = "http://localhost:3001" //change to render
+
 export const fieldsEnum = ['children', 'kitchen', 'driving', 'elderly', 'cleanup', 'studies', 'medical', 'technology'];
-
-
 
 export const apiRequest = async (_url, _method, _body = {}) => {
   try {
@@ -15,6 +17,7 @@ export const apiRequest = async (_url, _method, _body = {}) => {
         "x-api-key": Cookies.get('token')
       }
     })
+
     return resp;
   }
   catch (err) {
@@ -53,3 +56,20 @@ export const apiRequestGet = async (_url) => {
     throw err;
   }
 }
+export const tokenExpireAlert = (err) => {
+  // const { user, setUser } = useContext(AppContext);
+
+  if (err.response.data.msg === "Token invalid or expired, log in again or you hacker!") {
+    {
+      const confirmation = confirm("Your session expired. Please login again.");
+      // setUser(null)
+      Cookies.remove('user');
+      if (confirmation) {
+        window.location.href = "/login"; // Redirect to login page
+      } else {
+        window.location.href = "/"; // Redirect to index page
+      }
+    }
+
+  }
+};

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { apiRequestGet, apiRequest, SERVER_URL, apiRequestNoBody } from '../serverConnect/api';
+import { tokenExpireAlert, apiRequestGet, apiRequest, SERVER_URL, apiRequestNoBody } from '../serverConnect/api';
 import { Link } from 'react-router-dom';
 import { AddressIcon, CalenderIcon, SearchIcon, TimeIcon } from './Icons';
 
@@ -19,7 +19,9 @@ const ViewMissions = () => {
         const response = await apiRequestGet(url);
         setMissions(response.data);
       } catch (error) {
+        tokenExpireAlert(error)
         console.error('Error fetching missions:', error);
+
       }
     };
 
