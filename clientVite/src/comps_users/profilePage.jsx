@@ -42,27 +42,27 @@ const ProfilePage = () => {
     // getUser()
     useEffect(() => {
         const fetchUser = async () => {
-          try {
-            // Assuming getUser is an asynchronous function
-             await getUser();
-            console.log("User:", user);
-            // Update state or perform other actions with the user data
-            // setUser(user);
-          } catch (error) {
-            console.error("Error fetching user:", error);
-          }
+            try {
+                // Assuming getUser is an asynchronous function
+                await getUser();
+                console.log("User:", user);
+                // Update state or perform other actions with the user data
+                // setUser(user);
+            } catch (error) {
+                console.error("Error fetching user:", error);
+            }
         };
-      
+
         // Call the fetchUser function
         fetchUser();
-      
+
         // The dependency array should include any variables that are being used inside the effect
         // In this case, if `getUser` is a dependency or any variable inside `getUser`, include it in the dependency array
-      }, [showCreatePost]);
-      
+    }, [showCreatePost]);
+
     return (
         <div>
-            {!loading  ? (
+            {!loading ? (
                 <div>
                     <div className="w-full lg:w-4/12 px-4 mx-auto">
                         <div className="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-xl rounded-lg mt-16">
@@ -132,7 +132,7 @@ const ProfilePage = () => {
 
                                     <div><div className=''>
                                         {
-                                            user.posts && user.posts.map((post, index) => (
+                                            user.posts && user.posts.slice().reverse().map((post, index) => (
                                                 <div key={index}>
                                                     <Post post={post} profile={user.img_url} />
                                                 </div>
@@ -144,7 +144,7 @@ const ProfilePage = () => {
                                             user.reviews && user.reviews.map((review, index) => (
                                                 <div key={index}>{
 
-                                                   console.log(review)
+                                                    console.log(review)
                                                 }
                                                     <Review review={review} />
                                                 </div>
@@ -191,7 +191,7 @@ const ProfilePage = () => {
         // }</div>
     );
 
-   
+
 }
 
 export default ProfilePage
