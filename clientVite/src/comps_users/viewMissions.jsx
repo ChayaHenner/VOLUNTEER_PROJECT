@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import { apiRequestGet, apiRequest, SERVER_URL, apiRequestNoBody } from '../serverConnect/api';
 import { Link } from 'react-router-dom';
-import { AddressIcon, CalenderIcon, TimeIcon } from './Icons';
+import {SearchIcon, AddressIcon, CalenderIcon, TimeIcon } from './Icons';
 
 
 // Import the new DateFilter component
@@ -52,18 +52,22 @@ const ViewMissions = () => {
 
   return (
     <div>
-      <h2>Missions</h2>
+      <div className='flex justify-between'>
+        {/* Add the DateFilter component to handle date and time range filtering */}
+        <DateFilter updateMissions={updateMissions} />
 
-      {/* Add the DateFilter component to handle date and time range filtering */}
-      <DateFilter updateMissions={updateMissions} />
-
-      <input
-        type="text"
-        placeholder="Search missions..."
-        value={searchQuery}
-        onChange={(e) => setSearchQuery(e.target.value)}
-        className="border p-2 mb-4"
-      />                    <div className='align-center justify-center flex flex-wrap -mx-4'>
+        <div className="">
+          <span className="absolute  flex align-center">
+            <SearchIcon className="h-5 w-5 text-gray-400" />
+          </span>
+          <input
+            type="text"
+            placeholder="Search missions..."
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            className="pl-10 border p-2 mb-4"
+          />
+        </div>   </div>                 <div className='align-center justify-center flex flex-wrap -mx-4'>
 
         {missions.map((mission) => {
           // const userArray = mission.user_creator.split(',');
