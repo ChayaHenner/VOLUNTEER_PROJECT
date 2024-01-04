@@ -21,7 +21,7 @@ router.get("/getall", async (req, res) => {
 // // Calculate user age based on birth_date
 function calculateUserAge(birthDate) {
     const today = new Date();
-    console.log("im here");
+    console.log("calculate user age");
 
     const birth = new Date(birthDate);
     let age = today.getFullYear() - birth.getFullYear();
@@ -84,7 +84,6 @@ router.get("/", auth, async (req, res) => {
     try {
         const userId = req.tokenData._id;
         const missions = await getMissionsByAgeAndGender(userId);
-
         res.json(missions);
     } catch (err) {
         console.log(err);
@@ -147,18 +146,41 @@ router.get("/topTen", async (req, res) => {
 });
 
 // /missions/search?s=
-router.get("/search", async (req, res) => {
+router.get("/search", auth, async (req, res) => {
     try {
+        const userId = req.tokenData._id;
         let queryS = req.query.s;
-        // מביא את החיפוש בתור ביטוי ולא צריך את כל הביטוי עצמו לחיפוש
-        // i -> מבטל את כל מה שקשור ל CASE SENSITVE
         let searchReg = new RegExp(queryS, "i")
-        let data = await MissionModel.find({ title: searchReg })
-            .populate({
-                path: 'user_creator',
-                select: '_id full_name'
-            }).limit(50)
-        res.json(data);
+        const missions = await getMissionsByAgeAndGender(userId);
+        const missionIdsFromAgeAndGender = missions.map((mission) => mission._id);
+        const matchingMissionsFromDB = await MissionModel.find({
+            $and: [
+                {
+                    _id: { $in: missionIdsFromAgeAndGender }, // Filter by mission IDs from getMissionsByAgeAndGender
+                },
+                {
+                    $or: [
+                        { title: searchReg },
+                        { description: searchReg },
+                        { address: searchReg },
+                    ],
+                },
+            ],
+        }).populate({
+            path: 'user_creator',
+            select: '_id full_name img_url',
+        }).limit(50);
+
+        res.json(matchingMissionsFromDB);
+
+
+        // console.log("query", queryS)
+        // let data = await MissionModel.find({ title: searchReg })
+        //     .populate({
+        //         path: 'user_creator',
+        //         select: '_id full_name img_url'
+        //     }).limit(50)
+        // res.json(data);
     }
     catch (err) {
         console.log(err);
