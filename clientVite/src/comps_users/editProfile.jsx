@@ -10,7 +10,6 @@ import Cookies from 'js-cookie';
 const EditProfile = () => {
     const [address, setAddress] = useState(null);
     const { user, setUser } = useContext(AppContext);
-    const [loading, setLoading] = useState(null);
 
     const { register, handleSubmit, formState: { errors }, getValues } = useForm();
     const nav = useNavigate()
@@ -42,7 +41,7 @@ const EditProfile = () => {
 
     const onSubmit = async (data) => {
         setLoading(true)
-        const imageUrl = await uploadImageToStorage(selectedImage);
+        // const imageUrl = await uploadImageToStorage(selectedImage);
         data.img_url = imageUrl;
         delete data.confirmPassword
 
