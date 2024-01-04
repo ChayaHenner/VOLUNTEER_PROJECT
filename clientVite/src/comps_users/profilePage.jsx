@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react'
-import {tokenExpireAlert, SERVER_URL, apiRequest, apiRequestGet } from '../serverConnect/api';
+import { tokenExpireAlert, SERVER_URL, apiRequest, apiRequestGet } from '../serverConnect/api';
 import Cookies from 'js-cookie';
 import { AppContext } from '../../context/context';
 import { useNavigate } from 'react-router-dom';
@@ -9,6 +9,7 @@ import StarIcon from './starIcon'
 import CreatePost from './createPost';
 import MyMission from './myMission';
 import Loading from '../comps_main/loading';
+import { PlusIcon } from './Icons';
 const ProfilePage = () => {
     const { user, setUser } = useContext(AppContext);
     const nav = useNavigate()
@@ -69,14 +70,21 @@ const ProfilePage = () => {
                     <div className="w-full lg:w-4/12 px-4 mx-auto">
                         <div className="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-xl rounded-lg mt-16">
                             <div className="px-6">
-                                <div className="flex flex-wrap justify-center">
-                                    <div className="w-full px-4 flex justify-center">
-                                        <div className="flex justify-center ">
-                                            <div className="w-64 h-64 rounded-full overflow-hidden shadow-xl position">
-                                                <img src={user.img_url} alt={user.full_name} className="w-full h-full object-cover" />
-                                            </div>
+                                <div className=" flex flex-wrap justify-center">
+                                    <div className=" w-full px-4 flex justify-center relative">
+                                        {/* Place the button directly inside the container */}
+                                        <button
+                                            onClick={() => { nav("/edit-img") }}
+                                            className="absolute bottom-4 right-20 bg-white rounded-full p-2 shadow-md z-10"
+                                        >
+                                            <PlusIcon />
+                                        </button>
+
+                                        <div className="relative w-64 h-64 rounded-full overflow-hidden shadow-xl">
+                                            <img src={user.img_url} alt={user.full_name} className="w-full h-full object-cover" />
                                         </div>
                                     </div>
+
                                     <div className="w-full px-4 text-center mt-20">
                                         <div className="flex justify-center py-4 lg:pt-4 pt-8">
                                             <div className="mr-4 p-3 text-center">
@@ -136,7 +144,7 @@ const ProfilePage = () => {
                                         {
                                             user.posts && user.posts.slice().reverse().map((post, index) => (
                                                 <div key={index}>
-                                                    <Post post={post} profile={user.img_url} />
+                                                    <Post post={post} profile={user.img_url} getUser={getUser} />
                                                 </div>
                                             ))
                                         }
@@ -167,8 +175,6 @@ const ProfilePage = () => {
                             </div>
                             <button
                                 className=' bg-purple-500 text-white px-4 py-2 rounded-md mt-4 z-5  absolute right-0 top-200' onClick={() => { nav("/edit-profile") }}>edit</button>
-                                   <button
-                                className=' bg-purple-500 text-white px-4 py-2 rounded-md mt-4 z-5  absolute right-50 top-200' onClick={() => { nav("/edit-img") }}>edit img</button>
 
                             {/* <button
                                 className='bg-green-500 text-white px-4 py-2 rounded-md mt-4'
@@ -178,7 +184,7 @@ const ProfilePage = () => {
                             </button> */}
 
                             {showCreatePost && (
-                                <CreatePost setShowCreatePost={setShowCreatePost} />)}
+                                <CreatePost setShowCreatePost={setShowCreatePost} getUser={getUser} />)}
                         </div>
 
                     </div>
@@ -188,8 +194,9 @@ const ProfilePage = () => {
 
             ) : (
                 <Loading text={"loading profile..."} />
-            )}
-        </div>
+            )
+            }
+        </div >
         // <div>{
         //     console.log(user)
         // }</div>

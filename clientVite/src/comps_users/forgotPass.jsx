@@ -1,4 +1,3 @@
-// דוגמא של דף "שכחתי סיסמה" (ForgotPassword.jsx)
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import { SERVER_URL, apiRequest } from '../serverConnect/api';
