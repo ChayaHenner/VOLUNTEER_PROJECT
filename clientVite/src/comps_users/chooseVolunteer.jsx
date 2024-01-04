@@ -8,23 +8,6 @@ const ChooseVolunteer = ({ interested, mission }) => {
         setSelectedVolunteer(volunteer);
     };
 
-    // const handleAssignVolunteer = async () => {
-
-    //     if (selectedVolunteer) {
-    //         try {
-
-    //             const url = `${SERVER_URL}/missions/taken?idMission=${mission}&idUser=${selectedVolunteer._id}`;
-    //             const resp = await apiRequest(url, 'PUT',data);
-    //             console.log(resp.data);
-    //             // alert(`Assigned ${selectedVolunteer.full_name} to the mission!`);
-    //         } catch (err) {
-    //             console.log('ERROR:', err);
-    //             // alert('Failed to assign the volunteer. Please try again.');
-    //         }
-    //     } else {
-    //         alert('Please select a volunteer first.');
-    //     }
-    // };
     const handleAssignVolunteer = async () => {
         if (selectedVolunteer) {
             try {

@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
-import { fieldsEnum, SERVER_URL, apiRequest } from '../serverConnect/api';
+import {       tokenExpireAlert,  fieldsEnum, SERVER_URL, apiRequest } from '../serverConnect/api';
 import Cookies from 'js-cookie';
 import AddressInput from './addressInput'
 
@@ -21,6 +21,7 @@ const PostMission = ({ setShowCreateNewMission }) => {
       setShowCreateNewMission(false)
     }
     catch (err) {
+      tokenExpireAlert(err)
       console.log("ERROR ", err);
     }
   }

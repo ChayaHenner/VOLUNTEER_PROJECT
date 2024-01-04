@@ -172,7 +172,7 @@ router.get("/createdByMe", auth, async (req, res) => {
 
         const missionsCreatedByUser = await MissionModel.find({ user_creator: userId }).sort({ _id: -1 }).populate({
             path: 'interested',
-            select: '_id full_name'
+            select: '_id full_name img_url'
         });
         res.json(missionsCreatedByUser);
     } catch (err) {
