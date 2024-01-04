@@ -39,8 +39,53 @@ router.post('/', async (req, res) => {
     from: 'illuminatectb@gmail.com',
     to: userEmail,
     subject: 'Password Reset',
-    text: `Click the following link to reset your password: http://http://localhost:3000/reset-password/${resetToken}`
+    html: `
+      <html>
+        <head>
+          <style>
+            body {
+              font-family: 'Arial', sans-serif;
+              background-color: #f4f4f4;
+              color: #333;
+            }
+            .container {
+              max-width: 600px;
+              margin: 0 auto;
+              padding: 20px;
+              background-color: #fff;
+              border-radius: 8px;
+              box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            }
+            h1 {
+              color: #800080; /* סגול */
+            }
+            p {
+              line-height: 1.6;
+            }
+            .button {
+              display: inline-block;
+              padding: 10px 20px;
+              background-color: #800080; /* סגול */
+              color: white; /* לבן */
+              text-decoration: none;
+              text-color: #fff;
+              border-radius: 5px;
+            }
+          </style>
+        </head>
+        <body>
+          <div class="container">
+            <h1>Password Reset</h1>
+            <p>Click the following button to reset your password:</p>
+            <a class="button" href="http://localhost:3000/reset-password/${resetToken}">Reset Password</a>
+          </div>
+        </body>
+      </html>
+    `,
   };
+  
+  // ... קוד נוסף ...
+  
 
   try {
     await transporter.sendMail(mailOptions);
