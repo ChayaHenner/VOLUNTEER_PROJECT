@@ -48,11 +48,12 @@ const EditMission = ({ mission, onClose, onUpdate }) => {
                     </div>
                     <div className="mb-4">
                         <label className="block text-sm font-bold text-gray-700">Date</label>
-                        <input {...register('date')} type="text" className="form-input mt-1 block w-full" />
+                        <input {...register('date')} type="date" className="form-input mt-1 block w-full" />
                     </div>
                     <div className="mb-4">
                         <label className="block text-sm font-bold text-gray-700">Time</label>
                         <input {...register('time')} type="text" className="form-input mt-1 block w-full" />
+
                     </div>
                     {/* Add more fields as needed */}
                     <div className="flex justify-end">
