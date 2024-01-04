@@ -210,18 +210,11 @@ router.post("/login", async (req, res) => {
   }
 })
 
-router.put("/delete/:editId", auth, async (req, res) => {
+router.put("/delete", auth, async (req, res) => {
 
   try {
-    let editId = req.params.editId;
-    let data;
-    console.log(req.tokenData.role);
-    if (req.tokenData.role === "admin") {
-
-      data = await UserModel.updateOne({ _id: editId }, { $set: { active: false } });
-    } else {
-      data = await UserModel.updateOne({ _id: editId, user_id: req.tokenData._id }, { $set: { active: false } });
-    }
+    let editId = req.tokenData._id;
+    let data = await UserModel.updateOne({ _id: editId }, { $set: { active: false } });
     res.json(data);
   }
   catch (err) {

@@ -1,4 +1,3 @@
-// דוגמא של דף "שכחתי סיסמה" (ForgotPassword.jsx)
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import { SERVER_URL, apiRequest } from '../serverConnect/api';
@@ -19,7 +18,6 @@ const ForgotPassword = () => {
         },
         body: JSON.stringify(data),
       });
-
       if (response.ok) {
         console.log('Password reset email sent successfully.');
         alert("A password reset email has been sent \n Check your email")
@@ -35,22 +33,31 @@ const ForgotPassword = () => {
 
 
   return (
-    <div>
-      <div>Forgot Password</div>
-      <form onSubmit={handleSubmit(onSubmitForgotPassword)} className="mt-3">
-        <div className="mb-4">
-          <label className="block text-sm font-medium text-gray-700">
+    <div className=' flex justify-center items-center'>
+      <div className="bg-white p-6 rounded-lg">
+        <div className="text-center text-2xl font-bold mb-4">Reset Password</div>
+        <form onSubmit={handleSubmit(onSubmitForgotPassword)} className="mt-3 text-center">
+          <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
             Email:
           </label>
-          <input {...register('email', { required: true, pattern: /^\S+@\S+$/i })} type="email" className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500" />
-          {errors.email && <div className="text-red-500 text-xs">Email is required and must be a valid email address</div>}
-        </div>
-        <button type="submit" className="bg-purple-500 text-white px-4 py-2 rounded-md mt-4">
-          Send Password Reset Email
-        </button>
-      </form>
+          <input
+            {...register('email', { required: true, pattern: /^\S+@\S+$/i })}
+            type="email"
+            className="bg-gray-200 text-gray-700 border border-purple-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white w-full"
+          />
+          {errors.email && (
+            <div className="text-red-500 text-xs">Email is required and must be a valid email address</div>
+          )}
+          <div className="flex justify-center">
+            <button type="submit" className="bg-purple-500 text-white px-4 py-2 rounded-md">
+              Send
+            </button>
+          </div>
+        </form>
+      </div>
     </div>
   );
 };
 
 export default ForgotPassword;
+

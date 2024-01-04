@@ -17,9 +17,11 @@ const CreatePost = (props) => {
       let resp = await apiRequest(url, "POST", data);
       console.log("post added");
       props.setShowCreatePost(false)
+      props.getUser()
     } catch (err) {
       console.log("ERROR ", err);
     }
+    props.getUser()
   };
 
   return (

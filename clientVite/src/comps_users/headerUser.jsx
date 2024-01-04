@@ -4,6 +4,7 @@ import LogOut from './logOut';
 import { AppContext } from '../../context/context';
 import ProfileImg from './profileImg';
 import Cookies from 'js-cookie';
+import DeletUser from './deletUser'
 
 const HeaderUser = () => {
   const { user, setUser } = useContext(AppContext);
@@ -33,6 +34,10 @@ const HeaderUser = () => {
   };
 
   const handleLogout = () => {
+    setUser(null);
+    setDropdownOpen(false);
+  };
+  const handleDelet = () => {
     setUser(null);
     setDropdownOpen(false);
   };
@@ -125,6 +130,12 @@ const HeaderUser = () => {
                       onClick={handleLogout}
                     >
                       <LogOut />
+                    </button>
+                    <button
+                      className="block px-4 py-2 text-gray-800 hover:bg-gray-200 w-full text-left"
+                      onClick={handleDelet}
+                    >
+                      <DeletUser />
                     </button>
                   </li>
 
