@@ -27,6 +27,69 @@ router.get("/", auth, async (req, res) => {
     }
 })
 
+router.delete("/:id", auth, async (req, res) => {
+    try {
+        const postId = req.params.id;
+        const userId = req.tokenData._id;
+
+        // Find the post
+        const post = await PostModel.findById(postId);
+
+        if (!post) {
+            return res.status(404).json({ error: 'Post not found' });
+        }
+
+        // Check if the user has permission to delete the post
+        if (post.user_created !== userId && req.tokenData.role !== "admin") {
+            return res.status(403).json({ error: 'Unauthorized: You do not have permission to delete this post' });
+        }
+
+        // Delete the post
+        await PostModel.findByIdAndDelete(postId);
+
+        // Remove the post from the user's posts array
+        await UserModel.findByIdAndUpdate(userId, { $pull: { posts: postId } });
+
+        res.json({ message: 'Post deleted successfully' });
+    } catch (err) {
+        console.log(err);
+        res.status(500).json({ msg: 'Internal Server Error', err });
+    }
+});
+
+// ... (existing code)
+
+router.put("/:id", auth, async (req, res) => {
+    try {
+        const postId = req.params.id;
+        const userId = req.tokenData._id;
+
+        // Find the post
+        const post = await PostModel.findById(postId);
+
+        if (!post) {
+            return res.status(404).json({ error: 'Post not found' });
+        }
+
+        // Check if the user has permission to edit the post
+        if (post.user_created !== userId) {
+            return res.status(403).json({ error: 'Unauthorized: You do not have permission to edit this post' });
+        }
+
+        // Update the post with the new data
+        const updatedPostData = req.body;
+        const updatedPost = await PostModel.findByIdAndUpdate(postId, updatedPostData, { new: true });
+
+        res.json(updatedPost);
+    } catch (err) {
+        console.log(err);
+        res.status(500).json({ msg: 'Internal Server Error', err });
+    }
+});
+
+// ... (existing code)
+
+
 // router.post("/",auth, async (req, res) => {
 //     let post =req.body;
 //     // post.user_created = req.tokenData._id
@@ -113,7 +176,7 @@ router.delete("/:id", auth, async (req, res) => {
 router.put("/add/:id", auth, async (req, res) => {
     let id = req.params.id;
     let tokenId = req.tokenData._id;
-    console.log( tokenId);
+    console.log(tokenId);
     try {
         let post = await PostModel.findOne({ _id: id });
 
