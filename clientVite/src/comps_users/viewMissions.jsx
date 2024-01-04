@@ -76,7 +76,7 @@ const ViewMissions = () => {
                   </div>
                   <div className="flex items-center mb-2">
                     <CalenderIcon className="w-4 h-4 mr-2" />
-                    <p className="text-gray-700">{mission.date}</p>
+                    <p className="text-gray-700">{new Date(mission.date).toLocaleDateString()}</p>
                   </div>
                   <div className="flex items-center">
                     <TimeIcon className="w-4 h-4 mr-2" />
