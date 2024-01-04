@@ -167,6 +167,8 @@ const ProfilePage = () => {
                             </div>
                             <button
                                 className=' bg-purple-500 text-white px-4 py-2 rounded-md mt-4 z-5  absolute right-0 top-200' onClick={() => { nav("/edit-profile") }}>edit</button>
+                                   <button
+                                className=' bg-purple-500 text-white px-4 py-2 rounded-md mt-4 z-5  absolute right-50 top-200' onClick={() => { nav("/edit-img") }}>edit img</button>
 
                             {/* <button
                                 className='bg-green-500 text-white px-4 py-2 rounded-md mt-4'

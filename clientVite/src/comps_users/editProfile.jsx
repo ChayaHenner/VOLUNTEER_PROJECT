@@ -49,7 +49,7 @@ const EditProfile = () => {
         // delete data.confirmPassword
         // data.address = selectedAddress;
         data.address = address //new
-        let url = SERVER_URL + `/users/${user._id}`
+        let url = SERVER_URL + `/users/edit/${user._id}`
         try {
             let resp = await apiRequest(url, "PUT", data)
             console.log(resp.data)
