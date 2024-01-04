@@ -25,7 +25,7 @@ const ResetPasswordForm = (props) => {
     };
 
     return (
-        <div className='fixed inset-0 flex justify-center items-center'>
+        <div className=' flex justify-center items-center'>
             <div className="bg-white p-6 rounded-lg">
                 <div className="text-center text-2xl font-bold mb-4">Reset Password</div>
                 <form onSubmit={onSubmit} className="mt-3 text-center">
