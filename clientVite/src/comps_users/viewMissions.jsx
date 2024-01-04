@@ -64,7 +64,7 @@ const ViewMissions = () => {
       <div className='align-center justify-center flex flex-wrap -mx-4'>
 
         <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4'>
-          {missions.map((mission) => {
+          {missions && missions.map((mission) => {
             return (
               <div key={mission._id} className="bg-white border border-gray-200 rounded-lg shadow p-6">
                 <h5 className="text-xl font-bold mb-2">{mission.title}</h5>

@@ -57,7 +57,7 @@ export const InterestedMenu = ({ getMissions,interested, mission }) => {
 
             {showDropdown && (
                 <ul
-                    className="absolute z-10 mt-1 max-h-56 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm"
+                    className="absolute z-10 mt-1 max-h-56 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5  sm:text-sm"
                     tabIndex="-1"
                     role="listbox"
                     aria-labelledby="listbox-label"
@@ -90,7 +90,7 @@ export const InterestedMenu = ({ getMissions,interested, mission }) => {
                 </ul>
             )}
 
-            <button className="mt-2 px-4 py-2 bg-blue-500 text-white rounded-md" onClick={handleChoose}>
+            <button className="mt-2 px-4 py-2 bg-purple-500 text-white rounded-md" onClick={handleChoose}>
                 Choose
             </button>
         </div>
