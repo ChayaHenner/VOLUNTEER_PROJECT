@@ -347,7 +347,8 @@ router.put("/image",auth, async (req, res) => {
 
     let data = await UserModel.updateOne({ _id: editId }, { $set: { img_url: url } });
     console.log(data);
-    res.json({ msg: "img saved successfully" });
+    let user = await UserModel.findOne({ _id: editId })
+    res.json({ msg: "img saved successfully",user: user });
   }
   catch (err) {
     console.log(err);
