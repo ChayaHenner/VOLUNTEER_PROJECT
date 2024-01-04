@@ -11,10 +11,9 @@ const Management = () => {
             try {
                 const url = `${SERVER_URL}/report`;
                 const response = await apiRequestGet(url);
-                // console.log(response.data);
                 setUserList(response.data);
             } catch (error) {
-                tokenExpireAlert(error)
+                tokenExpireAlert(error);
                 console.error('Error fetching userList:', error);
             }
         };
@@ -27,39 +26,36 @@ const Management = () => {
             await apiRequestNoBody(url, "PUT");
             fetchUserList();
         } catch (error) {
-            tokenExpireAlert(error)
+            tokenExpireAlert(error);
             console.error('Error deleting report:', error);
         }
     };
 
     return (
-        // <></>
-        <div className="container mx-auto mt-8">
+        <div className="container mx-auto mt-10">
+            <h2 className="text-3xl font-bold mb-8">Report List</h2>
+
             <table className="min-w-full border border-gray-300">
                 <thead>
                     <tr>
-                        <th className="border p-2">Reporter</th>
-                        <th className="border p-2">Reportee</th>
-                        <th className="border p-2">Message</th>
-                        <th className="border p-2">Actions</th>
+                        <th className="py-2 px-4 border-b">Reporter</th>
+                        <th className="py-2 px-4 border-b">Reportee</th>
+                        <th className="py-2 px-4 border-b">Message</th>
+                        <th className="py-2 px-4 border-b">Actions</th>
                     </tr>
                 </thead>
-                {
-                    console.log(userList)
-                }
                 <tbody>
                     {userList.map((report) => (
-                        <tr key={report._id} className='hover:bg-gray-100 border-b border-gray-200 py-10'>
-                            <td className="px-4 py-2 bg-gray-200">{report.id_reporter[0].full_name}</td>
-                            <td className="border p-2">{report.id_reportee[0].full_name}</td>
-                            <td className="border p-2">{report.Message}</td>
-                            <td className="border p-2">
+                        <tr key={report._id}>
+                            <td className="py-2 px-4 border-b">{report.id_reporter[0].full_name}</td>
+                            <td className="py-2 px-4 border-b">{report.id_reportee[0].full_name}</td>
+                            <td className="py-2 px-4 border-b">{report.Message}</td>
+                            <td className="py-2 px-4 border-b">
                                 <button
-                                    className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
+                                    className="text-red-500"
                                     onClick={() => handleDelete(report.id_reportee[0]._id)}
                                 >
                                     Block
-
                                 </button>
                             </td>
                         </tr>

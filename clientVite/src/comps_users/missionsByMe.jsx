@@ -1,27 +1,21 @@
 import React, { useState, useEffect, useContext } from 'react'
 import { tokenExpireAlert, SERVER_URL, apiRequest, apiRequestGet } from '../serverConnect/api';
 import Cookies from 'js-cookie';
-import { AppContext } from '../../context/context';
-import { useNavigate } from 'react-router-dom';
-import { Link } from 'react-router-dom';
-import Review from './review';
-import Post from './post';
-import StarIcon from './starIcon'
-import CreatePost from './createPost';
-import MyMission from './myMission';
-import ChooseVolunteer from './chooseVolunteer';
 import { AddressIcon, CalenderIcon, TimeIcon } from './Icons';
 import PostMission from './postMission';
 import { InterestedMenu } from './interestedMenu';
+import EditMission from './editMission'
 const MissionsByMe = () => {
     const user_now = JSON.parse(Cookies.get('user'));
     const [missions, setMissions] = useState(false);
     const [name, setName] = useState("");
 
+    const [selectedMission, setSelectedMission] = useState(null);
 
     const [selectedMissionId, setSelectedMissionId] = useState(null);
     const [showCreateNewMission, setShowCreateNewMission] = useState(false);
     const [showChooseVolunteer, setShowChooseVolunteer] = useState(false);
+    const [showEditMission, setShowEditMission] = useState(false); // State to control the visibility of the EditMission component
 
     const handleChooseVolunteer = (missionId) => {
         setSelectedMissionId(missionId);
@@ -60,6 +54,26 @@ const MissionsByMe = () => {
         }
 
     }
+    const openEditMission = (mission) => {
+        setSelectedMission(mission);
+        setShowEditMission(true);
+    };
+
+    const closeEditMission = () => {
+        setSelectedMission(null);
+        setShowEditMission(false);
+        getMissions(); // Refetch missions after editing
+    };
+    const deleteMission = async (missionId) => {
+        let url = SERVER_URL + `/missions/${missionId}`;
+        try {
+            await apiRequest(url, 'DELETE');
+            getMissions(); // Refetch missions after deletion
+        } catch (err) {
+            console.log('ERROR ', err);
+            tokenExpireAlert(err);
+        }
+    };
     const someFunction = async (id) => {
         let resolvedName = await nameById(id);
         nameById(id).then((result) => {
@@ -74,9 +88,8 @@ const MissionsByMe = () => {
         getMissions()
     }, [showCreateNewMission]);
     const createMission = () => {
-        if (showCreateNewMission)
-            setShowCreateNewMission(false)
-        else setShowCreateNewMission(true)
+        setShowCreateNewMission(!showCreateNewMission);
+
     }
 
     return (
@@ -86,6 +99,9 @@ const MissionsByMe = () => {
                 {showCreateNewMission && <PostMission setShowCreateNewMission={setShowCreateNewMission} />}
                 {missions.length > 0 ? (
                     <div className='align-center justify-center flex flex-wrap -mx-4'>
+                        {showEditMission && (
+                            <EditMission mission={selectedMission} onClose={closeEditMission} />
+                        )}
                         {missions.map((mission) => (
                             <div key={mission._id} className="bg-white border border-gray-200 rounded-lg shadow-lg dark:bg-gray-800 dark:border-gray-700 w-full sm:w-1/2 md:w-1/3 lg:w-1/3 p-4 m-4">
                                 <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">{mission.title}</h5>
@@ -112,7 +128,20 @@ const MissionsByMe = () => {
 
                                     {((mission.interested.length > 0) && !mission.taken) && (<InterestedMenu getMissions={getMissions} interested={mission.interested} mission={mission._id} />)}
 
-
+                                    <div className="flex justify-end">
+                                        <button
+                                            className="bg-red-500 text-white px-4 py-2 rounded-md mt-2"
+                                            onClick={() => deleteMission(mission._id)}
+                                        >
+                                            Delete
+                                        </button>
+                                    </div>
+                                    <button
+                                        className="bg-blue-500 text-white px-4 py-2 rounded-md mt-2"
+                                        onClick={() => openEditMission(mission)}
+                                    >
+                                        Edit
+                                    </button>
                                 </div>
                             </div>
                         ))}

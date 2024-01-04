@@ -221,53 +221,6 @@ router.post("/", auth, async (req, res) => {
     }
 })
 
-// האדמין יוכל לערוך את כל הרשומות ויוזרים יוכלו לערוך רק את של עצמם
-router.put("/:id", auth, async (req, res) => {
-    let validBody = validMission(req.body);
-    if (validBody.error) {
-        return res.status(400).json(validBody.error.details);
-    }
-    try {
-        let editId = req.params.editId;
-        let data;
-        if (req.tokenData.role == "admin") {
-            data = await MissionModel.updateOne({ _id: editId }, req.body)
-        }
-        else {
-            data = await MissionModel.updateOne({ _id: editId, user_id: req.tokenData._id }, req.body)
-        }
-        res.json(data);
-    }
-    catch (err) {
-        console.log(err);
-        res.status(500).json({ msg: "there error try again later", err })
-    }
-})
-
-
-// האדמין יוכל למחוק את כל הרשומות ויוזרים יוכלו למחוק רק את של עצמם
-
-router.delete("/:delId", auth, async (req, res) => {
-    try {
-        let delId = req.params.delId;
-        let data;
-        // אם אדמין יכול למחוק כל רשומה אם לא בודק שהמשתמש
-        // הרשומה היוזר איי די שווה לאיי די של המשתמש
-        if (req.tokenData.role == "admin") {
-            data = await MissionModel.deleteOne({ _id: delId })
-        }
-        else {
-            data = await MissionModel.deleteOne({ _id: delId, user_id: req.tokenData._id })
-        }
-        res.json(data);
-    }
-    catch (err) {
-        console.log(err);
-        res.status(500).json({ msg: "there error try again later", err })
-    }
-})
-
-
 const notPassedDate = (mission) => {
     const currentDate = new Date();
     const missionDate = new Date(mission.date);
@@ -340,54 +293,61 @@ router.put('/addInterested/:missionId', auth, async (req, res) => {
     }
 });
 
+// DELETE route to delete a mission
+router.delete("/:delId", auth, async (req, res) => {
+    try {
+        const delId = req.params.delId;
+        const userId = req.tokenData._id;
+
+        // Find the mission by ID and ensure the user is the creator
+        const mission = await MissionModel.findOne({ _id: delId, user_creator: userId });
+        if (req.tokenData.role == "admin") {
+            data = await MissionModel.deleteOne({ _id: delId })
+        }
+        if (!mission) {
+            return res.status(404).json({ error: 'Mission not found or you are not the creator' });
+        }
+
+        // Delete the mission
+        await MissionModel.deleteOne({ _id: delId });
+
+        res.json({ success: true });
+    } catch (err) {
+        console.log(err);
+        res.status(500).json({ msg: 'Internal Server Error', err });
+    }
+});
+
+// PUT route to edit a mission
+router.put("/:editId", auth, async (req, res) => {
+    try {
+        const editId = req.params.editId;
+        const userId = req.tokenData._id;
+        const isAdmin = req.tokenData.role === "admin";
+
+        // Find the mission by ID
+        const mission = await MissionModel.findById(editId);
+
+        // Check if the user is the creator or an admin
+        if (!mission || (!isAdmin && mission.user_creator.toString() !== userId)) {
+            return res.status(404).json({ error: 'Mission not found or you are not authorized to edit' });
+        }
+
+        // Update the mission
+        await MissionModel.updateOne({ _id: editId }, req.body);
+
+        // Fetch the updated mission data
+        const updatedMission = await MissionModel.findById(editId);
+
+        res.json(updatedMission);
+    } catch (err) {
+        console.log(err);
+        res.status(500).json({ msg: 'Internal Server Error', err });
+    }
+});
 
 
-// // PUT /mission/taken?idMission=<missionId>&idUser=<userId>
-// router.put('/taken', async (req, res) => {
-//     try {
-//         console.log("hi");
-//         const missionId = req.query.idMission;
-//         const userId = req.query.idUser;
 
-//         console.log('Received request to mark mission as taken. Mission ID:', missionId, 'User ID:', userId);
-
-//         // Find the mission by ID
-//         const mission = await MissionModel.findById(missionId).lean();
-
-//         if (!mission) {
-//             console.log('Mission not found');
-//             return res.status(404).json({ error: 'Mission not found' });
-//         }
-
-//         // Mark the mission as taken
-//         mission.taken = true;
-
-//         // Update the mission in the database
-//         await MissionModel.findByIdAndUpdate(missionId, mission);
-
-//         // Find the user by ID
-//         const user = await UserModel.findById(userId);
-
-//         if (!user) {
-//             console.log('User not found');
-//             return res.status(404).json({ error: 'User not found' });
-//         }
-
-//         // Add the mission ID to the user's missions array
-//         user.missions.push(missionId);
-
-//         // Update the user in the database
-//         await UserModel.findByIdAndUpdate(userId, user);
-
-//         console.log('Mission marked as taken. User missions updated.');
-
-//         res.json({ success: true });
-
-//     } catch (error) {
-//         console.error('Error in /mission/taken route:', error);
-//         res.status(500).json({ error: 'Internal Server Error' });
-//     }
-// });
 
 router.patch('/taken', async (req, res) => {
     try {
