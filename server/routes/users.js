@@ -229,7 +229,7 @@ router.put("/delete/:editId", auth, async (req, res) => {
     res.status(500).json({ msg: "there error try again later", err })
   }
 })
-router.put("/:editId", auth, async (req, res) => {
+router.put("/edit/:editId", auth, async (req, res) => {
   let validBody = validUserEdit(req.body);
   if (validBody.error) {
     return res.status(400).json(validBody.error.details);
@@ -329,7 +329,7 @@ router.put("/role/:id/:role", authAdmin, async (req, res) => {
 
     let data = await UserModel.updateOne({ _id: editId }, { $set: { role: role } });
     console.log(data);
-    res.status(500).json({});
+    res.status(200)
   }
   catch (err) {
     console.log(err);
@@ -337,5 +337,22 @@ router.put("/role/:id/:role", authAdmin, async (req, res) => {
   }
 })
 
+router.put("/image",auth, async (req, res) => {
+  console.log("uploading");
+  try {
+    let editId = req.tokenData._id;
+    console.log(editId);
+    let url = req.query.url;
+    console.log(url);
+
+    let data = await UserModel.updateOne({ _id: editId }, { $set: { img_url: url } });
+    console.log(data);
+    res.json({ msg: "img saved successfully" });
+  }
+  catch (err) {
+    console.log(err);
+    res.status(500).json({ msg: "err", err })
+  }
+})
 
 module.exports = router;
