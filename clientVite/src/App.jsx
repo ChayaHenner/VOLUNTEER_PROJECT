@@ -27,7 +27,7 @@ import Management from './comps_admin/management'
 import Footer from './comps_users/footer';
 import QaChat from './comps_users/qaChat'
 import EditImg from './comps_users/editImg';
-
+import DeletUser from './comps_users/deletUser'
 function App() {
 
   const [user, setUser] = useState(null) //maybe change
@@ -63,6 +63,7 @@ function App() {
             <Route path="/management" element={<Management />} />
             <Route path="/qachat" element={<QaChat />} />
             <Route path="/edit-img" element={<EditImg />} />
+            <Route path="/delet-User" element={<DeletUser />} />
 
             {/* {adminRoutes()} */}
 
