@@ -93,23 +93,29 @@ const QaChat = () => {
     const [conversation, setConversation] = useState([]);
 
     const qaPairs = [
-        { question: "Hello, I'm looking for information about your site. Could you provide details on how your platform works?", 
-          answer: "Hi! Certainly, we're a platform that connects people interested in volunteering with social projects. Every registered user can create a volunteering request, and others can offer to volunteer. The person who created the request then selects the volunteer of their choice."
+        {
+            question: "Hello, I'm looking for information about your site. Could you provide details on how your platform works?",
+            answer: "Hi! Certainly, we're a platform that connects people interested in volunteering with social projects. Every registered user can create a volunteering request, and others can offer to volunteer. The person who created the request then selects the volunteer of their choice."
         },
-        { question: "Interesting. How do people volunteer? Is there a specific process to go through?", 
-          answer: "Yes, the process is simple. After someone creates a volunteering request, other users can see it and offer themselves. From there, the person who created the request chooses the volunteer they prefer."
+        {
+            question: "Interesting. How do people volunteer? Is there a specific process to go through?",
+            answer: "Yes, the process is simple. After someone creates a volunteering request, other users can see it and offer themselves. From there, the person who created the request chooses the volunteer they prefer."
         },
-        { question: "I have a few more questions. Do you have information on the general registration process and how one can get started?", 
-          answer: "Absolutely! Registration is straightforward; you can start here [link to the registration page]. With successful registration, you can create volunteering requests or offer yourself as a volunteer in a friendly and quick manner."
+        {
+            question: "I have a few more questions. Do you have information on the general registration process and how one can get started?",
+            answer: "Absolutely! Registration is straightforward; you can start here [link to the registration page]. With successful registration, you can create volunteering requests or offer yourself as a volunteer in a friendly and quick manner."
         },
-        { question: "Looks interesting. Are there examples of projects that have already been done through your site?", 
-          answer: "Yes, we have many successful projects! For example, volunteering in specific restaurants, assisting the elderly in hospitals, and many other options. Everyone can find a suitable task."
+        {
+            question: "Looks interesting. Are there examples of projects that have already been done through your site?",
+            answer: "Yes, we have many successful projects! For example, volunteering in specific restaurants, assisting the elderly in hospitals, and many other options. Everyone can find a suitable task."
         },
-        { question: "Great! Is there a way to directly contact volunteers or those requesting help?", 
-          answer: "Of course! You have a personal profile page as a registered user. There, you can detail the volunteering you've done, receive feedback from others, and connect directly with our community."
+        {
+            question: "Great! Is there a way to directly contact volunteers or those requesting help?",
+            answer: "Of course! You have a personal profile page as a registered user. There, you can detail the volunteering you've done, receive feedback from others, and connect directly with our community."
         },
-        { question: "Thank you for the information! I'll check it out a bit more and get back to you.", 
-          answer: "You're welcome! If you have any further questions, we're here to help. Good luck in your search!"
+        {
+            question: "Thank you for the information! I'll check it out a bit more and get back to you.",
+            answer: "You're welcome! If you have any further questions, we're here to help. Good luck in your search!"
         },
     ];
 
@@ -129,50 +135,54 @@ const QaChat = () => {
     };
 
     return (
-        <div className="max-w-lg mx-auto bg-white p-6 rounded-md shadow-md mt-8">
-            <div className="border-t border-b border-gray-300 p-4 h-40 overflow-y-scroll">
-                {conversation.map((item, index) => (
-                    <div key={index} className="mb-4">
-                        <div className="flex items-center space-x-2">
-                            <span className="font-bold text-gray-800">ב"א:</span>
-                        </div>
-                        <p className="text-gray-600 mb-2">{item.question}</p>
-                        <div className="flex items-center space-x-2">
-                            <span className="font-bold text-gray-800">Representative:</span>
-                        </div>
-                        <p className="text-gray-800 font-semibold">{item.answer}</p>
-                    </div>
-                ))}
+        <div className="fixed bottom-5 right-5 z-10">
 
-                {!selectedQuestion && (
-                    <div className="mb-4">
-                        <div className="grid grid-cols-1 gap-4">
-                            {qaPairs.map((pair, index) => (
-                                <button
-                                    key={index}
-                                    className={`py-2 px-4 rounded-md bg-blue-500 text-white`}
-                                    onClick={() => setSelectedQuestion(pair.question)}
-                                >
-                                    {pair.question}
-                                </button>
-                            ))}
-                        </div>
-                    </div>
-                )}
+                <div className="max-w-lg mx-auto bg-white p-6 rounded-md shadow-md mt-8">
+                    <div className="border-t border-b border-gray-300 p-4 h-40 overflow-y-scroll">
+                        {conversation.map((item, index) => (
+                            <div key={index} className="mb-4">
+                                <div className="flex items-center space-x-2">
+                                    <span className="font-bold text-gray-800">ב"א:</span>
+                                </div>
+                                <p className="text-gray-600 mb-2">{item.question}</p>
+                                <div className="flex items-center space-x-2">
+                                    <span className="font-bold text-gray-800">Representative:</span>
+                                </div>
+                                <p className="text-gray-800 font-semibold">{item.answer}</p>
+                            </div>
+                        ))}
 
-                {selectedQuestion && (
-                    <div className="mb-4">
-                        <div className="grid grid-cols-1 gap-4">
-                            <button
-                                className="py-2 px-4 rounded-md bg-blue-500 text-white"
-                                onClick={handleQuestionClick}
-                            >
-                                Ask Representative
-                            </button>
-                        </div>
+                        {!selectedQuestion && (
+                            <div className="mb-4">
+                                <div className="grid grid-cols-1 gap-4">
+                                    {qaPairs.map((pair, index) => (
+                                        <button
+                                            key={index}
+                                            className={`py-2 px-4 rounded-md bg-blue-500 text-white`}
+                                            onClick={() => setSelectedQuestion(pair.question)}
+                                        >
+                                            {pair.question}
+                                        </button>
+                                    ))}
+                                </div>
+                            </div>
+                        )}
+
+                        {selectedQuestion && (
+                            <div className="mb-4">
+                                <div className="grid grid-cols-1 gap-4">
+                                    <button
+                                        className="py-2 px-4 rounded-md bg-blue-500 text-white"
+                                        onClick={handleQuestionClick}
+                                    >
+                                        Ask Representative
+                                    </button>
+                                </div>
+                            </div>
+                        )}
                     </div>
-                )}
-            </div>
+                </div>
+            {/* </div> */}
         </div>
     );
 };
