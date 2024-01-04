@@ -24,8 +24,8 @@ import ViewUserAdmin from './comps_admin/viewUsers'
 import StarReview from './comps_users/starReview'
 import MissionsByMe from './comps_users/missionsByMe'
 import Management from './comps_admin/management'
-import Footer from './comps_users/footer';
-import QaChat from './comps_users/qaChat'
+import Footer from './comps_main/footer';
+import QaChat from './comps_main/qaChat'
 import EditImg from './comps_users/editImg';
 import DeletUser from './comps_users/deletUser'
 function App() {
