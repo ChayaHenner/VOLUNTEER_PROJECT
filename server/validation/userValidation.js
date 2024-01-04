@@ -25,6 +25,23 @@ exports.validUser = (_reqBody) => {
     return joiSchema.validate(_reqBody);
 };
 
+exports.validUserEdit = (_reqBody) => {
+    const joiSchema = Joi.object({
+        tz: Joi.string().allow(null, ""),
+        full_name: Joi.string().min(2).max(99).required(),
+        description: Joi.string().allow(null, ""),
+        email: Joi.string().min(2).max(99).email().required(),
+        phone: Joi.string().min(8).max(99).required(),
+        address: Joi.string().allow(null, ""),
+        birth_date: Joi.date().required(),
+        rating: Joi.number(),
+        gender: Joi.string().valid('male', 'female'),
+        fields: Joi.array().items(Joi.valid('children', 'kitchen', 'driving', 'elderly', 'cleanup', 'studies', 'medical', 'technology')),
+    });
+
+    return joiSchema.validate(_reqBody);
+};
+
 
 exports.validLogin = (_reqBody) => {
     let joiSchema = Joi.object({

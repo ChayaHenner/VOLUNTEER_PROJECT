@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react'
-import {tokenExpireAlert, SERVER_URL, apiRequest, apiRequestGet } from '../serverConnect/api';
+import { tokenExpireAlert, SERVER_URL, apiRequest, apiRequestGet } from '../serverConnect/api';
 import Cookies from 'js-cookie';
 import { AppContext } from '../../context/context';
 import { useNavigate } from 'react-router-dom';
@@ -43,7 +43,6 @@ const MissionsByMe = () => {
         catch (err) {
             console.log("ERROR ", err);
             tokenExpireAlert(err)
-
         }
 
     }
@@ -106,26 +105,14 @@ const MissionsByMe = () => {
                                     </div>
                                 </div>
                                 <div className="">
-                                    {mission.taken ? <div className="w-1/2 border border-purple-500 text-purple-500 px-4 py-2 rounded-md mt-4 flex align-center justify-center">
-                                        taken</div> : (<>
-                                            <InterestedMenu interested={mission.interested} />
-                                            {/* {mission.interested.length > 0 ? (<><div className="text-sm text-gray-500">Interested:</div>
-                                                {mission.interested && mission.interested.map((user, index) => (
-                                                    <div key={index}>
-                                                        <Link className='w-1/2' to={`/view-user/${user._id}`}>
-                                                            <p className="text-sm text-gray-500">{user.full_name}</p>
-                                                        </Link>
-                                                    </div>
-                                                ))}
-                                                <button onClick={() => handleChooseVolunteer(mission._id)}>Choose Volunteer</button>
-                                                {selectedMissionId === mission._id && (<>
-                                                    <ChooseVolunteer interested={mission.interested} mission={mission._id}
-                                                        onClose={handleCloseChooseVolunteer}
-                                                    />
-                                                </>
-                                                )}</>) : (<>no one is interseted</>)} */}
+                                    {mission.taken && <div className="w-1/2 border border-purple-500 text-purple-500 px-4 py-2 rounded-md mt-4 flex align-center justify-center">
+                                        taken</div>}
 
-                                        </>)}
+                                    {mission.interested.length == 0 && <div>no one interested</div >}
+
+                                    {((mission.interested.length > 0) && !mission.taken) && (<InterestedMenu getMissions={getMissions} interested={mission.interested} mission={mission._id} />)}
+
+
                                 </div>
                             </div>
                         ))}
