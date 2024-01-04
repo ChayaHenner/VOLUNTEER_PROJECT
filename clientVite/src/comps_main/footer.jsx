@@ -9,7 +9,7 @@ const Footer = () => {
                 <p className="text-lg font-semibold mb-2">Meet the Team</p>
                 <div className="flex justify-center space-x-4">
                     <div>
-                        <p className="text-sm">Tamar Shvartz</p>
+                        <p className="text-sm">Tamar Shwartz</p>
                         <p className="text-xs">Phone: 058-3205471</p>
                     </div>
                     <div>
