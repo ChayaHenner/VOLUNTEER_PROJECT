@@ -25,6 +25,8 @@ import StarReview from './comps_users/starReview'
 import MissionsByMe from './comps_users/missionsByMe'
 import Management from './comps_admin/management'
 import Footer from './comps_users/footer';
+import QaChat from './comps_users/qaChat'
+import EditImg from './comps_users/editImg';
 
 function App() {
 
@@ -59,6 +61,9 @@ function App() {
             <Route path="/view-missions" element={<ViewMissions />} />
             <Route path="/logout" element={<Logout />} />
             <Route path="/management" element={<Management />} />
+            <Route path="/qachat" element={<QaChat />} />
+            <Route path="/edit-img" element={<EditImg />} />
+
             {/* {adminRoutes()} */}
 
             {/* <Route path="/admin/post-mission" element={<PostMission />} /> */}

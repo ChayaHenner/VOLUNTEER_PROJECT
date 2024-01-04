@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { AppContext } from '../../context/context';
 import { SERVER_URL, apiRequestNoBody } from '../serverConnect/api';
+import EditPost from './editPost'; // Import the EditPost component
 
 const Post = (props) => {
   const post = props.post;
@@ -11,6 +12,7 @@ const Post = (props) => {
   const [numLike, setNumLike] = useState(post.like_num);
   const [isInitialLoad, setIsInitialLoad] = useState(false);
   const [onClick, setOnClick] = useState(false);
+  const [isEditOpen, setIsEditOpen] = useState(false); // State for managing EditPost popup
 
   useEffect(() => {
     console.log(post);
@@ -54,17 +56,42 @@ const Post = (props) => {
       }
       console.log(numLike);
     };
-  
+
     fetchData(); // Immediately invoke the async function
-  
+
   }, [onClick]);
-  
+
 
   const handleLikeClick = async (id) => {
     setLike((prevLike) => !prevLike);
     setOnClick((prevClick) => !prevClick)
   };
 
+  const handleDeleteClick = async (id) => {
+    try {
+      const confirmDelete = window.confirm("Are you sure you want to delete this post?");
+      if (confirmDelete) {
+        const url = `${SERVER_URL}/posts/${id}`;
+        await apiRequestNoBody(url, "DELETE");
+        // You may want to refresh the posts list or handle the deleted post in the parent component
+      }
+    } catch (err) {
+      console.error("Error deleting post:", err);
+      // Handle the error (e.g., show an error message to the user)
+    }
+  };
+  const handleEditClick = () => {
+    setIsEditOpen(true);
+  };
+
+  const handleEditClose = () => {
+    setIsEditOpen(false);
+  };
+
+  const handlePostUpdate = (updatedPost) => {
+    // Update the post in your state or re-fetch the posts if needed
+    console.log('Post updated:', updatedPost);
+  };
 
   return (
     <div>
@@ -78,7 +105,52 @@ const Post = (props) => {
           <div className="flex items-center space-x-2">
             {/* <h2 className="text-gray-800 font-bold cursor-pointer">{user.full_name}</h2> */}
           </div>
+
           <div className="flex space-x-2">
+
+            {user && user._id === post.user_created && (
+              <>
+                <button onClick={() => handleDeleteClick(post._id)}>
+                  <span>
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      className="h-7 w-7 text-gray-500 hover:text-red-500 transition duration-100 cursor-pointer"
+                      viewBox="0 0 20 20"
+                      fill="currentColor"
+                    >
+                      <path
+                        fillRule="evenodd"
+                        d="M2 5a1 1 0 011-1h14a1 1 0 011 1v11a1 1 0 01-1 1H3a1 1 0 01-1-1V5zm2 0a1 1 0 011-1h10a1 1 0 011 1v11H4V5z"
+                        clipRule="evenodd"
+                      />
+                    </svg>
+                  </span>
+                </button>
+
+                <button onClick={handleEditClick}>
+
+                  <span>
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      className="h-7 w-7 text-gray-500 hover:text-red-500 transition duration-100 cursor-pointer"
+                      viewBox="0 0 20 20"
+                      fill="currentColor"
+                    >
+                      <path
+                        fillRule="evenodd"
+                        d="M4.172 12.172a1 1 0 01.707-.293l9-3a1 1 0 01.586.827v5a1 1 0 01-1 1H5a1 1 0 01-1-1v-2.586a1 1 0 01.172-.707zM3 13v2a1 1 0 001 1h12.172l1-1H4a1 1 0 01-1-1z"
+                        clipRule="evenodd"
+                      />
+                      <path
+                        fillRule="evenodd"
+                        d="M14 2a1 1 0 011 1v11a1 1 0 01-1 1H3a1 1 0 01-1-1V3a1 1 0 011-1h8.172l1-1H3a3 3 0 00-3 3v11a3 3 0 003 3h10a3 3 0 003-3V5a1 1 0 011-1z"
+                        clipRule="evenodd"
+                      />
+                    </svg>
+                  </span>
+                </button>
+              </>
+            )}
             <div className="flex space-x-1 items-center">
               <button onClick={() => handleLikeClick(post._id)}>
                 <span>
@@ -91,6 +163,9 @@ const Post = (props) => {
             </div>
           </div>
         </div>
+        {isEditOpen && (
+          <EditPost post={post} onClose={handleEditClose} onUpdate={handlePostUpdate} />
+        )}
       </div>
     </div>
   );

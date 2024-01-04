@@ -1,7 +1,7 @@
 const express = require("express");
 const bcrypt = require("bcrypt");
 
-const { validLogin, validUser } = require("../validation/userValidation")
+const { validLogin, validUser,validUserEdit } = require("../validation/userValidation")
 const { validReport } = require("../validation/reportValidation")
 const { createToken } = require("../helpers/userHelper");
 const { auth, authAdmin } = require("../middlewares/auth");
@@ -230,30 +230,53 @@ router.put("/delete/:editId", auth, async (req, res) => {
   }
 })
 router.put("/:editId", auth, async (req, res) => {
-  let validBody = validUser(req.body);
+  let validBody = validUserEdit(req.body);
   if (validBody.error) {
     return res.status(400).json(validBody.error.details);
   }
   try {
     let editId = req.params.editId;
     let data;
-    user = req.body;
-    user.password = await bcrypt.hash(user.password, 10);
-    console.log(req.tokenData.role);
+    console.log(req.body);
+    // אל תצפין את הסיסמה במהלך העדכון
+    // user.password = await bcrypt.hash(user.password, 10);
+
     if (req.tokenData.role == "admin") {
-      data = await UserModel.updateOne({ _id: editId }, user)
-    }
-    else {
+      data = await UserModel.updateOne({ _id: editId },
+         { $set:
+         { full_name: req.body.full_name,
+          description:req.body.description,
+           email: req.body.email,
+           phone:req.body.phone,
+           address:req.body.address,
+           birth_date:req.body.birth_date,
+           gender:req.body.gender,
+           fields:req.body.fields
+          }
+         });
+    } else {
       console.log(req.tokenData._id);
-      data = await UserModel.updateOne({ _id: editId, user_id: req.tokenData._id }, user)
+      data = await UserModel.updateOne({ _id: editId, user_id: req.tokenData._id },
+        { $set:
+          { full_name: req.body.full_name,
+           description:req.body.description,
+            email: req.body.email,
+            phone:req.body.phone,
+            address:req.body.address,
+            birth_date:req.body.birth_date,
+            gender:req.body.gender,
+            fields:req.body.fields
+           }
+          }
+         );
     }
     res.json(data);
-  }
-  catch (err) {
+  } catch (err) {
     console.log(err);
-    res.status(500).json({ msg: "there error try again later", err })
+    res.status(500).json({ msg: "there error try again later", err });
   }
-})
+});
+
 router.post("/report/:id", auth, async (req, res) => {
   // console.log(req.tokenData);
   // console.log(req.tokenData.role);
