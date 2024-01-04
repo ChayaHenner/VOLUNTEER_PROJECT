@@ -1,16 +1,33 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { CheckIcon, ProfileIcon } from './Icons';
+import { tokenExpireAlert, SERVER_URL, apiRequest, apiRequestGet } from '../serverConnect/api';
 
-export const InterestedMenu = ({ interested }) => {
+export const InterestedMenu = ({ getMissions,interested, mission }) => {
     const [showDropdown, setShowDropdown] = useState(false);
     const [selectedUser, setSelectedUser] = useState(null);
 
-    const handleChoose = () => {
+    const handleChoose = async () => {
         if (selectedUser) {
-            console.log('Chosen user:', selectedUser.full_name);
+            try {
+                const url = `${SERVER_URL}/missions/taken?idMission=${mission}&idUser=${selectedUser._id}`;
+                const requestOptions = {
+                    method: 'PATCH',
+                    headers: { 'Content-Type': 'application/json' }
+                };
+
+                const response = await fetch(url, requestOptions);
+                console.log(response);
+                console.log('Chosen user:', selectedUser.full_name);
+                alert('Assigned volunteer')
+                getMissions()
+
+            } catch (error) {
+                console.error('Error assigning volunteer:', error);
+            }
+
         } else {
-            console.log('No user selected');
+            alert(' Please select a volunteer first.');
         }
     };
 
@@ -25,11 +42,6 @@ export const InterestedMenu = ({ interested }) => {
                 onClick={() => setShowDropdown(!showDropdown)}
             >
                 <span className="flex items-center">
-                    <img
-                        src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
-                        alt=""
-                        className="h-5 w-5 flex-shrink-0 rounded-full"
-                    />
                     <span className="ml-3 block truncate">{selectedUser ? selectedUser.full_name : 'Select a user'}</span>
                 </span>
                 <span className="pointer-events-none absolute inset-y-0 right-0 ml-3 flex items-center pr-2">
@@ -55,7 +67,7 @@ export const InterestedMenu = ({ interested }) => {
                         <li key={index} className="text-gray-900 relative cursor-default select-none py-2 pl-3 pr-9" id={`listbox-option-${index}`} role="option">
                             <div className="flex items-center">
                                 <img
-                                    src="https://images.unsplash.com/photo-1491528323818-fdd1faba62cc?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+                                    src={user.img_url}
                                     alt=""
                                     className="h-5 w-5 flex-shrink-0 rounded-full"
                                 />
