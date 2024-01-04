@@ -21,6 +21,7 @@ const CreatePost = (props) => {
     } catch (err) {
       console.log("ERROR ", err);
     }
+    props.getUser()
   };
 
   return (

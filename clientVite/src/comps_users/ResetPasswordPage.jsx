@@ -43,13 +43,14 @@ const ResetPasswordPage = () => {
   };
 
   return (
-    <div>
-      {resetSuccess ? (
-        <p>Password reset successfully!</p>
-      ) : (
-        <div>reset</div>
-        // <ResetPasswordForm onSubmit={handleResetPassword} />
-      )}
+    <div className=' flex justify-center items-center'>
+      <div className="bg-white p-6 rounded-lg">
+        {resetSuccess ? (
+          <div className="text-center text-2xl font-bold mb-4">Password reset successfully!</div>
+        ) : (
+          <div className="text-center text-2xl font-bold mb-4">Password not reset</div>
+        )}
+      </div>
     </div>
   );
 };
