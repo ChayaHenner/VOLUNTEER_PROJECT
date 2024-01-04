@@ -1,7 +1,6 @@
 import React from 'react'
 import Cookies from 'js-cookie';
 import TestimonialSlider from './testimonialSlider';
-
 const Home = () => {
 
   return (
