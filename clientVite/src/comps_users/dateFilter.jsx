@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { apiRequestGet, SERVER_URL } from '../serverConnect/api'; // Import your API request function
 
-const DateFilter = ({ updateMissions }) => {
+const DateFilter = ({ updateMissions,searchQuery }) => {
     const [startDate, setStartDate] = useState('');
     const [endDate, setEndDate] = useState('');
     const [startTime, setStartTime] = useState('');
@@ -9,7 +9,7 @@ const DateFilter = ({ updateMissions }) => {
 
     const handleFilter = async () => {
         try {
-            const response = await apiRequestGet(`${SERVER_URL}/missions/byDateTime?startDate=${startDate}&endDate=${endDate}&startTime=${startTime}&endTime=${endTime}`);
+            const response = await apiRequestGet(`${SERVER_URL}/missions/byDateTime?startDate=${startDate}&endDate=${endDate}&startTime=${startTime}&endTime=${endTime}&s=${searchQuery}`);
             const filteredMissions = response.data; // Assuming your API response contains filtered missions
 
             updateMissions(filteredMissions);

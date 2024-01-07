@@ -26,8 +26,8 @@ const ViewMissions = () => {
         console.error('Error fetching missions:', error);
 
       }
-    };
 
+    };
     fetchMissions();
   }, [searchQuery]);
 
@@ -57,7 +57,7 @@ const ViewMissions = () => {
     <div className='p-6 relative container  border '>
       <div className='flex justify-center'>
         {/* {<DateFilter updateMissions={updateMissions} />} */}
-        {showDateFilter && <DateFilter updateMissions={updateMissions} />}
+        {showDateFilter && <DateFilter searchQuery={searchQuery} updateMissions={updateMissions} />}
 
         {<button title='Filter' onClick={() => { changeFilter() }} className='absolute top-0 left-1/2 transform -translate-x-1/2 bg-white rounded-full shadow-md'>
           <ArrowDownIcon />
@@ -106,7 +106,7 @@ const ViewMissions = () => {
                   </Link>
                   <button
                     onClick={() => handleTakeTask(mission._id)}
-                    className="hover:bg-blue-700 bg-blue-500 text-white border border-blue-500 px-4 py-2 rounded-md"
+                    className="hover:bg-purple-700  hover:text-white text-purple-500 border border-purple-500 px-4 py-2 rounded-md"
                   >
                     Take Task
                   </button>
