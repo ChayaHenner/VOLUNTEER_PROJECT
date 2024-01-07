@@ -97,6 +97,7 @@ const MissionsByMe = () => {
     useEffect(() => {
         getMissions()
     }, [showCreateNewMission]);
+    
     const createMission = () => {
         setShowCreateNewMission(!showCreateNewMission);
 
@@ -110,7 +111,7 @@ const MissionsByMe = () => {
                 {missions.length > 0 ? (
                     <div className='align-center justify-center flex flex-wrap -mx-4'>
                         {showEditMission && (
-                            <EditMission mission={selectedMission} onClose={closeEditMission} />
+                            <EditMission mission={selectedMission}  onClose={closeEditMission} />
                         )}
                         {missions.map((mission) => (
                             <div style={{ backgroundColor: mission.taken ? '#CCCCCC' : '#FFFFFF' }}

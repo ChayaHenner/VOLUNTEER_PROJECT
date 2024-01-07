@@ -99,12 +99,21 @@ const Post = (props) => {
   };
 
   return (
-    <div>
-      <div className={`p-2 m-3 bg-white rounded-xl shadow-lg transform transition duration-500 hover:shadow-2xl ${like ? 'border-red-500' : ''}`}>
+    <div className=''>
+      <div className={`p-8 m-3 bg-white rounded-lg shadow-md max-w-md  ${like ? 'border-red-500' : ''}`}>
+        <div class="flex items-center justify-between mb-4">
+          <div class="flex items-center space-x-2">
+            <img src={user.img_url} alt="User Avatar" class="w-8 h-8 rounded-full" />
+            <div>
+              <p class="text-gray-800 font-semibold">{user.full_name}</p>
+            </div>
+          </div>
+        </div>
+        
         <div>
           <h1 className="text-2xl mt-2 ml-4 font-bold text-gray-800 cursor-pointer hover:text-gray-900 transition duration-100"> {post.title}</h1>
         </div>
-        <img className="w-full cursor-pointer" src={post.img_url} alt="" />
+        <img className=" w-full h-48 object-cover rounded-md cursor-pointer" src={post.img_url} alt="" />
         <p className="ml-4 mt-1 mb-2 text-gray-700 hover:underline cursor-pointer">{post.description}</p>
         <div className="flex p-4 justify-between">
 
