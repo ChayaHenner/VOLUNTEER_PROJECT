@@ -6,6 +6,16 @@ import PostMission from './postMission';
 import { InterestedMenu } from './interestedMenu';
 import EditMission from './editMission'
 const MissionsByMe = () => {
+    const categoryColors = {
+        children: 'bg-blue-200',
+        kitchen: 'bg-green-200',
+        driving: 'bg-green-500',
+        elderly: 'bg-yellow-200',
+        cleanup: 'bg-pink-200',
+        studies: 'bg-purple-200',
+        medical: 'bg-red-200',
+        technology: 'bg-indigo-200',
+    };
     const user_now = JSON.parse(Cookies.get('user'));
     const [missions, setMissions] = useState(false);
     const [name, setName] = useState("");
@@ -142,6 +152,17 @@ const MissionsByMe = () => {
                                     >
                                         Edit
                                     </button> */}
+                                    <div className="mt-2">
+                                        <div className="flex">
+                                            {mission.fields.map((category, index) => (
+                                                <div key={index} className={`rounded-md px-2 py-1 mr-2 ${categoryColors[category] || 'bg-gray-200'}`}>
+                                                    {category}
+                                                </div>
+                                            ))}
+                                        </div>
+                                    </div>
+
+
                                 </div>
                             </div>
                         ))}
@@ -149,7 +170,7 @@ const MissionsByMe = () => {
                 ) : (
                     <div>You have not created any missions.</div>
                 )}
-            </div>
+            </div >
         </>
     );
 
