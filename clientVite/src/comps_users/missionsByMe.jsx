@@ -1,11 +1,21 @@
 import React, { useState, useEffect, useContext } from 'react'
 import { tokenExpireAlert, SERVER_URL, apiRequest, apiRequestGet } from '../serverConnect/api';
 import Cookies from 'js-cookie';
-import { AddressIcon, CalenderIcon, TimeIcon } from './Icons';
+import { AddressIcon, CalenderIcon, TimeIcon, DeleteIcon, EditIcon } from './Icons';
 import PostMission from './postMission';
 import { InterestedMenu } from './interestedMenu';
 import EditMission from './editMission'
 const MissionsByMe = () => {
+    const categoryColors = {
+        children: 'bg-blue-200',
+        kitchen: 'bg-green-200',
+        driving: 'bg-green-500',
+        elderly: 'bg-yellow-200',
+        cleanup: 'bg-pink-200',
+        studies: 'bg-purple-200',
+        medical: 'bg-red-200',
+        technology: 'bg-indigo-200',
+    };
     const user_now = JSON.parse(Cookies.get('user'));
     const [missions, setMissions] = useState(false);
     const [name, setName] = useState("");
@@ -93,8 +103,8 @@ const MissionsByMe = () => {
     }
 
     return (
-        <>
-            <button className='bg-purple-500 text-white px-4 py-2 rounded-md mt-4 z-5  absolute right-0 top-100' onClick={createMission}>post mission</button>
+        <div>
+            <button className='bg-purple-500 text-white p-2 rounded-md  z-5  absolute right-0 top-100' onClick={createMission}>post mission</button>
             <div >
                 {showCreateNewMission && <PostMission setShowCreateNewMission={setShowCreateNewMission} />}
                 {missions.length > 0 ? (
@@ -103,7 +113,8 @@ const MissionsByMe = () => {
                             <EditMission mission={selectedMission} onClose={closeEditMission} />
                         )}
                         {missions.map((mission) => (
-                            <div key={mission._id} className="bg-white border border-gray-400 rounded-lg shadow-sm  dark:border-gray-700 w-full sm:w-1/2 md:w-1/3 lg:w-1/3 p-4 m-4">
+                            <div style={{ backgroundColor: mission.taken ? '#CCCCCC' : '#FFFFFF' }}
+                                key={mission._id} className=" relative bg-white border border-gray-400 rounded-lg shadow-sm  dark:border-gray-700 w-full sm:w-1/2 md:w-1/3 lg:w-1/3 p-4 m-4">
                                 <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">{mission.title}</h5>
                                 <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">{mission.description}</p>
                                 <div>
@@ -121,27 +132,39 @@ const MissionsByMe = () => {
                                     </div>
                                 </div>
                                 <div className="">
-                                    {mission.taken && <div className="w-1/2 border border-purple-500 text-purple-500 px-4 py-2 rounded-md mt-4 flex align-center justify-center">
-                                        taken</div>}
+                                    {mission.taken && <div className='w-full  text-gray-500 px-4 py-2 rounded-md mt-4 flex items-center justify-center text-sm font-semibold'>
+                                        TAKEN
+                                    </div>}
 
-                                    {mission.interested.length == 0 && <div>no one interested</div >}
+                                    {mission.interested.length == 0 && <div>available</div >}
 
                                     {((mission.interested.length > 0) && !mission.taken) && (<InterestedMenu getMissions={getMissions} interested={mission.interested} mission={mission._id} />)}
 
-                                    {/* <div className="flex justify-end">
+                                    {!mission.taken && <div className="absolute top-0 right-0 flex justify-end">
                                         <button
-                                            className="bg-red-500 text-white px-4 py-2 rounded-md mt-2"
+                                            className="text-purple-500 p-2 rounded-md mt-2"
                                             onClick={() => deleteMission(mission._id)}
                                         >
-                                            Delete
+                                            <DeleteIcon />
                                         </button>
+                                        <button
+                                            className="text-purple-500 p-2 rounded-md mt-2"
+                                            onClick={() => openEditMission(mission)}
+                                        >
+                                            <EditIcon />
+                                        </button>
+                                    </div>}
+                                    <div className="mt-2">
+                                        <div className="flex">
+                                            {mission.fields.map((category, index) => (
+                                                <div key={index} className={`rounded-md px-2 py-1 mr-2 ${categoryColors[category] || 'bg-gray-200'}`}>
+                                                    {category}
+                                                </div>
+                                            ))}
+                                        </div>
                                     </div>
-                                    <button
-                                        className="bg-blue-500 text-white px-4 py-2 rounded-md mt-2"
-                                        onClick={() => openEditMission(mission)}
-                                    >
-                                        Edit
-                                    </button> */}
+
+
                                 </div>
                             </div>
                         ))}
@@ -149,42 +172,12 @@ const MissionsByMe = () => {
                 ) : (
                     <div>You have not created any missions.</div>
                 )}
-            </div>
-        </>
+            </div >
+        </div>
     );
 
-    // return (
-    //     <div>
-    //         {missions.length > 0 ? (<div>
-    //             {missions.map((mission) => {
-    //                 return (
 
-    //                     <div key={mission._id} className="max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 m-4">
-    //                         <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">{mission.title}</h5>
-    //                         <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">{mission.description}</p>
-    //                         <div className="">
-    //                             <div className="text-sm text-gray-500">Interested:</div>
-    //                             {
-    //                                 mission.interested && mission.interested.map((user, index) => (
-    //                                     < div key={index} >
-    //                                         <Link className='w-1/2' to={`/view-user/${user._id}`}>
-    //                                             <p className="text-sm text-gray-500">{user.full_name}</p>
-    //                                         </Link>
 
-    //                                     </div>
-    //                                 ))
-    //                             }
-
-    //                             <ChooseVolunteer interested={mission.interested} mission={mission._id}/> 
-    //                         </div>
-    //                     </div>
-    //                 );
-    //             })}
-    //         </div>) :
-    //             <div>You have not created any missions.</div>
-    //         }
-    //     </div >
-    // )
 }
 
 export default MissionsByMe

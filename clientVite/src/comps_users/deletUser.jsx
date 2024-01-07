@@ -1,13 +1,15 @@
-import React,{useState} from 'react';
+import React, { useState } from 'react';
 // import { useHistory } from 'react-router-dom';
 import Cookies from 'js-cookie';
 import { useNavigate } from 'react-router-dom';
 import Loading from '../comps_main/loading';
 import { SERVER_URL, apiRequestNoBody } from '../serverConnect/api';
+import { useAutoAlert } from '../comps_main/alertUtil'
 
 const DeletUser = () => {
     const nav = useNavigate()
     const [loading, setLoading] = useState(false); // Loading state
+    const { showAlert, AutoAlert } = useAutoAlert();
 
     const handleDeletUser = async () => {
         console.log("delete");
@@ -18,18 +20,20 @@ const DeletUser = () => {
             let resp = await apiRequestNoBody(url, "PUT")
             Cookies.remove('token');
             Cookies.remove('user');
-            alert("delete")
+            showAlert('delete');
             nav("/")
         }
         catch (err) {
             console.log("ERROR ", err);
-            alert(err);
+            showAlert(err);
         }
         setLoading(false)
     };
 
     return (
         <div>
+                  <AutoAlert />
+
             {
                 loading ? (
                     <Loading text={"delete..."} />

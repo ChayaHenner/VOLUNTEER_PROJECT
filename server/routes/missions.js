@@ -106,6 +106,8 @@ router.get("/byDateTime", auth, async (req, res) => {
 
         const startTime = req.query.startTime;
         const endTime = req.query.endTime;
+        let queryS = req.query.s;
+        let searchReg = new RegExp(queryS, "i")
 
         // Filter missions by date and time range
         const filteredMissions = missionsByAgeAndGender.filter((mission) => {
@@ -118,7 +120,39 @@ router.get("/byDateTime", auth, async (req, res) => {
             return isDateInRange && isTimeInRange;
         });
 
-        res.json(filteredMissions);
+
+        const matchingMissionsFromDB = await MissionModel.find({
+            $and: [
+                {
+                    _id: { $in: filteredMissions }, // Filter by mission IDs from getMissionsByAgeAndGender
+                },
+                {
+                    $or: [
+                        { title: searchReg },
+                        { description: searchReg },
+                        { address: searchReg },
+                    ],
+                },
+            ],
+        }).populate({
+            path: 'user_creator',
+            select: '_id full_name img_url',
+        }).limit(50);
+
+        res.json(matchingMissionsFromDB);
+
+
+
+
+
+
+
+
+
+
+
+
+        // res.json(filteredMissions);
     } catch (err) {
         console.log(err);
         res.status(500).json({ msg: "Internal Server Error", err });
@@ -174,13 +208,6 @@ router.get("/search", auth, async (req, res) => {
         res.json(matchingMissionsFromDB);
 
 
-        // console.log("query", queryS)
-        // let data = await MissionModel.find({ title: searchReg })
-        //     .populate({
-        //         path: 'user_creator',
-        //         select: '_id full_name img_url'
-        //     }).limit(50)
-        // res.json(data);
     }
     catch (err) {
         console.log(err);
