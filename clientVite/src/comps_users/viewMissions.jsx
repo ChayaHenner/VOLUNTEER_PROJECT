@@ -47,15 +47,14 @@ const ViewMissions = () => {
   };
 
   return (
-    <div>
-      <div className='flex '>
-
+    <div className=' relative container  border '>
+      <div className='flex justify-center'>
         {<DateFilter updateMissions={updateMissions} />}
         {/* {showDateFilter && <DateFilter updateMissions={updateMissions} />}
 
         {!showDateFilter && <button onClick={() => { setShowDateFilter(true) }}>filter</button>} */}
       </div>
-      <div className="flex justify-end absolute top-0 right-0 p-4">
+      <div className="flex justify-end absolute top-0 right-0 ">
         <div className="flex items-center">
           <SearchIcon />
           <input
@@ -67,7 +66,7 @@ const ViewMissions = () => {
           />
         </div>
       </div>
-      <div className='align-center justify-center flex flex-wrap -mx-4'>
+      <div className='align-center justify-center flex flex-wrap '>
 
         <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4'>
           {missions && missions.map((mission) => {
