@@ -45,7 +45,7 @@ const ViewMissions = () => {
 
     };
     fetchMissions();
-  }, [searchQuery,hasFilter]);
+  }, [searchQuery, hasFilter]);
 
   const handleFilter = async () => {
     try {
@@ -149,7 +149,7 @@ const ViewMissions = () => {
 
         {<button title='Filter' onClick={() => { changeFilter() }} className='absolute top-0 left-1/2 transform -translate-x-1/2 bg-white rounded-full shadow-md'>
           <ArrowDownIcon />
-        </button>
+        </button>}
       </div>
       <div className="flex justify-end absolute top-0 right-0">
         <div className="p-4 flex items-center">
@@ -194,7 +194,7 @@ const ViewMissions = () => {
                       </Link>
                       <button
                         onClick={() => handleTakeTask(mission._id)}
-                        className="hover:bg-blue-700 bg-blue-500 text-white border border-blue-500 px-4 py-2 rounded-md"
+                        className="hover:bg-purple-500 text-purple-500 bg-white hover:text-white border border-purple-500 px-4 py-2 rounded-md"
                       >
                         Take Task
                       </button>
@@ -217,6 +217,6 @@ const ViewMissions = () => {
       </div>
     </div>
   );
-};
+}
 
 export default ViewMissions;
