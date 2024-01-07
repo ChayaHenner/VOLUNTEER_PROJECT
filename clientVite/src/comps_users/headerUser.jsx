@@ -37,9 +37,11 @@ const HeaderUser = () => {
 
   return (
     <header className="bg-white border">
-      <nav className="container mx-auto flex items-center justify-between px-6 py-4">
+      <nav className="container mx-auto flex items-center justify-between px-20 py-6">
         <Link to="/">
-          <h1 className="text-gray-800 text-3xl font-bold">Soulute</h1>
+          <img src="https://firebasestorage.googleapis.com/v0/b/volunteer-project-3a891.appspot.com/o/image_1704658726808?alt=media&token=1f81fdf5-7a1a-4c66-af54-2185b19c7865" alt=""     className="h-12 w-auto max-w-xs"
+ />
+          {/* <h1 className="text-gray-800 text-3xl font-bold">Soulute</h1> */}
         </Link>
 
         <ul className="flex space-x-6 text-gray-700 text-lg">
