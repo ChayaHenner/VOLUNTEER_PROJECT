@@ -19,6 +19,8 @@ const SignUp = () => {
   const [address, setAddress] = useState(null);
   const [selectedAddress, setSelectedAddress] = useState(null);
   const { user, setUser } = useContext(AppContext);
+  const [coordinates, setCoordinates] = useState({ lat: '', lon: '' });
+
   useEffect(() => {
     console.log(address);
   }, []);
@@ -26,9 +28,21 @@ const SignUp = () => {
     setLoading(true)
     const imageUrl = await uploadImageToStorage(selectedImage);
     data.img_url = imageUrl;
-    delete data.confirmPassword
-    data.address = selectedAddress;
-    data.address = address //new
+    delete data.confirmPassword;
+
+    // data.address.name = selectedAddress;
+    // data.address.name= address; // Assuming `address` is the description of the address
+
+    const { lat, lon } = coordinates;
+
+    const mapLink = `https://maps.google.com/maps?q=${lat},${lon}&hl=es&z=14&amp;output=embed`;
+const add={
+  name:address,
+  mapLink:mapLink
+}
+    console.log('Map Link:', mapLink);
+    data.address=add;
+
     console.log(data);
     let url = SERVER_URL + "/users/"
     try {
@@ -115,7 +129,7 @@ const SignUp = () => {
                 <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
                   Address:</label>
                 {/* <input {...register('address')} type="text" className="appearance-none block w-full bg-gray-200 text-gray-700 border border-purple-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" /> */}
-                <AddressInput setAddress={setAddress} />
+                <AddressInput setAddress={setAddress} setCoordinates={setCoordinates}/>
                 {errors.address && <div className="text-red-500 text-xs italic">choose valid address</div>}
                 {/* <AddressInput onAddressSelected={(address) => setSelectedAddress(address.description)} /> */}
                 {/* <AddressInput ref={addressInputRef} onAddressSelected={(address) => setSelectedAddress(address.description)} /> */}

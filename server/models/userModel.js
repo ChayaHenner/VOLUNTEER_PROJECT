@@ -13,7 +13,14 @@ let userSchema = new mongoose.Schema({
   },
   password: String,
   phone: String,
-  address: String,
+  address: {
+    name: {
+      type: String,
+    },
+    mapLink: {
+      type: String,
+    },
+  },
   birth_date: Date,
   img_url: String,
   rating: {

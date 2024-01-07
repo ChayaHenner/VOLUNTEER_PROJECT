@@ -7,12 +7,14 @@ import { useForm } from 'react-hook-form';
 const inputClasses = 'appearance-none block w-full bg-gray-200 text-gray-700 border border-purple-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white';
 const listItemClasses = 'py-2 px-4 border-b border-gray-200';
 
-const AddressInput = forwardRef(({onAddressSelected, setAddress }, ref) => {
+const AddressInput = forwardRef(({ onAddressSelected, setAddress , setCoordinates}, ref) => {
     const { register, handleSubmit, formState: { errors }, getValues } = useForm();
     const [value, setValue] = useState(null);
     const [inputValue, setInputValue] = useState('');
     const [options, setOptions] = useState([]);
     const loaded = React.useRef(false);
+    // const [lon, setLon] = useState('');
+    // const [lat, setLat] = useState('');
 
     if (typeof window !== 'undefined' && !loaded.current) {
         if (!document.querySelector('#google-maps')) {
@@ -42,13 +44,12 @@ const AddressInput = forwardRef(({onAddressSelected, setAddress }, ref) => {
 
     useEffect(() => {
         let active = true;
-        setAddress(inputValue)
-        console.log(inputValue);
+        setAddress(inputValue);
         if (inputValue === '') {
             setOptions(value ? [value] : []);
             return () => (active = false);
         }
-
+    
         fetch({ input: inputValue }, (results) => {
             if (active && window.google) {
                 let newOptions = [];
@@ -61,11 +62,12 @@ const AddressInput = forwardRef(({onAddressSelected, setAddress }, ref) => {
                 setOptions(newOptions);
             }
         });
-
+    
         return () => {
             active = false;
         };
     }, [value, inputValue, fetch]);
+    
 
     useEffect(() => {
         if (ref) {
@@ -91,48 +93,133 @@ const AddressInput = forwardRef(({onAddressSelected, setAddress }, ref) => {
                     {options.length > 0 && (
                         <ul className="absolute top-10 left-0 right-0 border border-gray-200 rounded-md overflow-hidden">
                             {options.map((option, index) => (
-                                <li
-                                    key={index}
-                                    className={listItemClasses}
-                                    onClick={() => {
-                                        setValue(option);
-                                        setInputValue(option.description); // Set input value to selected option
-                                        setOptions([]); // Clear options to hide the dropdown
-                                        onAddressSelected && onAddressSelected(option.description);
+                                
+                                //     key={index}
+                                //     className={listItemClasses}
+                                //     onClick={() => {
+                                //         setValue(option);
+                                //         setInputValue(option.description); // Set input value to selected option
+                                //         setOptions([]); // Clear options to hide the dropdown
+                                //         onAddressSelected && onAddressSelected(option.description);
 
-                                    }}
-                                >
-                                    <div className="flex items-center">
-                                        <span className="w-8 h-8 mr-2">
-                                            <svg
-                                                xmlns="http://www.w3.org/2000/svg"
-                                                fill="none"
-                                                viewBox="0 0 24 24"
-                                                stroke="currentColor"
-                                                className="text-secondary"
-                                            >
-                                                <path
-                                                    strokeLinecap="round"
-                                                    strokeLinejoin="round"
-                                                    strokeWidth="2"
-                                                    d="M12 6v6m0 0v6m0-6h6m-6 0H6"
-                                                />
-                                            </svg>
-                                        </span>
-                                        <div>
-                                            {option.matched_substrings.map((s, idx) => (
-                                                <React.Fragment key={idx}>
-                                                    <span>{option.description.substring(s.offset, s.offset + s.length)}</span>
-                                                    {' '}
-                                                </React.Fragment>
-                                            ))}
-                                            <p className="text-sm text-gray-500">
-                                                {option.structured_formatting.secondary_text}
-                                            </p>
+                                //     }}
+                                // >
+                                //     <div className="flex items-center">
+                                //         <span className="w-8 h-8 mr-2">
+                                //             <svg
+                                //                 xmlns="http://www.w3.org/2000/svg"
+                                //                 fill="none"
+                                //                 viewBox="0 0 24 24"
+                                //                 stroke="currentColor"
+                                //                 className="text-secondary"
+                                //             >
+                                //                 <path
+                                //                     strokeLinecap="round"
+                                //                     strokeLinejoin="round"
+                                //                     strokeWidth="2"
+                                //                     d="M12 6v6m0 0v6m0-6h6m-6 0H6"
+                                //                 />
+                                //             </svg>
+                                //         </span>
+                                //         <div>
+                                //             {option.matched_substrings.map((s, idx) => (
+                                //                 <React.Fragment key={idx}>
+                                //                     <span>{option.description.substring(s.offset, s.offset + s.length)}</span>
+                                //                     {' '}
+                                //                 </React.Fragment>
+                                //             ))}
+                                //             <p className="text-sm text-gray-500">
+                                //                 {option.structured_formatting.secondary_text}
+                                //             </p>
+                                //         </div>
+                                //     </div>
+                                // </li>
+                                // ...
+                                // <li
+                                //     key={index}
+                                //     className={listItemClasses}
+                                //     onClick={() => {
+                                //         setValue(option);
+                                //         setInputValue(option.description);
+                                //         setOptions([]);
+                                //         onAddressSelected && onAddressSelected(option.description);
+
+                                //         // Get more details about the selected place
+                                //         const placesService = new window.google.maps.places.PlacesService(document.createElement('div'));
+                                //         placesService.getDetails({ placeId: option.place_id }, (placeDetails, status) => {
+                                //             if (status === window.google.maps.places.PlacesServiceStatus.OK) {
+                                //                 // Now you can access the coordinates
+                                //                 const lat = placeDetails.geometry.location.lat();
+                                //                 const lon = placeDetails.geometry.location.lng();
+                                  
+                                //                 // Pass the coordinates to the parent component
+                                //                 setCoordinates({ lat, lon });
+                                //                 // Do something with lat and lon
+                                //             }
+                                //         });
+                                //     }}
+                                // >
+                                //     {/* ... */}
+                                // </li>
+                                // ...
+                                
+                                    <li
+                                        key={index}
+                                        className={listItemClasses}
+                                        onClick={() => {
+                                            setValue(option);
+                                            setInputValue(option.description);
+                                            setOptions([]);
+                                            onAddressSelected && onAddressSelected(option.description);
+                                
+                                            // Get more details about the selected place
+                                            const placesService = new window.google.maps.places.PlacesService(document.createElement('div'));
+                                            placesService.getDetails({ placeId: option.place_id }, (placeDetails, status) => {
+                                                if (status === window.google.maps.places.PlacesServiceStatus.OK) {
+                                                    // Now you can access the coordinates
+                                                    const lat = placeDetails.geometry.location.lat();
+                                                    const lon = placeDetails.geometry.location.lng();
+                                                    
+                                                    // Pass the coordinates to the parent component
+                                                    setCoordinates({ lat, lon });
+                                                    // Do something with lat and lon
+                                                }
+                                            });
+                                        }}
+                                    >
+                                        <div className="flex items-center">
+                                            <span className="w-8 h-8 mr-2">
+                                                <svg
+                                                    xmlns="http://www.w3.org/2000/svg"
+                                                    fill="none"
+                                                    viewBox="0 0 24 24"
+                                                    stroke="currentColor"
+                                                    className="text-secondary"
+                                                >
+                                                    <path
+                                                        strokeLinecap="round"
+                                                        strokeLinejoin="round"
+                                                        strokeWidth="2"
+                                                        d="M12 6v6m0 0v6m0-6h6m-6 0H6"
+                                                    />
+                                                </svg>
+                                            </span>
+                                            <div>
+                                                {option.matched_substrings.map((s, idx) => (
+                                                    <React.Fragment key={idx}>
+                                                        <span>{option.description.substring(s.offset, s.offset + s.length)}</span>
+                                                        {' '}
+                                                    </React.Fragment>
+                                                ))}
+                                                <p className="text-sm text-gray-500">
+                                                    {option.structured_formatting.secondary_text}
+                                                </p>
+                                            </div>
                                         </div>
-                                    </div>
-                                </li>
-                            ))}
+                                    </li>
+                                ))}
+                                
+                            
                         </ul>
                     )}
                 </div>
