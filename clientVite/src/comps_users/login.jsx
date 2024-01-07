@@ -4,11 +4,13 @@ import { SERVER_URL, apiRequest } from '../serverConnect/api';
 import Cookies from 'js-cookie';
 import { useNavigate } from 'react-router-dom';
 import { AppContext } from '../../context/context';
+import {useAutoAlert} from '../comps_main/alertUtil'
 
 
 const Login = () => {
   const { register, handleSubmit, formState: { errors }, getValues } = useForm();
   const { user, setUser } = useContext(AppContext);
+  const { showAlert, AutoAlert } = useAutoAlert();
 
   const nav = useNavigate()
   const onSubmitLogin = async (data) => {
@@ -30,7 +32,7 @@ const Login = () => {
       console.log("ERROR ", err);
       console.log(err.response.data.code);
       let msg = err.response.data.msg;
-      alert(msg);
+      showAlert(msg);
       if (err.response.data.code == 4) {
         nav("/sign-up")
       }
@@ -44,6 +46,7 @@ const Login = () => {
           <img src="https://firebasestorage.googleapis.com/v0/b/volunteer-project-3a891.appspot.com/o/image_1703703745303?alt=media&token=329b8609-d1e6-47d1-9259-799e40f1f605" alt="" className="" />
         </div>
         <div className="border-l w-1/2 flex items-center justify-center">
+        <AutoAlert />
 
           <form onSubmit={handleSubmit(onSubmitLogin)} className="w-full max-w-lg p-6 rounded-md">
             <h1 className="font-medium text-2xl text-slate-900 px-4 pb-4">Log In</h1>

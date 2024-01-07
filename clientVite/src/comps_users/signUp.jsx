@@ -9,10 +9,14 @@ import { uploadImageToStorage } from '../helper/helper';
 import { useNavigate } from 'react-router-dom';
 import AddressInput from './addressInput'
 import Loading from '../comps_main/loading';
+import {useAutoAlert} from '../comps_main/alertUtil'
+
 
 const SignUp = () => {
   const nav = useNavigate()
   const addressInputRef = useRef();
+  const { showAlert, AutoAlert } = useAutoAlert();
+
   const [loading, setLoading] = useState(false); // Loading state
   const { register, handleSubmit, formState: { errors }, getValues } = useForm();
   const [selectedImage, setSelectedImage] = useState(null);
@@ -38,13 +42,13 @@ const SignUp = () => {
       Cookies.set('token', resp.data.token, { expires: 1 }); // expires in 1 day
       setUser(resp.data.user)
       setLoading(false)
-      alert("Welcome.your account has been created successfully")
+      showAlert("Welcome.your account has been created successfully")
       nav("/")
     }
     catch (err) {
       console.log("ERROR ", err);
       let msg = err.response.data.msg;
-      alert(msg);
+      showAlert(msg);
     }
     console.log(data);
   }
@@ -70,6 +74,8 @@ const SignUp = () => {
                 {errors.email && <div className="text-red-500 text-xs italic">Email is required and must be a valid email address</div>}
               </div>
             </div>
+            <AutoAlert />
+
             <div className='flex'>
               <div className="mb-4 px-3 w-1/3">
                 <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { tokenExpireAlert, apiRequestGet, apiRequest, SERVER_URL, apiRequestNoBody } from '../serverConnect/api';
 import { Link } from 'react-router-dom';
 import { AddressIcon, CalenderIcon, SearchIcon, TimeIcon } from './Icons';
+import {useAutoAlert} from '../comps_main/alertUtil'
 
 
 // Import the new DateFilter component
@@ -11,6 +12,7 @@ import MyMission from './myMission';
 const ViewMissions = () => {
   const [missions, setMissions] = useState([]);
   const [searchQuery, setSearchQuery] = useState('');
+  const { showAlert, AutoAlert } = useAutoAlert();
 
   useEffect(() => {
     const fetchMissions = async () => {
@@ -33,11 +35,11 @@ const ViewMissions = () => {
       const response = await apiRequestNoBody(`${SERVER_URL}/missions/addInterested/${missionId}`, 'PUT');
 
       if (response.data.success) {
-        alert('User added to interested list');
+        showAlert('User added to interested list');
       }
     } catch (error) {
       console.error('Error taking task:', error.response.data);
-      alert(error.response.data.error)
+      showAlert(error.response.data.error)
     }
   };
 
@@ -61,6 +63,8 @@ const ViewMissions = () => {
           />
         </div>
       </div>
+      <AutoAlert />
+
       <div className='align-center justify-center flex flex-wrap -mx-4'>
 
         <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4'>

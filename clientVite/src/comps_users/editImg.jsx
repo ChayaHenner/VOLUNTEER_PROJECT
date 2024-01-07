@@ -6,13 +6,14 @@ import Cookies from 'js-cookie';
 import { AppContext } from '../../context/context';
 import { useNavigate } from 'react-router-dom';
 import Loading from '../comps_main/loading';
-
+import { useAutoAlert } from '../comps_main/alertUtil'
 const EditImg = () => {
     const { register, handleSubmit, formState: { errors }, getValues } = useForm();
     const [selectedImage, setSelectedImage] = useState(null);
     const { user, setUser } = useContext(AppContext);
     const nav = useNavigate()
     const [loading, setLoading] = useState(false); // Loading state
+    const { showAlert, AutoAlert } = useAutoAlert();
 
     const onSubmit = async (data) => {
         setLoading(true)
@@ -28,18 +29,21 @@ const EditImg = () => {
             console.log("token", resp.data.token);
             Cookies.set('user', JSON.stringify(resp.data.user), { expires: 1 }); // expires in 1 day
             setUser(resp.data.user)
-            alert("img saved successfully")
+            showAlert("img saved successfully")
+            // alert("img saved successfully")
             nav("/my-profile")
         }
         catch (err) {
             console.log("ERROR ", err);
-            alert(err);
+            showAlert(err);
         }
         console.log(data);
         setLoading(false)
     }
     return (
         <div>
+                  <AutoAlert />
+
             {
                 loading ? (
                     <Loading text={"changing image..."} />

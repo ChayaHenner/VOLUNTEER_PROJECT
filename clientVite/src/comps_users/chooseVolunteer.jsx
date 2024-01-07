@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 import { SERVER_URL, apiRequest } from '../serverConnect/api'; // Import only necessary functions
+import { useAutoAlert } from '../comps_main/alertUtil'
 
 const ChooseVolunteer = ({ interested, mission }) => {
     const [selectedVolunteer, setSelectedVolunteer] = useState(null);
+    const { showAlert, AutoAlert } = useAutoAlert();
 
     const handleSelectVolunteer = (volunteer) => {
         setSelectedVolunteer(volunteer);
@@ -24,16 +26,19 @@ const ChooseVolunteer = ({ interested, mission }) => {
                 console.error('Error assigning volunteer:', error);
             }
         } else {
-            alert('Please select a volunteer first.');
+            showAlert('Please select a volunteer first.');
         }
     };
 
 
     return (
+        
         <div className="fixed top-0 left-0 w-full h-full bg-gray-200 bg-opacity-10 backdrop-blur-lg flex justify-center items-center">
             <div className="bg-white p-6 rounded-lg shadow-lg">
                 <button className="absolute top-2 right-2 text-gray-600 text-7xl">x</button>
                 <div>
+                <AutoAlert />
+
                     <h2>Choose a Volunteer</h2>
                     <div>
                         {interested.map((volunteer) => (
