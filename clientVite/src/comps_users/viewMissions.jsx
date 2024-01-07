@@ -1,16 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { tokenExpireAlert, apiRequestGet, apiRequest, SERVER_URL, apiRequestNoBody } from '../serverConnect/api';
 import { Link } from 'react-router-dom';
-import { useNavigate } from 'react-router-dom';
-
-
-// Import the new DateFilter component
-import DateFilter from './dateFilter'; // Update the path based on your project structure
-
 import { AddressIcon, CalenderIcon, SearchIcon, TimeIcon, ArrowDownIcon } from './Icons';
 import { useAutoAlert } from '../comps_main/alertUtil';
 import DateFilter from './dateFilter';
 import MyMission from './myMission';
+import { useNavigate } from 'react-router-dom';
 
 const ViewMissions = () => {
   const categoryColors = {
@@ -23,15 +18,12 @@ const ViewMissions = () => {
     medical: 'bg-red-200',
     technology: 'bg-indigo-200',
   };
-
+  const nav = useNavigate()
   const [missions, setMissions] = useState([]);
   const [searchQuery, setSearchQuery] = useState('');
   const [hasFilter, setHasFilter] = useState(false);
   const { showAlert, AutoAlert } = useAutoAlert();
   const [showDateFilter, setShowDateFilter] = useState(false);
-
-  const nav = useNavigate()
-
   const [startDate, setStartDate] = useState('');
   const [endDate, setEndDate] = useState('');
   const [startTime, setStartTime] = useState('');
@@ -186,7 +178,7 @@ const ViewMissions = () => {
                     <div className="mb-3">
                       <div className="flex items-center mb-2">
                         <AddressIcon className="w-4 h-4 mr-2" />
-                        <p className="text-gray-700">{mission.address}</p>
+                        <p className="text-gray-700">{mission.address.name}</p>
                       </div>
                       <div className="flex items-center mb-2">
                         <CalenderIcon className="w-4 h-4 mr-2" />
@@ -232,4 +224,5 @@ const ViewMissions = () => {
     </div>
   );
 }
+
 export default ViewMissions;
