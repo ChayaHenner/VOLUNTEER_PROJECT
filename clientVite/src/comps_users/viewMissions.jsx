@@ -5,6 +5,7 @@ import { AddressIcon, CalenderIcon, SearchIcon, TimeIcon, ArrowDownIcon } from '
 import { useAutoAlert } from '../comps_main/alertUtil';
 import DateFilter from './dateFilter';
 import MyMission from './myMission';
+import { useNavigate } from 'react-router-dom';
 
 const ViewMissions = () => {
   const categoryColors = {
@@ -17,7 +18,7 @@ const ViewMissions = () => {
     medical: 'bg-red-200',
     technology: 'bg-indigo-200',
   };
-
+  const nav = useNavigate()
   const [missions, setMissions] = useState([]);
   const [searchQuery, setSearchQuery] = useState('');
   const [hasFilter, setHasFilter] = useState(false);
@@ -177,7 +178,7 @@ const ViewMissions = () => {
                     <div className="mb-3">
                       <div className="flex items-center mb-2">
                         <AddressIcon className="w-4 h-4 mr-2" />
-                        <p className="text-gray-700">{mission.address}</p>
+                        <p className="text-gray-700">{mission.address.name}</p>
                       </div>
                       <div className="flex items-center mb-2">
                         <CalenderIcon className="w-4 h-4 mr-2" />
@@ -215,6 +216,11 @@ const ViewMissions = () => {
           </div>
         </div>
       </div>
+      <button
+        onClick={() => nav("/map")}
+        className="hover:bg-blue-700 bg-blue-500 text-white border border-blue-500 px-4 py-2 rounded-md"
+      >
+        Look at tasks near you                  </button>
     </div>
   );
 }

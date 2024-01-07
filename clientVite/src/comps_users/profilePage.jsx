@@ -126,7 +126,7 @@ const ProfilePage = () => {
                                         {user.phone}        </div>
                                     <div className="mb-2 text-blueGray-600">
                                         <i className="fas fa-university mr-2 text-lg text-blueGray-400"></i>
-                                        {user.address}
+                                        {user.address.name}
                                     </div>
                                 </div>
                                 <div className="mt-10 py-10 border-t border-blueGray-200 text-center">
