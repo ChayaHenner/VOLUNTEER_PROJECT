@@ -32,6 +32,7 @@ import QaChat from './comps_main/qaChat'
 import EditImg from './comps_users/editImg';
 import DeletUser from './comps_users/deletUser'
 import IsraelMap from './comps_users/map'
+import NewProfile from './comps_users/newProfilePage'
 function App() {
 
   const [user, setUser] = useState(null) //maybe change
@@ -54,6 +55,7 @@ function App() {
             <Route path="/my-missions" element={<MissionsByMe />} />
             <Route path="/post-mission" element={<PostMission />} />
             <Route path="/my-profile" element={<ProfilePage />} />
+            <Route path="/new-profile" element={<NewProfile />} />
             <Route path="/edit-profile" element={<EditProfile />} />
             <Route path="/ViewUser-Admin" element={<ViewUserAdmin />} />
             <Route path="/logout" element={<Logout />} />

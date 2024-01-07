@@ -22,7 +22,10 @@ let userSchema = new mongoose.Schema({
     },
   },
   birth_date: Date,
-  img_url: String,
+  img_url: {
+    type: String,
+    default: "https://firebasestorage.googleapis.com/v0/b/volunteer-project-3a891.appspot.com/o/image_1704634461855?alt=media&token=9fb973a3-6414-4663-9339-67f8004e5828"
+  },
   rating: {
     type: Number, default: 0
   },

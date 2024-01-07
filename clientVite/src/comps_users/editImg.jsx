@@ -42,13 +42,13 @@ const EditImg = ({ setShowEditImage }) => {
   };
 
   return (
-    <div className="fixed">
+    <div className="fixed w-1/2 top-0 left-0 z-50">
       <AutoAlert />
 
       {loading ? (
         <Loading text={"Changing image..."} />
       ) : (
-        <form onSubmit={handleSubmit(onSubmit)} className="mt-3">
+        <form onSubmit={handleSubmit(onSubmit)} className="fixed w-1/2 top-0 left-0 z-50 w-full h-full flex justify-center items-center bg-gray-200 bg-opacity-50 backdrop-filter backdrop-blur-md">
           <div className="mb-4 px-3">
             <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
               Profile Image:

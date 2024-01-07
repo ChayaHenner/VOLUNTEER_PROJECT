@@ -24,12 +24,13 @@ const EditMission = ({ mission, onClose, onUpdate }) => {
             onClose(); // Close the popup
         } catch (err) {
             console.error('Error updating mission:', err);
+            onClose()
             // Handle the error (e.g., show an error message to the user)
         }
     };
 
     return (
-        <div className="fixed z-1 flex items-center justify-center bg-black bg-opacity-50">
+        <div className="fixed w-1/2 top-0 left-0 z-50 w-full h-full flex justify-center items-center bg-gray-200 bg-opacity-50 backdrop-filter backdrop-blur-md">
             <div className="bg-white p-8 rounded-md w-96">
                 <h2 className="text-2xl font-bold mb-4">Edit Mission</h2>
                 <form onSubmit={handleSubmit(onSubmit)}>
