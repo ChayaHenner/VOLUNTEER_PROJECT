@@ -137,51 +137,51 @@ const QaChat = () => {
     return (
         <div className="fixed bottom-5 right-5 z-10">
 
-                <div className="max-w-lg mx-auto bg-white p-6 rounded-md shadow-md mt-8">
-                    <div className="border-t border-b border-gray-300 p-4 h-40 overflow-y-scroll">
-                        {conversation.map((item, index) => (
-                            <div key={index} className="mb-4">
-                                <div className="flex items-center space-x-2">
-                                    <span className="font-bold text-gray-800">ב"א:</span>
-                                </div>
-                                <p className="text-gray-600 mb-2">{item.question}</p>
-                                <div className="flex items-center space-x-2">
-                                    <span className="font-bold text-gray-800">Representative:</span>
-                                </div>
-                                <p className="text-gray-800 font-semibold">{item.answer}</p>
+            <div className="max-w-lg mx-auto bg-white p-6 rounded-md shadow-md mt-8">
+                <div className="border-t border-b border-gray-300 p-4 h-64 overflow-y-scroll">
+                    {conversation.map((item, index) => (
+                        <div key={index} className="mb-4">
+                            <div className="flex items-center space-x-2">
+                                <span className="font-bold text-gray-800">ב"א:</span>
                             </div>
-                        ))}
-
-                        {!selectedQuestion && (
-                            <div className="mb-4">
-                                <div className="grid grid-cols-1 gap-4">
-                                    {qaPairs.map((pair, index) => (
-                                        <button
-                                            key={index}
-                                            className={`py-2 px-4 rounded-md bg-blue-500 text-white`}
-                                            onClick={() => setSelectedQuestion(pair.question)}
-                                        >
-                                            {pair.question}
-                                        </button>
-                                    ))}
-                                </div>
+                            <p className="text-gray-600 mb-2">{item.question}</p>
+                            <div className="flex items-center space-x-2">
+                                <span className="font-bold text-gray-800">Representative:</span>
                             </div>
-                        )}
+                            <p className="text-gray-800 font-semibold">{item.answer}</p>
+                        </div>
+                    ))}
 
-                        {selectedQuestion && (
-                            <div className="mb-4">
-                                <div className="grid grid-cols-1 gap-4">
+                    {!selectedQuestion && (
+                        <div className="mb-4">
+                            <div className="grid grid-cols-1 gap-4">
+                                {qaPairs.map((pair, index) => (
                                     <button
-                                        className="py-2 px-4 rounded-md bg-blue-500 text-white"
-                                        onClick={handleQuestionClick}
+                                        key={index}
+                                        className={`py-2 px-4 rounded-md bg-blue-500 text-white`}
+                                        onClick={() => setSelectedQuestion(pair.question)}
                                     >
-                                        Ask Representative
+                                        {pair.question}
                                     </button>
-                                </div>
+                                ))}
                             </div>
-                        )}
-                    </div>
+                        </div>
+                    )}
+
+                    {selectedQuestion && (
+                        <div className="mb-4">
+                            <div className="grid grid-cols-1 gap-4">
+                                <button
+                                    className="py-2 px-4 rounded-md bg-blue-500 text-white"
+                                    onClick={handleQuestionClick}
+                                >
+                                    Ask Representative
+                                </button>
+                            </div>
+                        </div>
+                    )}
                 </div>
+            </div>
             {/* </div> */}
         </div>
     );
