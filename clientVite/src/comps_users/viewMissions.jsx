@@ -11,6 +11,7 @@ import MyMission from './myMission';
 const ViewMissions = () => {
   const [missions, setMissions] = useState([]);
   const [searchQuery, setSearchQuery] = useState('');
+  const [showDateFilter, setShowDateFilter] = useState(false);
 
   useEffect(() => {
     const fetchMissions = async () => {
@@ -47,17 +48,22 @@ const ViewMissions = () => {
 
   return (
     <div>
-      <div className='flex justify-between'>
-        {/* Add the DateFilter component to handle date and time range filtering */}
-        <DateFilter updateMissions={updateMissions} />
-        <div className="flex">
+      <div className='flex '>
+
+        {<DateFilter updateMissions={updateMissions} />}
+        {/* {showDateFilter && <DateFilter updateMissions={updateMissions} />}
+
+        {!showDateFilter && <button onClick={() => { setShowDateFilter(true) }}>filter</button>} */}
+      </div>
+      <div className="flex justify-end absolute top-0 right-0 p-4">
+        <div className="flex items-center">
           <SearchIcon />
           <input
             type="text"
             placeholder="search missions..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="border p-2 mb-4"
+            className="border p-2 ml-2"
           />
         </div>
       </div>

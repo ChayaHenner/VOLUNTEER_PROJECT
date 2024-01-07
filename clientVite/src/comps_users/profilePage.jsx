@@ -10,10 +10,12 @@ import CreatePost from './createPost';
 import MyMission from './myMission';
 import Loading from '../comps_main/loading';
 import { PlusIcon } from './Icons';
+import EditImg from './editImg';
 const ProfilePage = () => {
     const { user, setUser } = useContext(AppContext);
     const nav = useNavigate()
     const [showCreatePost, setShowCreatePost] = useState(false);
+    const [showEditImage, setShowEditImage] = useState(false);
     const [loading, setLoding] = useState(true);
 
     const openCreatePost = () => {
@@ -74,12 +76,12 @@ const ProfilePage = () => {
                                     <div className=" w-full px-4 flex justify-center relative">
                                         {/* Place the button directly inside the container */}
                                         <button
-                                            onClick={() => { nav("/edit-img") }}
+                                            onClick={() => { setShowEditImage(true) }}
                                             className="absolute bottom-4 right-20 bg-white rounded-full p-2 shadow-md z-10"
                                         >
                                             <PlusIcon />
                                         </button>
-
+                                        {showEditImage && <EditImg setShowEditImage={setShowEditImage} />}
                                         <div className="relative w-64 h-64 rounded-full overflow-hidden shadow-xl">
                                             <img src={user.img_url} alt={user.full_name} className="w-full h-full object-cover" />
                                         </div>

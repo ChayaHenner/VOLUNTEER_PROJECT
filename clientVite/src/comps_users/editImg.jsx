@@ -7,7 +7,7 @@ import { AppContext } from '../../context/context';
 import { useNavigate } from 'react-router-dom';
 import Loading from '../comps_main/loading';
 
-const EditImg = () => {
+const EditImg = ({ setShowEditImage }) => {
     const { register, handleSubmit, formState: { errors }, getValues } = useForm();
     const [selectedImage, setSelectedImage] = useState(null);
     const { user, setUser } = useContext(AppContext);
@@ -29,7 +29,8 @@ const EditImg = () => {
             Cookies.set('user', JSON.stringify(resp.data.user), { expires: 1 }); // expires in 1 day
             setUser(resp.data.user)
             alert("img saved successfully")
-            nav("/my-profile")
+            // nav("/my-profile")
+            setShowEditImage(false)
         }
         catch (err) {
             console.log("ERROR ", err);
@@ -39,28 +40,17 @@ const EditImg = () => {
         setLoading(false)
     }
     return (
-        <div>
-            {
-                loading ? (
-                    <Loading text={"changing image..."} />
-                ) : (
-                    <form onSubmit={handleSubmit(onSubmit)} className="mt-3">
-                        <div className="mb-4 px-3">
-                            <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
-                                Profile Image:
-                            </label>
-                            <input {...register('img_url')} type="file" accept="image/*" onChange={(e) => setSelectedImage(e.target.files[0])} className="appearance-none block w-full bg-gray-200 text-gray-700 border border-purple-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" />
-                            {/* <input {...register('img_url')} type="file" accept="image/*" className="appearance-none block w-full bg-gray-200 text-gray-700 border border-purple-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" /> */}
-                        </div>
-                        <button type="submit" className="bg-green-500 text-white px-4 py-2 rounded-md mt-4">
-                            Save
-                        </button>
-                    </form>
-
-                )
-            }
+        <div className="fixed w-1/2 top-0 left-0 z-50 w-full h-full flex justify-center items-center bg-gray-200 bg-opacity-50 backdrop-filter backdrop-blur-md">
+            <form onSubmit={handleSubmit(onSubmit)} className="w-2/3 bg-white p-6 rounded-lg">
+                <div className="mb-4">
+                    <label className="block text-gray-700 text-sm font-bold mb-2">Profile Image:</label>
+                    <input {...register('img_url')} type="file" accept="image/*" onChange={(e) => setSelectedImage(e.target.files[0])} className="block w-full bg-gray-200 text-gray-700 border border-purple-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" />
+                </div>
+                <button type="submit" className="bg-green-500 text-white px-4 py-2 rounded-md mt-4 mr-2">Save</button>
+            </form>
         </div>
-    )
+    );
+
 }
 
 export default EditImg
