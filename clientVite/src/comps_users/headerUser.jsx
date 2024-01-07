@@ -43,11 +43,13 @@ const HeaderUser = () => {
         </Link>
 
         <ul className="flex space-x-6 text-gray-700 text-lg">
-          <li>
-            <Link to="/login" className="hover:text-blue-600 transition duration-300">
-              Login
-            </Link>
-          </li>
+          {!user && (
+            <li>
+              <Link to="/login" className="hover:text-blue-600 transition duration-300">
+                Login
+              </Link>
+            </li>
+          )}
           {!user && (
             <li>
               <Link to="/sign-up" className="hover:text-blue-600 transition duration-300">
@@ -118,6 +120,7 @@ const HeaderUser = () => {
             </li>
           )}
         </ul>
+
       </nav>
     </header>
   );
