@@ -11,7 +11,7 @@ const Home = () => {
       <div className="w-full md:w-1/2 px-3 flex items-center">
         <div className="text-7xl font-bold">
           <p className=" leading-snug">
-            We all are HERE 
+            We all are HERE
             for each other
           </p>
         </div>
