@@ -11,7 +11,7 @@ const ViewMissions = () => {
     children: 'bg-blue-200',
     kitchen: 'bg-green-200',
     driving: 'bg-yellow-200',
-    elderly: 'bg-orange-200',
+    elderly: 'bg-green-500',
     cleanup: 'bg-pink-200',
     studies: 'bg-purple-200',
     medical: 'bg-red-200',

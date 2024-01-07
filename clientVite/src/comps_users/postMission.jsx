@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
-import {       tokenExpireAlert,  fieldsEnum, SERVER_URL, apiRequest } from '../serverConnect/api';
+import { tokenExpireAlert, fieldsEnum, SERVER_URL, apiRequest } from '../serverConnect/api';
 import Cookies from 'js-cookie';
 import AddressInput from './addressInput'
 
@@ -9,8 +9,33 @@ import AddressInput from './addressInput'
 const PostMission = ({ setShowCreateNewMission }) => {
   const { register, handleSubmit, formState: { errors }, getValues } = useForm();
   const [address, setAddress] = useState(null);
-  const nav = useNavigate()
+  const [selectedCategories, setSelectedCategories] = useState([]);
 
+  const nav = useNavigate()
+  const categoryColors = {
+    children: 'bg-blue-200',
+    kitchen: 'bg-green-200',
+    driving: 'bg-yellow-200',
+    elderly: 'bg-green-500',
+    cleanup: 'bg-pink-200',
+    studies: 'bg-purple-200',
+    medical: 'bg-red-200',
+    technology: 'bg-indigo-200',
+  };
+
+  const handleCategoryClick = (category) => {
+    setSelectedCategories((prevSelected) => {
+      if (prevSelected.includes(category)) {
+        return prevSelected.filter((item) => item !== category);
+      } else {
+        // Category is not selected, add it
+        return [...prevSelected, category];
+      }
+    });
+  };
+  const isCategorySelected = (category) => {
+    return selectedCategories.includes(category);
+  };
   const onSubPost = async (data) => {
     data.address = address //new
     console.log(data)
@@ -90,24 +115,39 @@ const PostMission = ({ setShowCreateNewMission }) => {
             {errors['requirements.gender'] && <div className="text-red-500 text-xs italic">Gender is required</div>}
           </div>
         </div>
+
+
         <div className="mb-4 px-3">
           <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
             Interests:
           </label>
-          <div className="mt-1">
+          <div className="mt-1 flex">
             {fieldsEnum.map((field) => (
-              <label key={field} className="inline-flex items-center mr-4">
+              <label
+                key={field}
+                className={`inline-flex items-center mr-4  cursor-pointer ${isCategorySelected(field) ? 'selected-category' : ''
+                  }`}
+                onClick={() => handleCategoryClick(field)}
+              >
                 <input
                   type="checkbox"
                   value={field}
-                  className="form-checkbox h-4 w-4 text-indigo-600"
-                  {...register('fields')} // Include selected fields in register
+                  className="hidden"
+                  {...register('fields')}
                 />
-                <span className="ml-2">{field}</span>
+                <div
+                  className={`rounded-md px-2 py-1 ${categoryColors[field.toLowerCase()] || 'bg-gray-200'
+                    } ${isCategorySelected(field) ? 'border-black' : ''}`}
+                >
+                  {field}
+                </div>
               </label>
             ))}
           </div>
-        </div>        <button type="submit" className="m-2 bg-purple-500 text-white px-4 py-2 rounded-md mt-4">Create Mission</button>
+        </div>
+
+
+        <button type="submit" className="m-2 bg-purple-500 text-white px-4 py-2 rounded-md mt-4">Create Mission</button>
         <button type="button" className=" m-2 bg-purple-500 text-white px-4 py-2 rounded-md mt-4" onClick={() => { setShowCreateNewMission(false) }}>close</button>
       </form>
     </div>
