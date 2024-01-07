@@ -39,13 +39,13 @@ const SignUp = () => {
 
     const { lat, lon } = coordinates;
 
-    const mapLink = `https://maps.google.com/maps?q=${lat},${lon}&hl=es&z=14&amp;output=embed`;
-const add={
-  name:address,
-  mapLink:mapLink
-}
+    const mapLink = `https://maps.google.com/maps?q=${lat},${lon}&hl=hw&z=14&amp;output=embed`;
+    const add = {
+      name: address,
+      mapLink: mapLink
+    }
     console.log('Map Link:', mapLink);
-    data.address=add;
+    data.address = add;
 
     console.log(data);
     let url = SERVER_URL + "/users/"
@@ -135,7 +135,7 @@ const add={
                 <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
                   Address:</label>
                 {/* <input {...register('address')} type="text" className="appearance-none block w-full bg-gray-200 text-gray-700 border border-purple-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" /> */}
-                <AddressInput setAddress={setAddress} setCoordinates={setCoordinates}/>
+                <AddressInput setAddress={setAddress} setCoordinates={setCoordinates} />
                 {errors.address && <div className="text-red-500 text-xs italic">choose valid address</div>}
                 {/* <AddressInput onAddressSelected={(address) => setSelectedAddress(address.description)} /> */}
                 {/* <AddressInput ref={addressInputRef} onAddressSelected={(address) => setSelectedAddress(address.description)} /> */}

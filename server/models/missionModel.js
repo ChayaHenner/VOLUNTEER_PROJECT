@@ -3,7 +3,14 @@ const mongoose = require("mongoose");
 let missionSchema = new mongoose.Schema({
     title: String,
     description: String,
-    address: String,
+    address: {
+        name: {
+          type: String,
+        },
+        mapLink: {
+          type: String,
+        },
+      },
     date: {
         type: Date,
         required: true,

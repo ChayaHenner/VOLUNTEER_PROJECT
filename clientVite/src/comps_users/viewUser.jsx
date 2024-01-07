@@ -13,7 +13,7 @@ import ReportForm from './ReportForm';
 
 const ViewUser = () => {
     const { id } = useParams();
-    const [loading, setLoading] = useState(false); // Loading state
+    const [loading, setLoading] = useState(true); // Loading state
 
     const { user, setUser } = useContext(AppContext);
     const [userPage, setUserPage] = useState({});
@@ -22,11 +22,12 @@ const ViewUser = () => {
     const [showCreatePost, setShowCreatePost] = useState(false); // State to manage visibility
     const user_now = JSON.parse(Cookies.get('user'));
     const getUser = async () => {
+        console.log("resp.data");
         setLoading(true);
         let url = SERVER_URL + `/users/infoById/${id}`
         try {
             let resp = await apiRequestGet(url, "GET")
-            console.log(resp);
+            console.log("work",resp.data);
             setUserPage(resp.data)
         }
         catch (err) {
@@ -100,7 +101,7 @@ const ViewUser = () => {
                                             {userPage.phone}        </div>
                                         <div className="mb-2 text-blueGray-600">
                                             <i className="fas fa-university mr-2 text-lg text-blueGray-400"></i>
-                                            {userPage.address}
+                                            {userPage.address.name}
                                         </div>
                                     </div>
                                     <div className="mt-10 py-10 border-t border-blueGray-200 text-center">
