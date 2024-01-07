@@ -42,7 +42,7 @@ const EditImg = ({ setShowEditImage }) => {
   };
 
   return (
-    <div>
+    <div className="fixed">
       <AutoAlert />
 
       {loading ? (
