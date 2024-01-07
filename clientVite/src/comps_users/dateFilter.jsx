@@ -9,11 +9,9 @@ const DateFilter = ({ updateMissions }) => {
 
     const handleFilter = async () => {
         try {
-            // Perform API request to filter missions
             const response = await apiRequestGet(`${SERVER_URL}/missions/byDateTime?startDate=${startDate}&endDate=${endDate}&startTime=${startTime}&endTime=${endTime}`);
             const filteredMissions = response.data; // Assuming your API response contains filtered missions
 
-            // Update state or perform any other action with the filtered missions
             updateMissions(filteredMissions);
         } catch (error) {
             console.error('Error filtering missions:', error);
@@ -22,7 +20,7 @@ const DateFilter = ({ updateMissions }) => {
 
 
     return (
-        <div className="flex items-center mb-4">
+        <div className="flex w-full items-center mb-4">
             <div className=" rounded-md p-2 mr-4">
                 <label className="block text-sm font-medium text-gray-700">Start Date</label>
                 <input
