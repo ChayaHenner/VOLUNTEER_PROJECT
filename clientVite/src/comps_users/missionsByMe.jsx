@@ -94,7 +94,7 @@ const MissionsByMe = () => {
 
     return (
         <>
-            <button className='bg-purple-500 text-white px-4 py-2 rounded-md mt-4 z-5  absolute right-0 top-100' onClick={createMission}>new mission</button>
+            <button className='bg-purple-500 text-white px-4 py-2 rounded-md mt-4 z-5  absolute right-0 top-100' onClick={createMission}>post mission</button>
             <div >
                 {showCreateNewMission && <PostMission setShowCreateNewMission={setShowCreateNewMission} />}
                 {missions.length > 0 ? (
@@ -103,7 +103,7 @@ const MissionsByMe = () => {
                             <EditMission mission={selectedMission} onClose={closeEditMission} />
                         )}
                         {missions.map((mission) => (
-                            <div key={mission._id} className="bg-white border border-gray-200 rounded-lg shadow-lg dark:bg-gray-800 dark:border-gray-700 w-full sm:w-1/2 md:w-1/3 lg:w-1/3 p-4 m-4">
+                            <div key={mission._id} className="bg-white border border-gray-400 rounded-lg shadow-sm  dark:border-gray-700 w-full sm:w-1/2 md:w-1/3 lg:w-1/3 p-4 m-4">
                                 <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">{mission.title}</h5>
                                 <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">{mission.description}</p>
                                 <div>
@@ -128,7 +128,7 @@ const MissionsByMe = () => {
 
                                     {((mission.interested.length > 0) && !mission.taken) && (<InterestedMenu getMissions={getMissions} interested={mission.interested} mission={mission._id} />)}
 
-                                    <div className="flex justify-end">
+                                    {/* <div className="flex justify-end">
                                         <button
                                             className="bg-red-500 text-white px-4 py-2 rounded-md mt-2"
                                             onClick={() => deleteMission(mission._id)}
@@ -141,7 +141,7 @@ const MissionsByMe = () => {
                                         onClick={() => openEditMission(mission)}
                                     >
                                         Edit
-                                    </button>
+                                    </button> */}
                                 </div>
                             </div>
                         ))}
