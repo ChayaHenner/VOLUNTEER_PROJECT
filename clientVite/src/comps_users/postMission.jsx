@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
-import {       tokenExpireAlert,  fieldsEnum, SERVER_URL, apiRequest } from '../serverConnect/api';
+import { tokenExpireAlert, fieldsEnum, SERVER_URL, apiRequest } from '../serverConnect/api';
 import Cookies from 'js-cookie';
 import AddressInput from './addressInput'
 
@@ -108,7 +108,7 @@ const PostMission = ({ setShowCreateNewMission }) => {
             ))}
           </div>
         </div>        <button type="submit" className="m-2 bg-purple-500 text-white px-4 py-2 rounded-md mt-4">Create Mission</button>
-        <button type="button" className=" m-2 bg-purple-500 text-white px-4 py-2 rounded-md mt-4" onClick={() => { setShowCreateNewMission(false) }}>close</button>
+        <button type="button" className=" m-2 text-purple-500  px-4 py-2 rounded-md mt-4" onClick={() => { setShowCreateNewMission(false) }}>close</button>
       </form>
     </div>
   );

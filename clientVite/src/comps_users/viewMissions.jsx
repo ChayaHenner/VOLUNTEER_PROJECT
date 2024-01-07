@@ -85,7 +85,7 @@ const ViewMissions = () => {
   }
 
   return (
-    <div className='p-6 relative container border'>
+    <div className='p-6 px-20 relative container border'>
       <div className='flex justify-center'>
         {/* {<DateFilter updateMissions={updateMissions} />} */}
         {/* {showDateFilter && <DateFilter searchQuery={searchQuery} updateMissions={updateMissions} />} */}
@@ -171,7 +171,7 @@ const ViewMissions = () => {
             <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4'>
               {missions && missions.map((mission) => {
                 return (
-                  <div key={mission._id} className="bg-white border border-gray-200 rounded-lg shadow p-6">
+                  <div key={mission._id} className="bg-white border  border-gray-500 rounded-lg shadow-lg p-6">
                     <h5 className="text-xl font-bold mb-2">{mission.title}</h5>
                     <p className="text-gray-700 mb-3">{mission.description}</p>
                     <div className="mb-3">
@@ -200,9 +200,9 @@ const ViewMissions = () => {
                       </button>
                     </div>
                     <div className="mt-2">
-                      <div className="flex">
+                      <div className="flex flex-wrap">
                         {mission.fields.map((category, index) => (
-                          <div key={index} className={`rounded-md px-2 py-1 mr-2 ${categoryColors[category.toLowerCase()] || 'bg-gray-200'}`}>
+                          <div key={index} className={`rounded-md px-2 py-1 m-1 ${categoryColors[category.toLowerCase()] || 'bg-gray-200'}`}>
                             {category}
                           </div>
                         ))}

@@ -29,7 +29,7 @@ const EditMission = ({ mission, onClose, onUpdate }) => {
     };
 
     return (
-        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+        <div className="fixed z-1 flex items-center justify-center bg-black bg-opacity-50">
             <div className="bg-white p-8 rounded-md w-96">
                 <h2 className="text-2xl font-bold mb-4">Edit Mission</h2>
                 <form onSubmit={handleSubmit(onSubmit)}>
