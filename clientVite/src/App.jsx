@@ -59,6 +59,7 @@ function App() {
             <Route path="/resetPass/:token" element={<ResetPasswordPage />} />
             <Route path="/view-user/:id" element={<ViewUser />} />
             <Route path="/view-missions" element={<ViewMissions />} />
+            {/* <Route path="/view-missions" element={<h2>h</h2> } /> */}
             <Route path="/logout" element={<Logout />} />
             <Route path="/management" element={<Management />} />
             <Route path="/qachat" element={<QaChat />} />
