@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { tokenExpireAlert, apiRequestGet, apiRequest, SERVER_URL, apiRequestNoBody } from '../serverConnect/api';
 import { Link } from 'react-router-dom';
-import { AddressIcon, CalenderIcon, SearchIcon, TimeIcon } from './Icons';
+import { AddressIcon, ArrowDownIcon, CalenderIcon, SearchIcon, TimeIcon } from './Icons';
 
 
 // Import the new DateFilter component
@@ -45,24 +45,31 @@ const ViewMissions = () => {
   const updateMissions = (filteredMissions) => {
     setMissions(filteredMissions);
   };
+  const changeFilter = () => {
+    if (showDateFilter)
+      setShowDateFilter(false)
+    else setShowDateFilter(true)
+  }
 
   return (
-    <div className=' relative container  border '>
+    <div className='pt-4 relative container  border '>
       <div className='flex justify-center'>
-        {<DateFilter updateMissions={updateMissions} />}
-        {/* {showDateFilter && <DateFilter updateMissions={updateMissions} />}
+        {/* {<DateFilter updateMissions={updateMissions} />} */}
+        {showDateFilter && <DateFilter updateMissions={updateMissions} />}
 
-        {!showDateFilter && <button onClick={() => { setShowDateFilter(true) }}>filter</button>} */}
+        {<button onClick={() => { changeFilter() }} className='absolute top-0 left-1/2 transform -translate-x-1/2 bg-white rounded-full shadow-md'>
+          <ArrowDownIcon />
+        </button>}
       </div>
       <div className="flex justify-end absolute top-0 right-0 ">
-        <div className="flex items-center">
+        <div className="p-4 flex items-center">
           <SearchIcon />
           <input
             type="text"
             placeholder="search missions..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="border p-2 ml-2"
+            className="border border-purple-500 rounded p-2 ml-2"
           />
         </div>
       </div>
