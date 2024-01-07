@@ -51,7 +51,7 @@ const SignUp = () => {
   return (
     <div className='flex  justify-center w-full'>
       <div className="w-7/10 mx-auto">
-        {loading && <Loading text={"adding user ..."}/>}
+        {loading && <Loading text={"adding user ..."} />}
         <form onSubmit={handleSubmit(onSubmit)} className="mt-3">
           <div className=" ">
             <div className='flex'>
@@ -71,15 +71,38 @@ const SignUp = () => {
               </div>
             </div>
             <div className='flex'>
-              <div className="mb-4 px-3 w-1/3">
+              {/* <div className="mb-4 px-3 w-1/3">
                 <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
                   Teudat Zehut/ID:
                 </label>
                 <input {...register('tz', { required: true, minLength: 2 })} type="text" className="appearance-none block w-full bg-gray-200 text-gray-700 border border-purple-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" />
                 {errors.tz && <div className="text-red-500 text-xs italic">name must be a legal tz number</div>}
                 {/* add check if legal tz */}
-              </div>
+              {/* </div>  */}
+              <div className="mb-4 px-3 w-1/3">
+                <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
+                  Teudat Zehut/ID:
+                </label>
+                <input
+                  {...register('tz', {
+                    required: 'Teudat Zehut/ID is required',
+                    validate: (idNumber) => {
+                      if (!(typeof idNumber === 'string' && idNumber.length === 9 && /^\d+$/.test(idNumber))) {
+                        return "Teudat Zehut/ID must be 9 digits";
+                      }
 
+                      let totalSum = Array.from(idNumber, (digit, index) => parseInt(digit) * (index % 2 === 0 ? 1 : 2))
+                        .reduce((sum, value) => sum + (value > 9 ? value - 9 : value), 0);
+
+                      return totalSum % 10 === 0;
+                    }
+                  })}
+                  type="text"
+                  className="appearance-none block w-full bg-gray-200 text-gray-700 border border-purple-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
+                />
+
+                {errors.tz && <div className="text-red-500 text-xs italic">{"Invalid Teudat Zehut"}</div>}
+              </div>
               <div className="mb-4 px-3 w-1/3">
                 <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
                   Phone:
