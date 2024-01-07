@@ -1,10 +1,12 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import { SERVER_URL, apiRequest } from '../serverConnect/api';
+import {useAutoAlert} from '../comps_main/alertUtil'
 
 
 const ForgotPassword = () => {
   const { register, handleSubmit, formState: { errors } } = useForm();
+  const { showAlert, AutoAlert } = useAutoAlert();
 
   const onSubmitForgotPassword = async (data) => {
     // let url = SERVER_URL + "/forgot-password"
@@ -20,11 +22,11 @@ const ForgotPassword = () => {
       });
       if (response.ok) {
         console.log('Password reset email sent successfully.');
-        alert("A password reset email has been sent \n Check your email")
+        showAlert("A password reset email has been sent \n Check your email")
       } else {
         const errorData = await response.json();
         console.error('Failed to send password reset email:', errorData.message);
-        alert("Email does not exist")
+        showAlert("Email does not exist")
       }
     } catch (error) {
       console.error('Error sending password reset email:', error);
@@ -40,6 +42,8 @@ const ForgotPassword = () => {
           <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
             Email:
           </label>
+          <AutoAlert />
+
           <input
             {...register('email', { required: true, pattern: /^\S+@\S+$/i })}
             type="email"

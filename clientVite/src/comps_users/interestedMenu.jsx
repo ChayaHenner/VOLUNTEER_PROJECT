@@ -2,10 +2,12 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { CheckIcon, ProfileIcon } from './Icons';
 import { tokenExpireAlert, SERVER_URL, apiRequest, apiRequestGet } from '../serverConnect/api';
+import {useAutoAlert} from '../comps_main/alertUtil'
 
 export const InterestedMenu = ({ getMissions,interested, mission }) => {
     const [showDropdown, setShowDropdown] = useState(false);
     const [selectedUser, setSelectedUser] = useState(null);
+    const { showAlert, AutoAlert } = useAutoAlert();
 
     const handleChoose = async () => {
         if (selectedUser) {
@@ -19,7 +21,7 @@ export const InterestedMenu = ({ getMissions,interested, mission }) => {
                 const response = await fetch(url, requestOptions);
                 console.log(response);
                 console.log('Chosen user:', selectedUser.full_name);
-                alert('Assigned volunteer')
+                showAlert('Assigned volunteer')
                 getMissions()
 
             } catch (error) {
@@ -27,7 +29,7 @@ export const InterestedMenu = ({ getMissions,interested, mission }) => {
             }
 
         } else {
-            alert(' Please select a volunteer first.');
+            showAlert(' Please select a volunteer first.');
         }
     };
 
@@ -54,6 +56,7 @@ export const InterestedMenu = ({ getMissions,interested, mission }) => {
                     </svg>
                 </span>
             </button>
+            <AutoAlert />
 
             {showDropdown && (
                 <ul
