@@ -54,12 +54,12 @@ const ViewMissions = () => {
   }
 
   return (
-    <div className='pt-4 relative container  border '>
+    <div className='p-6 relative container  border '>
       <div className='flex justify-center'>
         {/* {<DateFilter updateMissions={updateMissions} />} */}
         {showDateFilter && <DateFilter updateMissions={updateMissions} />}
 
-        {<button onClick={() => { changeFilter() }} className='absolute top-0 left-1/2 transform -translate-x-1/2 bg-white rounded-full shadow-md'>
+        {<button title='Filter' onClick={() => { changeFilter() }} className='absolute top-0 left-1/2 transform -translate-x-1/2 bg-white rounded-full shadow-md'>
           <ArrowDownIcon />
         </button>}
       </div>
@@ -77,7 +77,7 @@ const ViewMissions = () => {
       </div>
       <AutoAlert />
 
-      <div className='align-center justify-center flex flex-wrap -mx-4'>
+      <div className='align-center justify-center flex flex-wrap '>
       <div className='align-center justify-center flex flex-wrap '>
 
         <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4'>

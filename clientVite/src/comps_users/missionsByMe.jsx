@@ -94,7 +94,7 @@ const MissionsByMe = () => {
 
     return (
         <>
-            <button className='bg-purple-500 text-white px-4 py-2 rounded-md mt-4 z-5  absolute right-0 top-100' onClick={createMission}>post mission</button>
+            <button className='bg-purple-500 text-white  p-2 rounded-md  z-5  absolute right-0 top-100' onClick={createMission}>post mission</button>
             <div >
                 {showCreateNewMission && <PostMission setShowCreateNewMission={setShowCreateNewMission} />}
                 {missions.length > 0 ? (
