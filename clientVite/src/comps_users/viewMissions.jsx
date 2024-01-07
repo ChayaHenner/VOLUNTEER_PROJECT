@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { tokenExpireAlert, apiRequestGet, apiRequest, SERVER_URL, apiRequestNoBody } from '../serverConnect/api';
 import { Link } from 'react-router-dom';
 import { AddressIcon, CalenderIcon, SearchIcon, TimeIcon } from './Icons';
+import { useNavigate } from 'react-router-dom';
 
 
 // Import the new DateFilter component
@@ -12,6 +13,7 @@ const ViewMissions = () => {
   const [missions, setMissions] = useState([]);
   const [searchQuery, setSearchQuery] = useState('');
   const [showDateFilter, setShowDateFilter] = useState(false);
+  const nav = useNavigate()
 
   useEffect(() => {
     const fetchMissions = async () => {
@@ -78,7 +80,7 @@ const ViewMissions = () => {
                 <div className="mb-3">
                   <div className="flex items-center mb-2">
                     <AddressIcon className="w-4 h-4 mr-2" />
-                    <p className="text-gray-700">{mission.address}</p>
+                    <p className="text-gray-700">{mission.address.name}</p>
                   </div>
                   <div className="flex items-center mb-2">
                     <CalenderIcon className="w-4 h-4 mr-2" />
@@ -104,6 +106,11 @@ const ViewMissions = () => {
             );
           })}
         </div>
+        <button
+          onClick={() => nav("/map")}
+          className="hover:bg-blue-700 bg-blue-500 text-white border border-blue-500 px-4 py-2 rounded-md"
+        >
+          Look at tasks near you                  </button>
       </div>
     </div>
   );

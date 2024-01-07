@@ -16,7 +16,7 @@ const MyMission = ({ mission }) => {
               {mission.description}
             </h1>
 
-            <div className="text-sm font-medium text-slate-400"> {mission.address} | {mission.date} | {mission.time} </div>
+            <div className="text-sm font-medium text-slate-400"> {mission.address.name} | {mission.date} | {mission.time} </div>
           </div>
 
           <div className="flex space-x-4 mb-5 text-sm font-medium">

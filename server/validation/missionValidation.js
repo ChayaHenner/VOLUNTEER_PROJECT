@@ -1,10 +1,14 @@
 const Joi = require("joi");
 
 exports.validMission = (_reqBody) => {
+    const addressSchema = Joi.object({
+        name: Joi.string().allow(null, ''),
+        mapLink: Joi.string().allow(null, ''),
+    });
     const joiSchema = Joi.object({
         title: Joi.string().min(2).max(99).required(),
         description: Joi.string().allow(null, ""),
-        address: Joi.string().allow(null, ""),
+        address: addressSchema,
         date: Joi.date().required(),
         time: Joi.string().required(),
         user_creator: Joi.string().min(2).max(99),

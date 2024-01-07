@@ -109,7 +109,7 @@ const MissionsByMe = () => {
                                 <div>
                                     <div className="flex items-center mb-3">
                                         <AddressIcon className="inline-block w-6 h-6 mr-2" />
-                                        <p className="mb-0 font-normal text-gray-700 dark:text-gray-400">{mission.address}</p>
+                                        <p className="mb-0 font-normal text-gray-700 dark:text-gray-400">{mission.address.name}</p>
                                     </div>
                                     <div className="flex items-center mb-3">
                                         <CalenderIcon className="inline-block w-6 h-6 mr-2" />

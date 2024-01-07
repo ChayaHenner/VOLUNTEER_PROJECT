@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
-import {       tokenExpireAlert,  fieldsEnum, SERVER_URL, apiRequest } from '../serverConnect/api';
+import { tokenExpireAlert, fieldsEnum, SERVER_URL, apiRequest } from '../serverConnect/api';
 import Cookies from 'js-cookie';
 import AddressInput from './addressInput'
 
@@ -10,9 +10,19 @@ const PostMission = ({ setShowCreateNewMission }) => {
   const { register, handleSubmit, formState: { errors }, getValues } = useForm();
   const [address, setAddress] = useState(null);
   const nav = useNavigate()
+  const [coordinates, setCoordinates] = useState({ lat: '', lon: '' });
+
 
   const onSubPost = async (data) => {
-    data.address = address //new
+    const { lat, lon } = coordinates;
+    const mapLink = `https://maps.google.com/maps?q=${lat},${lon}&hl=hw&z=14&amp;output=embed`;
+    const add = {
+      name: address,
+      mapLink: mapLink
+    }
+    console.log('Map Link:', mapLink);
+    data.address = add;
+
     console.log(data)
     let url = SERVER_URL + "/missions/"
     try {
@@ -45,7 +55,7 @@ const PostMission = ({ setShowCreateNewMission }) => {
 
             {/* <input {...register('address')} type="text" className="appearance-none block w-full bg-gray-200 text-gray-700 border border-purple-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" />
             {errors.address && <div className="text-red-500 text-xs italic">choose valid address</div>} */}
-            <AddressInput setAddress={setAddress} />
+            <AddressInput setAddress={setAddress} setCoordinates={setCoordinates} />
             {/* <AddressInput {...register('address')} onAddressSelected={(address) => setSelectedAddress(address.description)} /> */}
 
           </div>
