@@ -22,7 +22,7 @@ const Map = () => {
     }
     useEffect( () => {
         const api = async () => {
-            let url = SERVER_URL + "/missions/getall"
+            let url = SERVER_URL + "/missions/"
             try {
                 let resp = await apiRequestGet(url)
                 console.log(resp.data)
