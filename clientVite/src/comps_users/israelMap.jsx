@@ -17,22 +17,47 @@ const IsraelMap = ({ locations ,lng,lat}) => {
             }
         }
     };
-    useEffect(() => {
-        const initMap = () => {
-            const israelCoords = { lat: lat, lng: lng }; // Coordinates for Israel
-            const israelMap = new window.google.maps.Map(document.getElementById('map'), {
-                center: israelCoords,
-                zoom: 8,
-            });
-
-            const markerIcon = {
-                url: `https://chart.googleapis.com/chart?chst=d_map_pin_letter&chld=%E2%80%A2|8b5cf6`,
-                scaledSize: new window.google.maps.Size(40, 60), // Adjust the size of the marker icon
-            };
-
-            const infoWindow = new window.google.maps.InfoWindow({
-                maxWidth: 200, // Adjust the maximum width of the info window
-            });
+        useEffect(() => {
+            const initMap = () => {
+                const israelCoords = { lat: lat, lng: lng }; // Coordinates for Israel
+                const israelMap = new window.google.maps.Map(document.getElementById('map'), {
+                    center: israelCoords,
+                    zoom: 8,
+                });
+        
+                const userMarkerIcon = {
+                    url: `https://chart.googleapis.com/chart?chst=d_map_pin_letter&chld=%E2%80%A2|ff0000`, // Red marker icon
+                    scaledSize: new window.google.maps.Size(40, 60), // Adjust the size of the marker icon
+                };
+        
+                const userMarker = new window.google.maps.Marker({
+                    position: israelCoords,
+                    map: israelMap,
+                    title: 'אתה נמצא כאן', // Marker title (optional)
+                    icon: userMarkerIcon, // Set the custom marker icon
+                });
+        
+                const userInfoWindow = new window.google.maps.InfoWindow({
+                    maxWidth: 200, // Adjust the maximum width of the info window
+                });
+        
+                userInfoWindow.setContent(`
+                    <div style="background-color: #ff0000; color: white; padding: 10px;">
+                        <strong>אתה נמצא כאן</strong><br>
+                    </div>
+                `);
+        
+                userInfoWindow.open(israelMap, userMarker);
+        
+                const markerIcon = {
+                    url: `https://chart.googleapis.com/chart?chst=d_map_pin_letter&chld=%E2%80%A2|8b5cf6`,
+                    scaledSize: new window.google.maps.Size(40, 60), // Adjust the size of the marker icon
+                };
+        
+                const infoWindow = new window.google.maps.InfoWindow({
+                    maxWidth: 200, // Adjust the maximum width of the info window
+                });
+        
 
             locations.forEach((location) => {
                 const marker = new window.google.maps.Marker({

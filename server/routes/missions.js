@@ -56,12 +56,13 @@ async function getMissionsByAgeAndGender(userId) {
                 },
                 { taken: false }, // Exclude taken missions
                 { date: { $gte: currentDate } },
-
+                { 'user_creator': { $ne: userId } }, // User ID is not equal to the creator's ID
             ],
         }).sort({ _id: -1 }).populate({
             path: 'user_creator',
             select: '_id full_name'
         });
+        
         console.log(missions);
 
 
