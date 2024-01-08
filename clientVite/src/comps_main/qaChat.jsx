@@ -16,7 +16,7 @@ const QaChat = () => {
         },
         {
             question: " Do you have information about the general registration process and how to get started?",
-            answer: "You can start here [link to the registration page]. With a successful registration, you can create volunteer requests or offer yourself as a volunteer in a friendly and fast way."
+            answer: "You can start on sign up option. With a successful registration, you can create volunteer requests or offer yourself as a volunteer in a friendly and fast way."
         },
         {
             question: "Are there examples of projects that have already been done through your website?",
