@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import TestimonialSlider from './testimonialSlider'; // Replace with your TestimonialSlider component
 import { ChatIcon } from '../comps_users/Icons';
 import QaChat from './qaChat';
-
+import CustomerReviewsSlider from './reviewHome';
 // import ImageCarousel from './imageCarousel';
 
 
@@ -28,7 +28,7 @@ const Home = () => {
         </div>
       </div>
       {/* <ImageCarousel /> */}
-
+      {/* <CustomerReviewsSlider /> */}
       <button
         className="z-20 fixed bottom-5 right-5 bg-blue-500 text-white rounded-full w-16 h-16 flex items-center justify-center cursor-pointer"
         onClick={toggleChat}
