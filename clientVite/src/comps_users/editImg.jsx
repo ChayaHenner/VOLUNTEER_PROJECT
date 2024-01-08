@@ -31,7 +31,7 @@ const EditImg = ({ setShowEditImage }) => {
       setUser(resp.data.user);
 
       showAlert("Image saved successfully");
-      nav("/my-profile");
+      nav("/new-profile");
       setShowEditImage(false);
     } catch (err) {
       console.error("Error:", err);
