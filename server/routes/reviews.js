@@ -51,15 +51,17 @@ router.post('/:idVol', auth, async (req, res) => {
         // Calculate the new average rating
         const existingRating = userToReview.rating || 0; // Handle the case when there's no existing rating
         const totalRating = existingRating * userToReview.reviews.length;
-        const newTotalRating = totalRating + rating;
-        const newAverageRating = newTotalRating / (userToReview.reviews.length + 1);
+        let newTotalRating = totalRating + rating;
+        let newAverageRating = newTotalRating / (userToReview.reviews.length + 1);
+        if (userToReview.reviews.length == 0)
+            newAverageRating = rating
 
         // Update the user's rating
         userToReview.rating = newAverageRating;
 
         // Update the user in the database
         await UserModel.findByIdAndUpdate(userToReviewId, userToReview);
-console.log(newReview);
+        console.log(newReview);
         res.json({ success: true, review: newReview });
     } catch (error) {
         console.error(error);
