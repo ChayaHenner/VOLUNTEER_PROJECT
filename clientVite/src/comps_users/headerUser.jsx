@@ -37,9 +37,9 @@ const HeaderUser = () => {
 
   return (
     <header className="bg-white border">
-      <nav className="container mx-auto flex items-center justify-between px-20 py-6">
+      <nav className="container mx-auto flex align-center items-center justify-between px-20 py-3">
         <Link to="/">
-          <img src="https://firebasestorage.googleapis.com/v0/b/volunteer-project-3a891.appspot.com/o/image_1704658726808?alt=media&token=1f81fdf5-7a1a-4c66-af54-2185b19c7865" alt=""     className="h-12 w-auto max-w-xs"
+          <img src="https://firebasestorage.googleapis.com/v0/b/volunteer-project-3a891.appspot.com/o/image_1704658726808?alt=media&token=1f81fdf5-7a1a-4c66-af54-2185b19c7865" alt=""     className="h-20 w-auto max-w-xs"
  />
           {/* <h1 className="text-gray-800 text-3xl font-bold">Soulute</h1> */}
         </Link>
@@ -47,14 +47,14 @@ const HeaderUser = () => {
         <ul className="flex space-x-6 text-gray-700 text-lg">
           {!user && (
             <li>
-              <Link to="/login" className="hover:text-blue-600 transition duration-300">
+              <Link to="/login" className="hover:text-purple-500 transition duration-300">
                 Login
               </Link>
             </li>
           )}
           {!user && (
             <li>
-              <Link to="/sign-up" className="hover:text-blue-600 transition duration-300">
+              <Link to="/sign-up" className="hover:text-purple-500 transition duration-300">
                 Sign Up
               </Link>
             </li>
@@ -62,12 +62,12 @@ const HeaderUser = () => {
           {user && (
             <>
               <li>
-                <Link to="/my-missions" className="hover:text-blue-600 transition duration-300">
+                <Link to="/my-missions" className="hover:text-purple-500 transition duration-300">
                   My Missions
                 </Link>
               </li>
               <li>
-                <Link to="/view-missions" className="hover:text-blue-600 transition duration-300">
+                <Link to="/view-missions" className="hover:text-purple-500 transition duration-300">
                   View Missions
                 </Link>
               </li>
@@ -75,14 +75,14 @@ const HeaderUser = () => {
           )}
           {user && user.role === 'admin' && (
             <li>
-              <Link to="/ViewUser-Admin" className="hover:text-blue-600 transition duration-300">
+              <Link to="/ViewUser-Admin" className="hover:text-purple-500 transition duration-300">
                 View User
               </Link>
             </li>
           )}
           {user && user.role === 'admin' && (
             <li>
-              <Link to="/management" className="hover:text-blue-600 transition duration-300">
+              <Link to="/management" className="hover:text-purple-500 transition duration-300">
                 Management
               </Link>
             </li>

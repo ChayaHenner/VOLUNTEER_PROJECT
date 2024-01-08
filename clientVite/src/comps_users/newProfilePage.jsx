@@ -73,8 +73,8 @@ const NewProfile = () => {
                                 <div class="lg:absolute lg:top-7 lg:left-14 lg:w-3/12 md:fixed md:w-5/12">
                                     <div class="bg-white p-8 rounded-lg shadow-md max-w-md w-full mb-4">
                                         <div class="relative">
-                                            <img src={user.img_url} alt="Banner Profile" class="w-full rounded-t-lg h-20 bg-blur" />
-                                            <img src={user.img_url} alt="Profile Picture" class="absolute bottom-0 left-2/4 transform -translate-x-1/2 translate-y-1/2 w-24 h-24 rounded-full border-4 border-white" />
+                                            <img src={user.img_url} style={{ filter: 'blur(1px)' }} alt="Banner Profile" class="w-full rounded-t-lg h-20 bg-blur" />
+                                            <img src={user.img_url}    alt="Profile Picture" class="absolute bottom-0 left-2/4 transform -translate-x-1/2 translate-y-1/2 w-24 h-24 rounded-full border-4 border-white" />
                                             <div className="absolute bottom-0  transform -translate-x-1/2 translate-y-1/2 left-2/4 w-full px-4 flex justify-center">
                                                 <button
                                                     onClick={() => { setShowEditImage(true) }}
