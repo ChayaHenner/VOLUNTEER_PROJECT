@@ -3,7 +3,7 @@ import TestimonialSlider from './testimonialSlider'; // Replace with your Testim
 import { ChatIcon } from '../comps_users/Icons';
 import QaChat from './qaChat';
 
-// import ImageCarousel from './imageCarousel';
+import ImageCarousel from './imageCarousel';
 
 
 const Home = () => {
@@ -27,7 +27,7 @@ const Home = () => {
           </p>
         </div>
       </div>
-      {/* <ImageCarousel /> */}
+      <ImageCarousel />
 
       <button
         className="z-20 fixed bottom-5 right-5 bg-blue-500 text-white rounded-full w-16 h-16 flex items-center justify-center cursor-pointer"
