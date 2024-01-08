@@ -69,7 +69,18 @@ const Home = () => {
 
         </div>
       </div>
+      <div className="flex flex-wrap relative">
+        <div className="w-full md:w-1/2">
 
+          <img src="https://firebasestorage.googleapis.com/v0/b/volunteer-project-3a891.appspot.com/o/image_1704709809600?alt=media" alt="" className="max-w-full h-auto" />
+        </div>
+        <div className="w-full md:w-1/2 px-3 flex items-center">
+          <div className="">
+            <p className=" leading-snug">
+              we saw a            </p>
+          </div>
+        </div>
+      </div>
       {/* <section class="bg-white mb-20 md:mb-52 xl:mb-72">
 
         <div class="container max-w-screen-xl mx-auto px-4">
