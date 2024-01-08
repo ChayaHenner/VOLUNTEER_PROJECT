@@ -3,7 +3,7 @@ import TestimonialSlider from './testimonialSlider'; // Replace with your Testim
 import { ChatIcon } from '../comps_users/Icons';
 import QaChat from './qaChat';
 
-import ImageCarousel from './imageCarousel';
+// import ImageCarousel from './imageCarousel';
 
 
 const Home = () => {
