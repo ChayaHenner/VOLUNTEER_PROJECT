@@ -1,7 +1,7 @@
 const express = require("express");
 const bcrypt = require("bcrypt");
 
-const { validLogin, validUser,validUserEdit } = require("../validation/userValidation")
+const { validLogin, validUser, validUserEdit } = require("../validation/userValidation")
 const { validReport } = require("../validation/reportValidation")
 const { createToken } = require("../helpers/userHelper");
 const { auth, authAdmin } = require("../middlewares/auth");
@@ -48,45 +48,7 @@ router.get("/myInfo", auth, async (req, res) => {
     res.status(500).json({ msg: "err", err })
   }
 })
-// router.get("/infoById/:id", async (req, res) => {
-//   try {
-//     // console.log(req.tokenData._id);
-//     let id = req.params.id;
-//     let userInfo = await UserModel.findOne({ _id: id }, { password: 0 });
-//     if (userInfo.posts.length > 0) {
-//       await userInfo.populate('posts')
-//     }
-//     if (userInfo.missions.length > 0) {
-//       await userInfo.populate('missions')
-//     }
-//     if (userInfo.reviews.length > 0) {
-//       await userInfo.populate('reviews')
-//     }
 
-
-//     res.json(userInfo);
-//   }
-//   catch (err) {
-//     console.log(err)
-//     res.status(500).json({ msg: "err", err })
-//   }
-// })
-// router.get("/infoById/:id", async (req, res) => {
-//   try {
-//     let id = req.params.id;
-
-//     // Use findOne to find the user by ID
-//     let userInfo = await UserModel.findOne({ _id: id }, { password: 0 });
-
-//     // Use populate to get the details of the user_creater in reviews
-//     await userInfo.populate('reviews'); // Assuming 'reviews' is the path in the UserModel
-
-//     res.json(userInfo);
-//   } catch (err) {
-//     console.log(err);
-//     res.status(500).json({ msg: "err", err });
-//   }
-// });
 
 router.get("/infoById/:id", async (req, res) => {
   try {
@@ -236,32 +198,36 @@ router.put("/edit/:editId", auth, async (req, res) => {
 
     if (req.tokenData.role == "admin") {
       data = await UserModel.updateOne({ _id: editId },
-         { $set:
-         { full_name: req.body.full_name,
-          description:req.body.description,
-           email: req.body.email,
-           phone:req.body.phone,
-           address:req.body.address,
-           birth_date:req.body.birth_date,
-           gender:req.body.gender,
-           fields:req.body.fields
+        {
+          $set:
+          {
+            full_name: req.body.full_name,
+            description: req.body.description,
+            email: req.body.email,
+            phone: req.body.phone,
+            address: req.body.address,
+            birth_date: req.body.birth_date,
+            gender: req.body.gender,
+            fields: req.body.fields
           }
-         });
+        });
     } else {
       console.log(req.tokenData._id);
       data = await UserModel.updateOne({ _id: editId, user_id: req.tokenData._id },
-        { $set:
-          { full_name: req.body.full_name,
-           description:req.body.description,
+        {
+          $set:
+          {
+            full_name: req.body.full_name,
+            description: req.body.description,
             email: req.body.email,
-            phone:req.body.phone,
-            address:req.body.address,
-            birth_date:req.body.birth_date,
-            gender:req.body.gender,
-            fields:req.body.fields
-           }
+            phone: req.body.phone,
+            address: req.body.address,
+            birth_date: req.body.birth_date,
+            gender: req.body.gender,
+            fields: req.body.fields
           }
-         );
+        }
+      );
     }
     res.json(data);
   } catch (err) {
@@ -330,18 +296,20 @@ router.put("/role/:id/:role", authAdmin, async (req, res) => {
   }
 })
 
-router.put("/image",auth, async (req, res) => {
+router.put("/image", auth, async (req, res) => {
   console.log("uploading");
   try {
     let editId = req.tokenData._id;
     console.log(editId);
     let url = req.query.url;
     console.log(url);
-
+    if (url == undefined) {
+      url = "https://firebasestorage.googleapis.com/v0/b/volunteer-project-3a891.appspot.com/o/image_1704634461855?alt=media&token=9fb973a3-6414-4663-9339-67f8004e5828"
+    }
     let data = await UserModel.updateOne({ _id: editId }, { $set: { img_url: url } });
     console.log(data);
     let user = await UserModel.findOne({ _id: editId })
-    res.json({ msg: "img saved successfully",user: user });
+    res.json({ msg: "img saved successfully", user: user });
   }
   catch (err) {
     console.log(err);
