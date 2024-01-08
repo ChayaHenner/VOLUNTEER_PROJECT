@@ -13,7 +13,7 @@ export const useAutoAlert = () => {
         // Automatically close the alert after 5 seconds
         setTimeout(() => {
             setIsAlertVisible(false);
-        }, 3000);
+        }, 5000);
     };
     const onClose = useCallback(() => {
         setIsAlertVisible(false);
