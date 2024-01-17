@@ -2,14 +2,14 @@
 const express = require('express');
 const router = express.Router();
 const nodemailer = require('nodemailer');
-const { UserModel} = require("../models/userModel")
+const { UserModel } = require("../models/userModel")
 const { createToken } = require("../helpers/userHelper");
 
 
 router.post('/', async (req, res) => {
   const userEmail = req.body.email;
   console.log(userEmail);
-  let user = await UserModel.findOne({ email: userEmail});
+  let user = await UserModel.findOne({ email: userEmail });
   console.log(user);
 
   // יצירת טוקן
@@ -67,14 +67,14 @@ router.post('/', async (req, res) => {
           <div class="container">
             <h1>Password Reset</h1>
             <p>Click the following button to reset your password:</p>
-            <a class="button" href="http://localhost:3000/reset-password/${resetToken}">Reset Password</a>
+            <a class="button" href="hhttps://solutevolunteer.netlify.app/reset-password/${resetToken}">Reset Password</a>
           </div>
         </body>
       </html>
     `,
   };
-  
-  
+
+
 
   try {
     await transporter.sendMail(mailOptions);
