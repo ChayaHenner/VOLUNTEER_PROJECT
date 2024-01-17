@@ -3,7 +3,7 @@ import axios from "axios";
 import { AppContext } from '../../context/context';
 import Cookies from 'js-cookie';
 
-export const SERVER_URL = "http://localhost:3001" //change to render
+export const SERVER_URL = "https://soulute.onrender.com/" //change to render
 
 export const fieldsEnum = ['children', 'kitchen', 'driving', 'elderly', 'cleanup', 'studies', 'medical', 'technology'];
 
