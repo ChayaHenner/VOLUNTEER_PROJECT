@@ -109,7 +109,6 @@ router.post("/", async (req, res) => {
     await user.save();
     let token = createToken(user._id, user.role);
     user.password = "******";
-    // user.token = token;
     console.log(user);
     if (user.posts.length > 0) {
       await user.populate('posts')
@@ -153,15 +152,7 @@ router.post("/login", async (req, res) => {
     if (!user.active) {
       return res.status(401).json({ msg: "User is not active ", code: 4 })
     }
-    // if (user.posts.length > 0) {
-    //   await user.populate('posts')
-    // }
-    // if (user.missions.length > 0) {
-    //   await user.populate('missions')
-    // }
-    // if (user.reviews.length > 0) {
-    //   await user.populate('reviews')
-    // }
+   
 
     let token = createToken(user._id, user.role);
     res.json({ user, token });
@@ -193,8 +184,7 @@ router.put("/edit/:editId", auth, async (req, res) => {
     let editId = req.params.editId;
     let data;
     console.log(req.body);
-    // אל תצפין את הסיסמה במהלך העדכון
-    // user.password = await bcrypt.hash(user.password, 10);
+    
 
     if (req.tokenData.role == "admin") {
       data = await UserModel.updateOne({ _id: editId },
@@ -237,8 +227,7 @@ router.put("/edit/:editId", auth, async (req, res) => {
 });
 
 router.post("/report/:id", auth, async (req, res) => {
-  // console.log(req.tokenData);
-  // console.log(req.tokenData.role);
+ 
   let reportBody = {
     id_reporter: req.tokenData._id,
     id_reportee: req.params.id,

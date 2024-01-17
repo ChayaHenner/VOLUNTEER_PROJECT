@@ -7,7 +7,6 @@ const bcrypt = require("bcrypt");
 
 
 // קישור למסד נתונים או ללוגיקה נוספת לאימות הטוקן
-// const { validateResetToken, resetPassword } = require('./your-auth-module');
 
 router.get('/:token', (req, res) => {
   const resetToken = req.params.token;

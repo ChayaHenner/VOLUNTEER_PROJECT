@@ -1,6 +1,5 @@
 import React, { useState, useContext, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-// import ResetPasswordForm from './resetPass';
 import { AppContext } from '../../context/context';
 import { SERVER_URL, apiRequest } from '../serverConnect/api';
 
@@ -36,7 +35,6 @@ const ResetPasswordPage = () => {
       }
 
       // הערה: יש לשנות את הקוד לפי התשובה שאתה מקבל מהשרת
-      // setResetSuccess(true);
     } catch (error) {
       console.error('Error resetting password:', error);
     }

@@ -87,30 +87,6 @@ router.put("/:id", auth, async (req, res) => {
     }
 });
 
-// ... (existing code)
-
-
-// router.post("/",auth, async (req, res) => {
-//     let post =req.body;
-//     // post.user_created = req.tokenData._id
-//     post={
-//         user_created:req.tokenData._id,
-//         ...post
-//     }
-//     postValid = validPost(post);
-//     if (postValid.error) {
-//         return res.status(400).json(postValid.error.details);
-//     }
-//     try {
-//         const post1 = new PostModel(post);
-//         await post1.save();
-//         res.json(post1);
-//     }
-//     catch (err) {
-//         console.log(err);
-//         res.status(500).json({ msg: "there error try again later", err })
-//     }
-//   });
 router.post("/", auth, async (req, res) => {
     try {
         const userId = req.tokenData._id;

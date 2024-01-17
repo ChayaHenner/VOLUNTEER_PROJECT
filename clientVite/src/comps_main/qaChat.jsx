@@ -44,7 +44,6 @@ const QaChat = () => {
         setSelectedQuestion(null);
     };
 
-    // ... (existing code)
 
 return (
     <div className="fixed bottom-5 right-5 z-10">

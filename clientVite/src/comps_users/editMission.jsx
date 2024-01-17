@@ -25,7 +25,6 @@ const EditMission = ({ mission, onClose, onUpdate }) => {
         } catch (err) {
             console.error('Error updating mission:', err);
             onClose()
-            // Handle the error (e.g., show an error message to the user)
         }
     };
 

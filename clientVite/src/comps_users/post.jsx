@@ -6,7 +6,6 @@ import { DeleteIcon, EditIcon } from './Icons';
 
 const Post = (props) => {
   const post = props.post;
-  // console.log(post);
 
   const { user } = useContext(AppContext);
   const [like, setLike] = useState(false);

@@ -6,9 +6,7 @@ import StarReview from './starReview';
 import { uploadImageToStorage } from '../helper/helper';
 
 const ReportForm = ({ id }) => {
-//   const [ratingValue, setRatingValue] = useState(3.5);
   const { register, handleSubmit, formState: { errors }, getValues } = useForm();
-//   const [selectedImage, setSelectedImage] = useState(null);
   const [submitted, setSubmitted] = useState(false); // Track if the form has been submitted
 
   const onSubPost = async (data) => {

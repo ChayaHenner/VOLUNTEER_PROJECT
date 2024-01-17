@@ -1,4 +1,3 @@
-// export default ImageCarousel;
 import * as React from 'react';
 import AspectRatio from '@mui/joy/AspectRatio';
 import Box from '@mui/joy/Box';

@@ -43,16 +43,14 @@ const ProfilePage = () => {
         }
 
     }
-    // const user_now = JSON.parse(Cookies.get('user'));
-    // getUser()
+   
     useEffect(() => {
         const fetchUser = async () => {
             try {
                 // Assuming getUser is an asynchronous function
                 await getUser();
                 console.log("User:", user);
-                // Update state or perform other actions with the user data
-                // setUser(user);
+              
             } catch (error) {
                 console.error("Error fetching user:", error);
             }
@@ -137,7 +135,6 @@ const ProfilePage = () => {
                                             </p>
                                         </div>
                                     </div>
-                                    {/* <button className=' bg-purple-500 text-white px-4 py-2 rounded-md mt-4 z-5  absolute right-0 top-200' onClick={() => { nav("/edit-profile") }}>edit</button> */}
                                     <button
                                         className=' bg-purple-500 text-white px-4 py-2 rounded-md mt-4 z-5  ' onClick={() => setShowCreatePost(true)} // Set state to true to show the CreatePost component
                                     >  add Post</button>
@@ -178,12 +175,7 @@ const ProfilePage = () => {
                             <button
                                 className=' bg-purple-500 text-white px-4 py-2 rounded-md mt-4 z-5  absolute right-0 top-200' onClick={() => { nav("/edit-profile") }}>edit</button>
 
-                            {/* <button
-                                className='bg-green-500 text-white px-4 py-2 rounded-md mt-4'
-                                onClick={() => setShowCreatePost(true)} // Set state to true to show the CreatePost component
-                            >
-                                add Post
-                            </button> */}
+                           
 
                             {showCreatePost && (
                                 <CreatePost setShowCreatePost={setShowCreatePost} getUser={getUser} />)}
@@ -199,9 +191,7 @@ const ProfilePage = () => {
             )
             }
         </div >
-        // <div>{
-        //     console.log(user)
-        // }</div>
+       
     );
 
 

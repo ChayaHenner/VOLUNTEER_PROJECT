@@ -16,17 +16,6 @@ const EditProfile = () => {
     const { register, handleSubmit, formState: { errors }, getValues } = useForm();
     const nav = useNavigate()
 
-    // useEffect(() => { })
-    // const updateUserFromCookie = () => {
-    //     const userCookie = Cookies.get('user');
-    //     if (userCookie) {
-    //         setUser(JSON.parse(userCookie));
-    //     }
-    //     console.log("User updated");
-    // };
-
-    // updateUserFromCookie()
-
 
     const formatDate = (dateString) => {
         if (!dateString) {
@@ -44,10 +33,7 @@ const EditProfile = () => {
 
     const onSubmit = async (data) => {
         setLoding(true)
-        // const imageUrl = await uploadImageToStorage(selectedImage);
-        // data.img_url = imageUrl;
-        // delete data.confirmPassword
-        // data.address = selectedAddress;
+    
         data.address = address //new
         let url = SERVER_URL + `/users/edit/${user._id}`
         try {
@@ -56,10 +42,8 @@ const EditProfile = () => {
             nav("/my-profile")
 
             setUser(resp.data)
-            // Cookies.set('token', resp.data.token, { expires: 1 }); // expires in 1 day
             Cookies.set('user', JSON.stringify(resp.data), { expires: 1 }); // expires in 1 day
             console.log(resp.data);
-            // setUser(resp.data.user)
 
         }
         catch (err) {
@@ -171,40 +155,8 @@ const EditProfile = () => {
                             </div>
 
                         </div>
-                        {/* <div className="mb-4 px-3">
-                            <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
-                                Profile Image:
-                            </label>
-                            <input
-                                {...register('img_url')}
-                                type="file"
-                                accept="image/*"
-                                className="appearance-none block w-full bg-gray-200 text-gray-700 border border-purple-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
-                            />
-                        </div> */}
-                        {/* <div className="mb-4 px-3">
-                            <label htmlFor="password" className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
-                                Password:
-                            </label>
-                            <input {...register('password', { required: true, minLength: 6 })} type="password" className="appearance-none block w-full bg-gray-200 text-gray-700 border border-purple-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" />
-                            {errors.password && errors.password.type === 'required' && <div className="text-red-500 text-xs italic">Password is required</div>}
-                            {errors.password && errors.password.type === 'minLength' && <div className="text-red-500 text-xs italic">Password must be at least 6 characters long</div>}
-                        </div> */}
+                       
 
-                        {/* <div className="mb-4 px-3">
-                            <label htmlFor="confirmPassword" className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
-                                Confirm Password:
-                            </label>
-                            <input {...register('confirmPassword', {
-                                validate: {
-                                    matchesPreviousPassword: (value) => {
-                                        const password = getValues('password');
-                                        return password === value || 'passwords dont match';
-                                    },
-                                },
-                            })} type="password" className="appearance-none block w-full bg-gray-200 text-gray-700 border border-purple-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" />
-                            {errors.confirmPassword && <div className="text-red-500 text-xs italic">{errors.confirmPassword.message}</div>}
-                        </div> */}
 
                         <div className="mb-4 px-3">
                             <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">

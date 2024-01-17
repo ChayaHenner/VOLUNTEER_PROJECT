@@ -36,7 +36,6 @@ function calculateUserAge(birthDate) {
 async function getMissionsByAgeAndGender(userId) {
     try {
         const user = await UserModel.findOne({ _id: userId })
-        // .populate('users');
         if (!user) {
             return { error: 'User not found' };
         }
@@ -66,13 +65,6 @@ async function getMissionsByAgeAndGender(userId) {
         console.log(missions);
 
 
-        // for (const mission of missions) {
-        //     let user1 = await UserModel.findOne({ _id: mission.user_creator });
-        //     console.log(mission);
-        //     mission.user_creator = `${mission.user_creator},${user1.full_name}`;
-        //     // mission = { ...mission, userName: user1.full_name }
-        //     console.log(mission);
-        // }
         return missions
     }
     catch (error) {

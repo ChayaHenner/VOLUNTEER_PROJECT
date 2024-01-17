@@ -57,7 +57,6 @@ export const apiRequestGet = async (_url) => {
   }
 }
 export const tokenExpireAlert = (err) => {
-  // const { user, setUser } = useContext(AppContext);
 
   if (err.response.data.msg === "Token invalid or expired, log in again or you hacker!") {
     {

@@ -6,15 +6,6 @@ const { UserModel} = require("../models/userModel")
 const { createToken } = require("../helpers/userHelper");
 
 
-// הוספת הפונקציה של יצירת הטוקן
-// const crypto = require('crypto');
-
-// function generateResetToken(email) {
-//   const token = crypto.randomBytes(32).toString('hex');
-//   // כאן יש אפשרות לשמור את הטוקן יחד עם האימייל במסד נתונים
-//   return token;
-// }
-
 router.post('/', async (req, res) => {
   const userEmail = req.body.email;
   console.log(userEmail);
@@ -23,7 +14,6 @@ router.post('/', async (req, res) => {
 
   // יצירת טוקן
   let resetToken = createToken(user._id, user.role);
-  // const resetToken = generateResetToken(userEmail);
 
   // יצירת נפשק
   const transporter = nodemailer.createTransport({
@@ -84,7 +74,6 @@ router.post('/', async (req, res) => {
     `,
   };
   
-  // ... קוד נוסף ...
   
 
   try {

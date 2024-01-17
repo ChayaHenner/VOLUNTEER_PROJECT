@@ -13,8 +13,7 @@ const AddressInput = forwardRef(({ onAddressSelected, setAddress , setCoordinate
     const [inputValue, setInputValue] = useState('');
     const [options, setOptions] = useState([]);
     const loaded = React.useRef(false);
-    // const [lon, setLon] = useState('');
-    // const [lat, setLat] = useState('');
+   
 
     if (typeof window !== 'undefined' && !loaded.current) {
         if (!document.querySelector('#google-maps')) {

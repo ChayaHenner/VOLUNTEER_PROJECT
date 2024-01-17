@@ -9,10 +9,8 @@ const ForgotPassword = () => {
   const { showAlert, AutoAlert } = useAutoAlert();
 
   const onSubmitForgotPassword = async (data) => {
-    // let url = SERVER_URL + "/forgot-password"
     console.log(data);
     try {
-      // let response = await apiRequest(url, "POST", data)
       const response = await fetch(`${SERVER_URL}/forgot-password`, {
         method: 'POST',
         headers: {
